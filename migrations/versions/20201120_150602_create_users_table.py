@@ -1,7 +1,7 @@
 """create_users_table
 
 Revision ID: ffdc0a98111c
-Revises: 
+Revises:
 Create Date: 2020-11-20 15:06:02.230689
 
 """
@@ -26,6 +26,61 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
+    )
+    op.create_table('photos',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('photo_url', sa.String(), nullable=False),
+    sa.Column('title',sa.String(), nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'])
+    )
+    op.create_table('comments',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('photo_id', sa.Integer(), nullable=False),
+    sa.Column('comment',sa.String(), nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id']),
+    sa.ForeignKeyConstraint(['photo_id'], ['photos.id'])
+    )
+    op.create_table('favorites',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('photo_id', sa.Integer(), nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id']),
+    sa.ForeignKeyConstraint(['photo_id'], ['photos.id'])
+    )
+    op.create_table('albums',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('title',sa.String(),nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'])
+    )
+    op.create_table('photo in albums',
+    sa.Column('photo_id', sa.Integer(), nullable=False),
+    sa.Column('album_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['photo_id'], ['photos.id']),
+    sa.ForeignKeyConstraint(['album_id'], ['albums.id'])
+    )
+    op.create_table('tags',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('tag_name',sa.String(),nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    )
+    op.create_table('tagged photos',
+    sa.Column('tag_id', sa.Integer(), nullable=False),
+    sa.Column('photo_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['tag_id'], ['tags.id']),
+    sa.ForeignKeyConstraint(['photo_id'], ['photos.id']),
+    )
+    op.create_table('follows',
+    sa.Column('followed_id', sa.Integer(), nullable=False),
+    sa.Column('follower_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['followed_id'], ['users.id']),
+    sa.ForeignKeyConstraint(['follower_id'], ['users.id']),
     )
     # ### end Alembic commands ###qqqqqqqqq
 
