@@ -100,4 +100,5 @@ def delete_photo(id):
     photo = Photo.query.get(id)
     db.session.delete(photo)
     db.session.commit()
-    
+
+    return redirect("/api/photos/all")
