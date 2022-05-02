@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, redirect, request
+from sqlalchemy import delete
 from app.models.db import db
 from app.models.album import Album
 from app.forms.add_album_form import AlbumForm
@@ -19,7 +20,6 @@ def all_albums():
 def add_album():
   user_id = current_user.id
   form = AlbumForm()
-
 
   form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
@@ -52,3 +52,11 @@ def update_album(id):
     return album.to_dict()
 
   return render_template("test.html", form=form)
+
+#DELETE an Album
+@albums_router.route("/<int:id>", methods=["DELETE"])
+def delete_album(id):
+  album = Album.query.get(id)
+  db.session.delete(album)
+  db.session.commit()
+  return {"SUCESS": "DELETED"}
