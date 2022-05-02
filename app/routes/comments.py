@@ -7,6 +7,7 @@ from flask_login import current_user
 
 comment_routes = Blueprint('comments', __name__, url_prefix="/comments")
 
+# WORKS
 @comment_routes.route('/<int:id>', methods=["DELETE"])
 def delete_comment(id):
     comment = Comment.query.get(id)

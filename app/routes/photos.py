@@ -9,6 +9,7 @@ photo_routes = Blueprint('photos', __name__, url_prefix="/photos")
 
 # Getting all photos
 # GET /photos
+# WORKS
 @photo_routes.route('/all')
 def photos():
     photos = Photo.query.all()
@@ -19,6 +20,7 @@ def photos():
 
 # Create a photo
 # POST /photos
+# WORKS
 @photo_routes.route('/add_photo', methods = ["GET","POST"])
 def create_photo():
     form = NewPhotoForm()
@@ -66,6 +68,7 @@ def create_photo():
 # GET /photos/:photoId
 # Getting all comments
 # GET /photos/:photoId
+# WORKS
 @photo_routes.route('/<int:id>')
 def photo(id):
     # grabs photo of the id
@@ -77,6 +80,7 @@ def photo(id):
 
 # Create a comment
 # POST /photos/:photoId
+# WORKS
 @photo_routes.route('/<int:id>/comment',methods=["GET","POST"])
 def add_comment(id):
     form = NewCommentForm()
@@ -101,11 +105,12 @@ def add_comment(id):
 
 # Update specific photo
 # PUT /photos/:photoId
-@photo_routes.route('/<int:id>/edit',methods=["GET","PATCH"])
+# NOT WORKS FOR NOW
+@photo_routes.route('/<int:id>/edit',methods=["GET","PUT"])
 def update_photo(id):
     photo = Photo.query.get(id)
-    print('PUT',photo)
     form = EditPhotoForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         photo.photo_url = form["photo_url"].data
         photo.title = form["title"].data
@@ -113,12 +118,13 @@ def update_photo(id):
 
         db.session.commit()
         return photo.to_dict()
-    return render_template("new_photo.html",form=form,photo=photo)
+    return render_template("edit_photo.html",form=form,photo=photo)
 
 
 
 # Delete specific photo
 # DELETE /photos/:photoId
+# WORKS
 @photo_routes.route('/<int:id>', methods=["DELETE"])
 def delete_photo(id):
     photo = Photo.query.get(id)
