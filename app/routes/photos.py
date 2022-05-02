@@ -1,7 +1,5 @@
-from crypt import methods
 from lib2to3.pgen2 import pgen
 from flask import Blueprint, jsonify, render_template,redirect, request
-import psycopg2
 from app.models import db, Photo, User, Comment
 from app.forms.new_photo_form import NewPhotoForm,EditPhotoForm
 from app.forms.new_comment_form import NewCommentForm
@@ -79,12 +77,27 @@ def photo(id):
 
 # Create a comment
 # POST /photos/:photoId
-@photo_routes.route('/<int:id>',methods=["GET","POST"])
+@photo_routes.route('/<int:id>/comment',methods=["GET","POST"])
 def add_comment(id):
     form = NewCommentForm()
-    user_id = current_user.get_id()
+    user_id = current_user.id
 
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
 
+        comment = form.data['comment']
+
+        new_comment = Comment(
+            photo_id = id,
+            user_id = user_id,
+            comment = comment
+        )
+
+        db.session.add(new_comment)
+        db.session.commit()
+        return new_comment.to_dict()
+
+    return render_template("new_comment.html", form=form)
 
 # Update specific photo
 # PUT /photos/:photoId
