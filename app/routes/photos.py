@@ -1,3 +1,4 @@
+from crypt import methods
 from flask import Blueprint, jsonify, render_template,redirect
 import psycopg2
 from app.models import db, Photo, User
@@ -48,7 +49,7 @@ def create_photo():
         db.session.add(new_photo)
         db.session.commit()
 
-        return redirect("/api/photos/all")
+        return redirect("/photos/all")
 
         # with psycopg2.connect(**CONNECTION_PARAMETERS) as conn:
         #     with conn.cursor() as curs:
@@ -78,7 +79,7 @@ def photo(id):
 
 # Update specific photo
 # PUT /photos/:photoId
-@photo_routes.route('/<int:id>')
+@photo_routes.route('/<int:id>',methods=["PUT"])
 def update_photo(id):
     photo = Photo.query.get(id)
     form = NewPhotoForm()
@@ -91,3 +92,12 @@ def update_photo(id):
         db.session.commit()
 
         return redirect("/api/photos/all")
+
+# Delete specific photo
+# DELETE /photos/:photoId
+@photo_routes.route('/<int:id>', methods=["DELETE"])
+def delete_photo(id):
+    photo = Photo.query.get(id)
+    db.session.delete(photo)
+    db.session.commit()
+    
