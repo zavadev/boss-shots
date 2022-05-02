@@ -12,10 +12,10 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
 
-    photos = db.relationship('Photo', back_populates='users', cascade="all, delete")
-    albums = db.relationship('Album', back_populates='users', cascade="all, delete")
-    comments = db.relationship('Comment', back_populates='users', cascade="all, delete")
-    favorites  = db.relationship('Favorite', back_populates='users', cascade="all, delete")
+    photos = db.relationship('Photo', back_populates='user', cascade="all, delete")
+    # albums = db.relationship('Album', back_populates='user', cascade="all, delete")
+    comments = db.relationship('Comment', back_populates='user', cascade="all, delete")
+    # favorites  = db.relationship('Favorite', back_populates='user', cascade="all, delete")
 
     # this relationship allows you to access both the collection of users
     # that follow a given user (with user.followers), and the collection

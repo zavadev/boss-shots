@@ -10,7 +10,7 @@ class Photo(db.Model):
     description = db.Column(db.String())
 
     user = db.relationship('User',back_populates='photos')
-    comments = db.relationship('Comment', back_populates='photos', cascade="all, delete")
+    comments = db.relationship('Comment', back_populates='photo', cascade="all, delete")
 
     def to_dict(self):
         return {
