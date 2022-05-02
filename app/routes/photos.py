@@ -1,8 +1,8 @@
 from crypt import methods
-from flask import Blueprint, jsonify, render_template,redirect
+from flask import Blueprint, jsonify, render_template,redirect, request
 import psycopg2
 from app.models import db, Photo, User
-from app.forms.new_photo_form import NewPhotoForm
+from app.forms.new_photo_form import NewPhotoForm,EditPhotoForm
 from flask_login import current_user
 
 photo_routes = Blueprint('photos', __name__, url_prefix="/photos")
@@ -30,7 +30,7 @@ def create_photo():
     form = NewPhotoForm()
     user_id = current_user.get_id()
     # print(user_id)
-
+    form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         # add data to db
         print(form.data)
@@ -48,8 +48,7 @@ def create_photo():
 
         db.session.add(new_photo)
         db.session.commit()
-
-        return redirect("/photos/all")
+        return new_photo.to_dict()
 
         # with psycopg2.connect(**CONNECTION_PARAMETERS) as conn:
         #     with conn.cursor() as curs:
@@ -79,19 +78,22 @@ def photo(id):
 
 # Update specific photo
 # PUT /photos/:photoId
-@photo_routes.route('/<int:id>',methods=["PUT"])
+@photo_routes.route('/<int:id>/edit',methods=["GET","PATCH"])
 def update_photo(id):
+    # photo = request.get_json()
     photo = Photo.query.get(id)
-    form = NewPhotoForm()
-
+    form = EditPhotoForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         photo.photo_url = form.data["photo_url"]
         photo.title = form.data["title"]
         photo.description = form.data["description"]
 
         db.session.commit()
+        return photo.to_dict()
 
-        return redirect("/api/photos/all")
+
+
 
 # Delete specific photo
 # DELETE /photos/:photoId
