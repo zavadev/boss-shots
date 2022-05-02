@@ -20,7 +20,8 @@ def photos():
     # return {'photos' : [photo.to_dict() for photo in photos]}
     return render_template("new_photo.html", form=form)
 
-@photo_routes.route('/', methods = ["GET","POST"])
+# Posts photos
+@photo_routes.route('/', methods = ["POST"])
 def create_photo():
     form = NewPhotoForm()
 
@@ -49,3 +50,9 @@ def create_photo():
 
         return redirect("/")
     return render_template("new_photo.html", form=form)
+
+
+@photo_routes.route('/<int:id>')
+def photo(id):
+    photo = Photo.query.get(id)
+    return photo.to_dict()
