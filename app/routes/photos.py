@@ -1,4 +1,5 @@
 from crypt import methods
+from lib2to3.pgen2 import pgen
 from flask import Blueprint, jsonify, render_template,redirect, request
 import psycopg2
 from app.models import db, Photo, User
@@ -27,7 +28,7 @@ def create_photo():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         # add data to db
-        print(form.data)
+        # print(form.data)
 
         title = form.data["title"]
         photo_url = form.data["photo_url"]
@@ -74,21 +75,17 @@ def photo(id):
 # PUT /photos/:photoId
 @photo_routes.route('/<int:id>/edit',methods=["GET","PATCH"])
 def update_photo(id):
-    # photo = request.get_json()
-    print('rf',request.form)
     photo = Photo.query.get(id)
+    print('PUT',photo)
     form = EditPhotoForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        photo.photo_url = form.data["photo_url"] or photo[id].photo_url
-        photo.title = form.data["title"] or photo[id].title
-        photo.description = form.data["description"] or photo[id].description
+        photo.photo_url = form["photo_url"].data
+        photo.title = form["title"].data
+        photo.description = form["description"].data
 
-
-        db.session.add(photo)
         db.session.commit()
         return photo.to_dict()
-    return render_template("new_photo.html",form=form)
+    return render_template("new_photo.html",form=form,photo=photo)
 
 
 
