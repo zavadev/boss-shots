@@ -27,7 +27,8 @@ def photos():
 @photo_routes.route('/add_photo', methods = ["GET","POST"])
 def create_photo():
     form = NewPhotoForm()
-    user_id = current_user.id
+    user_id = current_user.get_id()
+    # print(user_id)
 
     if form.validate_on_submit():
         # add data to db
@@ -89,4 +90,4 @@ def update_photo(id):
 
         db.session.commit()
 
-        return redirect("/")
+        return redirect("/api/photos/all")
