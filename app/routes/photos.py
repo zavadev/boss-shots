@@ -2,8 +2,9 @@ from crypt import methods
 from lib2to3.pgen2 import pgen
 from flask import Blueprint, jsonify, render_template,redirect, request
 import psycopg2
-from app.models import db, Photo, User
+from app.models import db, Photo, User, Comment
 from app.forms.new_photo_form import NewPhotoForm,EditPhotoForm
+from app.forms.new_comment_form import NewCommentForm
 from flask_login import current_user
 
 photo_routes = Blueprint('photos', __name__, url_prefix="/photos")
@@ -65,11 +66,23 @@ def create_photo():
 
 # Get one photo
 # GET /photos/:photoId
-
+# Getting all comments
+# GET /photos/:photoId
 @photo_routes.route('/<int:id>')
 def photo(id):
     photo = Photo.query.get(id)
-    return photo.to_dict()
+    comments = Comment.query.filter(Comment.photo_id == id).all()
+    photo = {'photo ': photo.to_dict(),'comments' : [comment.to_dict() for comment in comments]}
+    return photo
+
+# Create a comment
+# POST /photos/:photoId
+@photo_routes.route('/<int:id>',methods=["GET","POST"])
+def add_comment(id):
+    form = NewCommentForm()
+    user_id = current_user.get_id()
+
+
 
 # Update specific photo
 # PUT /photos/:photoId
