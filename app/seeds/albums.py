@@ -24,7 +24,7 @@ def seed_albums():
       title='Bosses Bosses',
     )
     a6 = Album(
-      user_id='4',
+      user_id='2',
       title='Big Bosses',
     )
 
