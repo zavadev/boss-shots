@@ -60,3 +60,13 @@ def delete_album(id):
   db.session.delete(album)
   db.session.commit()
   return {"SUCESS": "DELETED"}
+
+@albums_router.route("/<int:id>/add_photo", methods=["GET"])
+def add_photo_to_album(id):
+  album = Album.query.get(id)
+  photo = Photo.query.get(1)
+  album.photos.append(photo)
+  
+
+  print("========>>>>>>>>>>",album.photos)
+  return " Helloo"

@@ -4,4 +4,6 @@ from .photo import Photo
 from .album import Album
 from .favorite import Favorite
 from .tag import Tag
+from .photo_in_albums import photo_in_albums
+from .tagged_photos import tagged_photos
 from .comment import Comment
