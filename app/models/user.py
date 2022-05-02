@@ -1,5 +1,6 @@
 from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
+from .follows import follows
 from flask_login import UserMixin
 # from .follows import follows
 
@@ -20,11 +21,7 @@ class User(db.Model, UserMixin):
     # this relationship allows you to access both the collection of users
     # that follow a given user (with user.followers), and the collection
     # of users that a user follows (with user.following)
-    follows = db.Table(
-    "follows",
-    db.Column("follower_id", db.Integer, db.ForeignKey("users.id")),
-    db.Column("followed_id", db.Integer, db.ForeignKey("users.id"))
-    )
+
     followers = db.relationship(
         "User",
         secondary=follows,

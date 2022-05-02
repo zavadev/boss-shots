@@ -1,4 +1,5 @@
 from .db import db
+from .tagged_photos import tagged_photos
 
 class Photo(db.Model):
     __tablename__ = 'photos'
@@ -12,7 +13,7 @@ class Photo(db.Model):
     user = db.relationship('User',back_populates='photos')
     comments = db.relationship('Comment', back_populates='photo', cascade="all, delete")
     favorites = db.relationship('Favorite', back_populates='photo')
-    # tags = db.relationship('Tag', back_populates='photos')
+    tags = db.relationship('Tag', back_populates='photos', secondary=tagged_photos)
 
     def to_dict(self):
         return {
