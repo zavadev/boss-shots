@@ -1,4 +1,5 @@
 from .db import db
+from .photo_in_albums import photo_in_albums
 
 class Album(db.Model):
     __tablename__ = 'albums'
@@ -8,6 +9,7 @@ class Album(db.Model):
     title = db.Column(db.String(25))
 
     user = db.relationship('User',back_populates='albums')
+    photos = db.relationship('Photo', back_populates='albums', secondary=photo_in_albums)
 
     def to_dict(self):
         return {
