@@ -1,0 +1,19 @@
+fetch('/api/albums/add_album', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      title: 'New Album Test'
+    })
+  }).then(res => res.json()).then((data) => console.log(data))
+
+fetch('/api/albums/7/edit', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      title: 'Updated title '
+    })
+  }).then(res => res.json()).then((data) => console.log(data))
