@@ -13,21 +13,26 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     photos = db.relationship('Photo', back_populates='user', cascade="all, delete")
-    # albums = db.relationship('Album', back_populates='user', cascade="all, delete")
+    albums = db.relationship('Album', back_populates='user', cascade="all, delete")
     comments = db.relationship('Comment', back_populates='user', cascade="all, delete")
-    # favorites  = db.relationship('Favorite', back_populates='user', cascade="all, delete")
+    favorites  = db.relationship('Favorite', back_populates='user', cascade="all, delete")
 
     # this relationship allows you to access both the collection of users
     # that follow a given user (with user.followers), and the collection
     # of users that a user follows (with user.following)
-    # followers = db.relationship(
-    #     "User",
-    #     secondary=follows,
-    #     primaryjoin=(follows.c.follower_id == id),
-    #     secondaryjoin=(follows.c.followed_id == id),
-    #     backref=db.backref("following", lazy="dynamic"),
-    #     lazy="dynamic"
-    # )
+    follows = db.Table(
+    "follows",
+    db.Column("follower_id", db.Integer, db.ForeignKey("users.id")),
+    db.Column("followed_id", db.Integer, db.ForeignKey("users.id"))
+    )
+    followers = db.relationship(
+        "User",
+        secondary=follows,
+        primaryjoin=(follows.c.follower_id == id),
+        secondaryjoin=(follows.c.followed_id == id),
+        backref=db.backref("following", lazy="dynamic"),
+        lazy="dynamic"
+    )
 
 
     @property
