@@ -7,12 +7,6 @@ from flask_login import current_user
 
 photo_routes = Blueprint('photos', __name__, url_prefix="/photos")
 
-CONNECTION_PARAMETERS = {
-                          'dbname': 'bossshot_app',
-                          'user': 'bossshot_dev',
-                          'password': 'password',
-}
-
 # Getting all photos
 # GET /photos
 @photo_routes.route('/all')
@@ -81,17 +75,20 @@ def photo(id):
 @photo_routes.route('/<int:id>/edit',methods=["GET","PATCH"])
 def update_photo(id):
     # photo = request.get_json()
+    print('rf',request.form)
     photo = Photo.query.get(id)
     form = EditPhotoForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        photo.photo_url = form.data["photo_url"]
-        photo.title = form.data["title"]
-        photo.description = form.data["description"]
+        photo.photo_url = form.data["photo_url"] or photo[id].photo_url
+        photo.title = form.data["title"] or photo[id].title
+        photo.description = form.data["description"] or photo[id].description
 
+
+        db.session.add(photo)
         db.session.commit()
         return photo.to_dict()
-
+    return render_template("new_photo.html",form=form)
 
 
 
@@ -102,5 +99,4 @@ def delete_photo(id):
     photo = Photo.query.get(id)
     db.session.delete(photo)
     db.session.commit()
-
     return redirect("/api/photos/all")
