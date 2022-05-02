@@ -106,19 +106,18 @@ def add_comment(id):
 # Update specific photo
 # PUT /photos/:photoId
 # NOT WORKS FOR NOW
-@photo_routes.route('/<int:id>/edit',methods=["GET","PUT"])
+@photo_routes.route('/<int:id>/edit',methods=["PUT"])
 def update_photo(id):
     photo = Photo.query.get(id)
     form = EditPhotoForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        photo.photo_url = form["photo_url"].data
-        photo.title = form["title"].data
-        photo.description = form["description"].data
+        photo.photo_url = form.data["photo_url"]
+        photo.title = form.data["title"]
+        photo.description = form.data["description"]
 
         db.session.commit()
         return photo.to_dict()
-    return render_template("edit_photo.html",form=form,photo=photo)
 
 
 
