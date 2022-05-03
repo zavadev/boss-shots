@@ -8,6 +8,7 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
+import AlbumList from './components/Test'
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -15,7 +16,7 @@ function App() {
 
   useEffect(() => {
     (async() => {
-      await dispatch(authenticate());
+      dispatch(authenticate());
       setLoaded(true);
     })();
   }, [dispatch]);
@@ -30,6 +31,9 @@ function App() {
       <Switch>
         <Route path='/login' exact={true}>
           <LoginForm />
+        </Route>
+        <Route path='/allAlbums' exact={true}>
+        <AlbumList />
         </Route>
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
