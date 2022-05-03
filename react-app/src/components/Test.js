@@ -7,15 +7,16 @@ export default function Test() {
   // const [albums, setAlbums] = useState([])
   const dispatch = useDispatch()
   const state = useSelector(state => state)
-  let {albumId} = useParams()
+  let { albumId } = useParams()
   useEffect(() => {
     dispatch(albumActions.getSingleAlbum(albumId))
-  },  [dispatch])
+  }, [dispatch])
 
   const result = Object.values(state?.albums)
   const album = result[0]
-  console.log(album, '----state----');
-
+  // console.log(album?.photos?.photos, '----state----');
+  const photosInAlbum = album?.photos?.photos
+  console.log("all photos", photosInAlbum)
   // ADD ALBUM:
   // const [title, setTitle] = useState('')
   // const history = useHistory()
@@ -31,6 +32,14 @@ export default function Test() {
   return (
     <div>
       <h1>{album?.title}</h1>
+      {photosInAlbum?.map(photo => (
+        <div key={photo.id}>
+          <p>{photo.title}</p>
+          <img src={photo.photo_url} alt={photo.title} style={{ width: '250px' }} />
+          <p>{photo.description}</p>
+
+        </div>
+      ))}
     </div>
   )
 }

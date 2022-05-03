@@ -16,6 +16,7 @@ const addAlbum = album => ({
   type: ADD_ALBUM,
   payload: album
 })
+// const getPhotosInAlbums()
 
 
 
@@ -38,7 +39,7 @@ export const getSingleAlbum = (id) => async (dispatch) => {
 export const addSingleAlbum = (title, user_id) => async (dispatch) => {
   const res = await fetch(`/api/albums/add_album`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json'},
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       title,
       user_id

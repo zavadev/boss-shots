@@ -13,12 +13,13 @@ class Album(db.Model):
 
 
     def photos_to_dict(self):
-        
+
         return {"photos": [photo.to_dict() for photo in self.photos]}
+
     def to_dict(self):
         return {
             "id": self.id,
             "user_id": self.user_id,
             "title": self.title,
-            # "photos": self.photos
+            "photos": self.photos_to_dict()
         }
