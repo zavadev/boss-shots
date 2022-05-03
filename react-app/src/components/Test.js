@@ -6,7 +6,8 @@ export default function AlbumList () {
   // const [albums, setAlbums] = useState([])
   const dispatch = useDispatch()
   const state = useSelector(state => state)
-  const albums = Object.values(state.albums)
+  const [title] =useState([])
+  // const albums = Object.values(state.albums)
   useEffect(() => {
     dispatch(albumActions.getAllAlbums())
   }, [dispatch])

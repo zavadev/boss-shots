@@ -44,6 +44,11 @@ export default function albumReducer(state = {}, action) {
       newState = { ...state }
       action.payload.forEach(album => newState[album.id] = album)
       return { ...newState, ...state }
+    case ADD_ALBUM:
+      let album = action.payload
+      newState = { ...state }
+      newState[album.id] = album
+      return { ...newState, ...state }
     default:
       return state;
   }
