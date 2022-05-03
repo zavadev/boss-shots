@@ -11,6 +11,10 @@ class Album(db.Model):
     user = db.relationship('User',back_populates='albums')
     photos = db.relationship('Photo', back_populates='albums', secondary=photo_in_albums)
 
+
+    def photos_to_dict(self):
+        
+        return {"photos": [photo.to_dict() for photo in self.photos]}
     def to_dict(self):
         return {
             "id": self.id,

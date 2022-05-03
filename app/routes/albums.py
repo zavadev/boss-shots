@@ -73,11 +73,11 @@ def add_photo_to_album(id):
 
   if form.validate_on_submit():
     photo = Photo.query.get(form.data['photo_id'])
-    album.photos.append()
+    album.photos.append(photo)
     db.session.add(album)
     db.session.commit()
-    print(photo.to_dict())
-    return album.to_dict()
+
+    return album.photos_to_dict()
 
 
   return {"errors": validation_errors_to_error_messages(form.errors)}
