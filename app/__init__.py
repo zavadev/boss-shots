@@ -11,6 +11,7 @@ from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .routes.photos import photo_routes
 from .routes.comments import comment_routes
+from .routes.tags import tags_router
 
 from .seeds import seed_commands
 
@@ -37,6 +38,7 @@ app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(albums_router, url_prefix='/api/albums')
 app.register_blueprint(photo_routes, url_prefix='/api/photos')
 app.register_blueprint(comment_routes, url_prefix='/api/comments')
+app.register_blueprint(tags_router, url_prefix='/api/tags')
 db.init_app(app)
 Migrate(app, db)
 
