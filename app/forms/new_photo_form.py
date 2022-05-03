@@ -9,9 +9,9 @@ class NewPhotoForm(FlaskForm):
     photo_url = StringField("Photo url", validators=[DataRequired()])
     submit = SubmitField("Add Photo")
 
-    
+
 class EditPhotoForm(FlaskForm):
-    title = StringField("Title",validators=[DataRequired()])
+    title = StringField("Title", validators=[DataRequired()])
     description = StringField("Description")
-    photo_url = StringField("Photo url",validators=[DataRequired()])
+    photo_url = StringField("Photo url")
     submit = SubmitField("Update Photo")

@@ -1,9 +1,10 @@
 from lib2to3.pgen2 import pgen
-from flask import Blueprint, jsonify, render_template,redirect, request
+from flask import Blueprint, jsonify, render_template,redirect, request, session
 from app.models import db, Photo, User, Comment
 from app.forms.new_photo_form import NewPhotoForm,EditPhotoForm
 from app.forms.new_comment_form import NewCommentForm
 from flask_login import current_user
+from app.api.auth_routes import validation_errors_to_error_messages
 
 photo_routes = Blueprint('photos', __name__, url_prefix="/photos")
 
@@ -30,17 +31,21 @@ def create_photo():
     if form.validate_on_submit():
         # add data to db
         # print(form.data)
+        data = {
+            "user_id" : session['_user_id'],
+            "title" : form.data["title"],
+            "description" : form.data["description"],
+            "photo_url" : form.data["photo_url"]
+        }
 
-        title = form.data["title"]
-        photo_url = form.data["photo_url"]
-        description = form.data["description"]
+        new_photo = Photo(**data)
 
-        new_photo = Photo(
-            user_id = user_id,
-            title = title,
-            description = description,
-            photo_url = photo_url
-        )
+        # new_photo = Photo(
+        #     user_id = user_id,
+        #     title = title,
+        #     description = description,
+        #     photo_url = photo_url
+        # )
 
         db.session.add(new_photo)
         db.session.commit()
@@ -62,7 +67,7 @@ def create_photo():
         #     )
 
         # return redirect("/api/photos/all")
-    return render_template("new_photo.html", form=form)
+    return {"errors": validation_errors_to_error_messages(form.errors)}
 
 # Get one photo
 # GET /photos/:photoId
@@ -88,9 +93,7 @@ def add_comment(id):
 
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-
         comment = form.data['comment']
-
         new_comment = Comment(
             photo_id = id,
             user_id = user_id,
@@ -100,28 +103,24 @@ def add_comment(id):
         db.session.add(new_comment)
         db.session.commit()
         return new_comment.to_dict()
-
-    return render_template("new_comment.html", form=form)
+    return {"errors": validation_errors_to_error_messages(form.errors)}
 
 # Update specific photo
 # PUT /photos/:photoId
 # NOT WORKS FOR NOW
-@photo_routes.route('/<int:id>/edit',methods=["PUT"])
+@photo_routes.route('/<int:id>/edit',methods=["PATCH"])
 def update_photo(id):
     form = EditPhotoForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     data = form.data
-    print('DATA',data)
     if form.validate_on_submit():
         photo = Photo.query.get(id)
         print('===============================================')
-        photo.photo_url = data['photo_url']
-        photo.title = data["title"]
-        photo.description = data["description"]
-
+        photo.title = data['title']
+        photo.description = data['description']
         db.session.commit()
         return photo.to_dict()
-
+    return {"errors": validation_errors_to_error_messages(form.errors)}
 
 
 # Delete specific photo
