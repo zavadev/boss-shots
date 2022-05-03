@@ -29,9 +29,10 @@ const deletePhoto = (photo) => ({
   payload: photo
 })
 
-const getAllPhotosThunk = () => async (dispatch) => {
+export const getAllPhotosThunk = () => async (dispatch) => {
+  console.log("ENTER")
   const response = await fetch('/api/photos/all')
-
+  console.log("RESPONSE",response)
   if (response.ok) {
     const photos = await response.json();
     dispatch(getAllPhotos(photos))
@@ -39,7 +40,7 @@ const getAllPhotosThunk = () => async (dispatch) => {
   return response
 }
 
-const postPhotoThunk = (photo) => async (dispatch) => {
+export const postPhotoThunk = (photo) => async (dispatch) => {
   const response = await fetch('/api/photos/add_photo', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -54,7 +55,7 @@ const postPhotoThunk = (photo) => async (dispatch) => {
   return response;
 }
 
-const getOnePhotoThunk = (photoId) => async (dispatch) => {
+export const getOnePhotoThunk = (photoId) => async (dispatch) => {
   const response = await fetch(`/api/photos/${photoId}`)
 
   if (response.ok) {
@@ -65,7 +66,7 @@ const getOnePhotoThunk = (photoId) => async (dispatch) => {
   return response;
 }
 
-const updatePhotoThunk = (photo) => async (dispatch) => {
+export const updatePhotoThunk = (photo) => async (dispatch) => {
   const response = await fetch(`/api/photos/${photo.id}/edit`, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
@@ -80,7 +81,7 @@ const updatePhotoThunk = (photo) => async (dispatch) => {
   return response;
 }
 
-const deletePhotoThunk = (photoId) => async (dispatch) => {
+export const deletePhotoThunk = (photoId) => async (dispatch) => {
   const response = await fetch(`/api/${photoId}`, {
     method: 'DELETE',
   })
@@ -121,3 +122,5 @@ const photosReducer =  (state = initialState, action) => {
       return state;
   }
 }
+
+export default photosReducer;
