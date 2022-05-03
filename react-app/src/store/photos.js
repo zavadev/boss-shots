@@ -1,6 +1,7 @@
 const GET_PHOTOS = 'photos/GET_PHOTOS'
 const POST_PHOTO = 'photos/POST_PHOTO'
 const GET_ONE_PHOTO = 'photos/GET_ONE_PHOTO'
+const UPDATE_PHOTO = 'photos/UPDATE_PHOTO'
 
 const getAllPhotos = (photos) => ({
   type: GET_PHOTOS,
@@ -14,6 +15,11 @@ const postPhoto = (photo) => ({
 
 const getOnePhoto = (photo) => ({
   type: GET_ONE_PHOTO,
+  payload: photo
+})
+
+const updatePhoto = (photo) => ({
+  type: UPDATE_PHOTO,
   payload: photo
 })
 
@@ -53,6 +59,21 @@ const getOnePhotoThunk = (photoId) => async (dispatch) => {
   return response;
 }
 
+const updatePhotoThunk = (photo) => async (dispatch) => {
+  const response = await fetch(`/api/photos/${photo.id}/edit`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(photo)
+  })
+
+  if (response.ok) {
+    const updatedPhoto = await response.json();
+    dispatch(updatePhoto(updatedPhoto));
+    return updatedPhoto;
+  }
+  return response;
+}
+
 
 const initialState = {};
 
@@ -69,6 +90,9 @@ const photosReducer =  (state = initialState, action) => {
     case GET_ONE_PHOTO:
       newState = { ...state };
       newState[action.photo.id] = action.photo;
+      return newState;
+    case UPDATE_PHOTO:
+      newState = { [action.photo.id]: action.photo, ...state };
       return newState;
     default:
       return state;
