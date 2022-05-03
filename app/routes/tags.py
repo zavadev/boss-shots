@@ -10,7 +10,6 @@ tags_router = Blueprint("tags", __name__)
 @tags_router.route("/all")
 def all_tags():
   results = Tag.query.all()
-  print(results)
   return { "tags": [tag.to_dict() for tag in results] }
 
 # POST (CREATE) new Tag
