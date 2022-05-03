@@ -103,7 +103,7 @@ const photosReducer =  (state = initialState, action) => {
   switch (action.type) {
     case GET_PHOTOS:
       newState = { ...state }
-      console.log('====================================',action,action.payload)
+      //console.log('====================================',action,action.payload)
       action.payload.forEach(photo => newState[photo.id] = photo);
       return {...newState,...state};
     // case POST_PHOTO:
