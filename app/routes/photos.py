@@ -80,7 +80,7 @@ def photo(id):
     photo = Photo.query.get(id)
     # filters data to grab all comments with photoid
     comments = Comment.query.filter(Comment.photo_id == id).all()
-    photo = {'photo ': photo.to_dict(),'comments' : [comment.to_dict() for comment in comments]}
+    photo = {'photo': photo.to_dict(),'comments' : [comment.to_dict() for comment in comments]}
     return photo
 
 # Create a comment
