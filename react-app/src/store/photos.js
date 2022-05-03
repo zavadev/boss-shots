@@ -1,5 +1,6 @@
 const GET_PHOTOS = 'photos/GET_PHOTOS'
 const POST_PHOTO = 'photos/POST_PHOTO'
+const GET_ONE_PHOTO = 'photos/GET_ONE_PHOTO'
 
 const getAllPhotos = (photos) => ({
   type: GET_PHOTOS,
@@ -8,6 +9,11 @@ const getAllPhotos = (photos) => ({
 
 const postPhoto = (photo) => ({
   type: POST_PHOTO,
+  payload: photo
+})
+
+const getOnePhoto = (photo) => ({
+  type: GET_ONE_PHOTO,
   payload: photo
 })
 
@@ -36,6 +42,17 @@ const postPhotoThunk = (photo) => async (dispatch) => {
   return response;
 }
 
+const getOnePhotoThunk = (photoId) => async (dispatch) => {
+  const response = await fetch(`/api/photos/${photoId}`)
+
+  if (response.ok) {
+    const photo = await response.json();
+    dispatch(getOnePhoto(photo));
+    return photo;
+  }
+  return response;
+}
+
 
 const initialState = {};
 
@@ -48,6 +65,10 @@ const photosReducer =  (state = initialState, action) => {
       return newState;
     case POST_PHOTO:
       newState = { [action.photo.id]: action.photo, ...state };
+      return newState;
+    case GET_ONE_PHOTO:
+      newState = { ...state };
+      newState[action.photo.id] = action.photo;
       return newState;
     default:
       return state;
