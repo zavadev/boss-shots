@@ -8,8 +8,6 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
-import Test from './components/Test';
-
 
 function App() {
   const [loaded, setLoaded] = useState(false);
