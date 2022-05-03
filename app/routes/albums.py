@@ -5,6 +5,8 @@ from app.models.album import Album
 from app.forms.add_album_form import AlbumForm
 from app.models.photo import Photo
 from flask_login import current_user
+from app.api.auth_routes import validation_errors_to_error_messages
+
 
 albums_router = Blueprint("albums", __name__)
 
@@ -64,9 +66,11 @@ def delete_album(id):
 @albums_router.route("/<int:id>/add_photo", methods=["GET"])
 def add_photo_to_album(id):
   album = Album.query.get(id)
+  # form = AddPhotoToAlbumForm()
+  # print(form.data)
   photo = Photo.query.get(1)
   album.photos.append(photo)
-  
+
 
   print("========>>>>>>>>>>",album.photos)
-  return " Helloo"
+  return {"errors": validation_errors_to_error_messages}
