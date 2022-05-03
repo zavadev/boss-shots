@@ -2,6 +2,7 @@ const GET_PHOTOS = 'photos/GET_PHOTOS'
 const POST_PHOTO = 'photos/POST_PHOTO'
 const GET_ONE_PHOTO = 'photos/GET_ONE_PHOTO'
 const UPDATE_PHOTO = 'photos/UPDATE_PHOTO'
+const DELETE_PHOTO = 'photos/DELETE_PHOTO'
 
 const getAllPhotos = (photos) => ({
   type: GET_PHOTOS,
@@ -20,6 +21,11 @@ const getOnePhoto = (photo) => ({
 
 const updatePhoto = (photo) => ({
   type: UPDATE_PHOTO,
+  payload: photo
+})
+
+const deletePhoto = (photo) => ({
+  type: DELETE_PHOTO,
   payload: photo
 })
 
@@ -74,6 +80,19 @@ const updatePhotoThunk = (photo) => async (dispatch) => {
   return response;
 }
 
+const deletePhotoThunk = (photoId) => async (dispatch) => {
+  const response = await fetch(`/api/${photoId}`, {
+    method: 'DELETE',
+  })
+
+  if (response.ok) {
+    const deletedPhoto = await response.json();
+    dispatch(deletePhoto(deletedPhoto));
+    return deletedPhoto;
+  }
+  return response;
+}
+
 
 const initialState = {};
 
@@ -85,14 +104,18 @@ const photosReducer =  (state = initialState, action) => {
       action.payload.photos.forEach(photo => newState[photo.id] = photo);
       return newState;
     case POST_PHOTO:
-      newState = { [action.photo.id]: action.photo, ...state };
+      newState = { [action.payload.photo.id]: action.payload.photo, ...state };
       return newState;
     case GET_ONE_PHOTO:
       newState = { ...state };
-      newState[action.photo.id] = action.photo;
+      newState[action.payload.photo.id] = action.payload.photo;
       return newState;
     case UPDATE_PHOTO:
-      newState = { [action.photo.id]: action.photo, ...state };
+      newState = { [action.payload.photo.id]: action.payload.photo, ...state };
+      return newState;
+    case DELETE_PHOTO:
+      newState = { ...state };
+      delete newState[action.payload.photo.id];
       return newState;
     default:
       return state;
