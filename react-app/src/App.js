@@ -8,8 +8,8 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
-import TestComp from './components/TestGetAll';
-import TestCompPost from './components/TestPost';
+import Test from './components/Test';
+
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -35,12 +35,6 @@ function App() {
         </Route>
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
-        </Route>
-        <Route path='/test' exact={true}>
-          <TestComp />
-        </Route>
-        <Route path='/testpost' exact={true}>
-          <TestCompPost />
         </Route>
         <ProtectedRoute path='/users' exact={true} >
           <UsersList/>

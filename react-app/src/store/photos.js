@@ -106,20 +106,20 @@ const photosReducer =  (state = initialState, action) => {
       //console.log('====================================',action,action.payload)
       action.payload.forEach(photo => newState[photo.id] = photo);
       return {...newState,...state};
-    // case POST_PHOTO:
-    //   newState = { [action.payload.id]: action.payload, ...state };
-    //   return newState;
-    // case GET_ONE_PHOTO:
-    //   newState = { ...state };
-    //   newState[action.payload.id] = action.payload;
-    //   return newState;
-    // case UPDATE_PHOTO:
-    //   newState = { [action.payload.id]: action.payload, ...state };
-    //   return newState;
-    // case DELETE_PHOTO:
-    //   newState = { ...state };
-    //   delete newState[action.payload.id];
-    //   return newState;
+    case POST_PHOTO:
+      newState = { [action.payload.id]: action.payload, ...state };
+      return newState;
+    case GET_ONE_PHOTO:
+      newState = { ...state };
+      newState[action.payload.id] = action.payload;
+      return newState;
+    case UPDATE_PHOTO:
+      newState = { [action.payload.id]: action.payload, ...state };
+      return newState;
+    case DELETE_PHOTO:
+      newState = { ...state };
+      delete newState[action.payload.id];
+      return newState;
     default:
       return state;
   }
