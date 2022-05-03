@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as albumActions from '../store/albums';
 
-export default function AlbumList () {
+export default function AlbumList() {
   // const [albums, setAlbums] = useState([])
   const dispatch = useDispatch()
   const state = useSelector(state => state)
-  const [title] =useState([])
-  // const albums = Object.values(state.albums)
+  // const [title] =useState([])
+  const albums = Object.values(state.albums)
   useEffect(() => {
     dispatch(albumActions.getAllAlbums())
   }, [dispatch])
