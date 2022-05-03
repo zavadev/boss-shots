@@ -30,14 +30,15 @@ const deletePhoto = (photo) => ({
 })
 
 export const getAllPhotosThunk = () => async (dispatch) => {
-  console.log("ENTER")
+  // console.log("ENTER")
   const response = await fetch('/api/photos/all')
-  console.log("RESPONSE",response)
+  // console.log("RESPONSE",response)
   if (response.ok) {
     const photos = await response.json();
-    dispatch(getAllPhotos(photos))
+    // console.log('json photo',photos.photos)
+    dispatch(getAllPhotos(photos.photos))
+    return photos;
   }
-  return response
 }
 
 export const postPhotoThunk = (photo) => async (dispatch) => {
@@ -102,22 +103,23 @@ const photosReducer =  (state = initialState, action) => {
   switch (action.type) {
     case GET_PHOTOS:
       newState = { ...state }
-      action.payload.photos.forEach(photo => newState[photo.id] = photo);
-      return newState;
-    case POST_PHOTO:
-      newState = { [action.payload.photo.id]: action.payload.photo, ...state };
-      return newState;
-    case GET_ONE_PHOTO:
-      newState = { ...state };
-      newState[action.payload.photo.id] = action.payload.photo;
-      return newState;
-    case UPDATE_PHOTO:
-      newState = { [action.payload.photo.id]: action.payload.photo, ...state };
-      return newState;
-    case DELETE_PHOTO:
-      newState = { ...state };
-      delete newState[action.payload.photo.id];
-      return newState;
+      console.log('====================================',action,action.payload)
+      action.payload.forEach(photo => newState[photo.id] = photo);
+      return {...newState,...state};
+    // case POST_PHOTO:
+    //   newState = { [action.payload.id]: action.payload, ...state };
+    //   return newState;
+    // case GET_ONE_PHOTO:
+    //   newState = { ...state };
+    //   newState[action.payload.id] = action.payload;
+    //   return newState;
+    // case UPDATE_PHOTO:
+    //   newState = { [action.payload.id]: action.payload, ...state };
+    //   return newState;
+    // case DELETE_PHOTO:
+    //   newState = { ...state };
+    //   delete newState[action.payload.id];
+    //   return newState;
     default:
       return state;
   }
