@@ -8,3 +8,5 @@ class Tag(db.Model):
     tag_name = db.Column(db.String(15), nullable=False)
 
     photos = db.relationship("Photo", back_populates="tags", secondary=tagged_photos)
+
+
