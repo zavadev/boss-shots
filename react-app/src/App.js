@@ -8,14 +8,15 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
-import AlbumList from './components/Test'
+import AlbumList from './components/AllAlbums';
+// import Test from './components/Test';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       dispatch(authenticate());
       setLoaded(true);
     })();
@@ -33,13 +34,16 @@ function App() {
           <LoginForm />
         </Route>
         <Route path='/allAlbums' exact={true}>
-        <AlbumList />
+          <AlbumList />
         </Route>
+        {/* <Route path='/:albumId'>
+          <Test />
+        </Route> */}
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
         </Route>
         <ProtectedRoute path='/users' exact={true} >
-          <UsersList/>
+          <UsersList />
         </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
