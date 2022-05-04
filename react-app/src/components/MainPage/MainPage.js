@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllPhotosThunk } from '../../store/photos';
 import AddPhotoModal from '../AddPhotoModal'
-import './MainPage.css';
+import UserPhotos from '../UserPhotos/UserPhotos';
 
-function MainPage () {
+
+function MainPage() {
   const dispatch = useDispatch();
 
   const photos = useSelector(state => Object.values(state.photos))
@@ -22,10 +23,13 @@ function MainPage () {
         <ul className="feed-ul">
           {photos?.map(photo => (
             <li key={photo.id}>
-              <img src={photo.photo_url} className="photo-source" alt={photo.title}/>
+              <img src={photo.photo_url} className="photo-source" alt={photo.title} />
             </li>
           ))}
         </ul>
+      </div>
+      <div id="user-photos-div">
+        <UserPhotos photos={photos} />
       </div>
     </>
   )
