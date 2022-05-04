@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getAllPhotosThunk } from '../../store/photos';
 import { getAllAlbums } from '../../store/albums';
 import AddPhotoModal from '../AddPhotoModal'
-import AddAlbumModal from '../AddAlbumModal'
+import AddAlbumModal from '../AddAlbumModel.js';
 import './MainPage.css';
 
 function MainPage() {
@@ -40,6 +40,7 @@ function MainPage() {
       </div>
       <div>
         <h3>Albums</h3>
+        <AddAlbumModal></AddAlbumModal>
 
         <ul className="albumClass">
           {albums.map(album => (
