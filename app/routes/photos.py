@@ -5,6 +5,8 @@ from app.forms.new_photo_form import NewPhotoForm,EditPhotoForm
 from app.forms.new_comment_form import NewCommentForm
 from flask_login import current_user
 from app.api.auth_routes import validation_errors_to_error_messages
+from app.s3_helpers import (
+    upload_file_to_s3, allowed_file, get_unique_filename)
 
 photo_routes = Blueprint('photos', __name__, url_prefix="/photos")
 
@@ -29,44 +31,43 @@ def create_photo():
     # print(user_id)
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
+        if "photo" not in request.files:
+            return {"errors": "photo required"}, 400
+
+        photo = request.files["photo"]
+
+        if not allowed_file(photo.filename):
+            return {"errors": "file type not permitted"}, 400
+
+        photo.filename = get_unique_filename(photo.filename)
+
+        upload = upload_file_to_s3(photo)
+
+        if "photo_url" not in  upload:
+            # if the dictionary doesn't have a url key
+            # it means that there was an error when we tried to upload
+            # so we send back that error message
+            return upload, 400
+
+        photo_url = upload["photo_url"]
+
+        new_photo = Photo(user_id = current_user.id,title = form.data["title"],description = form.data["description"],photo_url = photo_url)
         # add data to db
         # print(form.data)
-        data = {
-            "user_id" : session['_user_id'],
-            "title" : form.data["title"],
-            "description" : form.data["description"],
-            "photo_url" : form.data["photo_url"]
-        }
+        # data = {
+        #     "user_id" : session['_user_id'],
+        #     "title" : form.data["title"],
+        #     "description" : form.data["description"],
+        #     "photo_url" : form.data["photo_url"]
+        # }
 
-        new_photo = Photo(**data)
+        # new_photo = Photo(**data)
 
-        # new_photo = Photo(
-        #     user_id = user_id,
-        #     title = title,
-        #     description = description,
-        #     photo_url = photo_url
-        # )
 
         db.session.add(new_photo)
         db.session.commit()
         return new_photo.to_dict()
 
-        # with psycopg2.connect(**CONNECTION_PARAMETERS) as conn:
-        #     with conn.cursor() as curs:
-        #         curs.execute(
-        #         """
-        #         INSERT INTO photos (title, photo_url,user_id,description)
-        #         VALUES (%(title)s, %(photo_url)s,%(user_id)s,%(description)s)
-        #         """,
-        #         {
-        #             "title": title,
-        #             "photo_url": photo_url,
-        #             "user_id" : user_id,
-        #             "description" : description
-        #         }
-        #     )
-
-        # return redirect("/api/photos/all")
     return {"errors": validation_errors_to_error_messages(form.errors)}
 
 # Get one photo
