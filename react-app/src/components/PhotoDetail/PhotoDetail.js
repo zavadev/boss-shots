@@ -3,11 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getOnePhotoThunk } from '../../store/photos';
 import { getOnePhotoCommentsThunk } from '../../store/comments';
+import EditPhotoModal from '../EditPhotoModal';
 import './PhotoDetail.css'
+
 function PhotoDetail() {
     const photo_id = useParams();
     const dispatch = useDispatch();
     const [users, setUsers] = useState([]);
+    const sessionUser = useSelector(state => state.session.user);
     const photos = useSelector(state => Object.values(state.photos))
     const photoComments = useSelector(state => Object.values(state.comments))
 
@@ -35,7 +38,12 @@ function PhotoDetail() {
                 <img src={photos[0]?.photo_url} />
                 <h6>Posted By: {photoOwner[0]?.username}</h6>
                 <p>{photos[0]?.description}</p>
+                <div id="edit-delete">
+                    <EditPhotoModal photo={photos[0]}/>
+                <button>Delete Photo</button>
+                </div>
             </div>
+
             <div className='photo-comments'>
                 <h4>Comments</h4>
                 {comments?.map(comment=>{

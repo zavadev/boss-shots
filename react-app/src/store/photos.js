@@ -77,15 +77,17 @@ export const getOnePhotoThunk = (photoId) => async (dispatch) => {
 
 
 export const updatePhotoThunk = (photo) => async (dispatch) => {
+  console.log("ENTER EDIT")
   const response = await fetch(`/api/photos/${photo.id}/edit`, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(photo)
   })
-
+  console.log("LET THE EDIT COMMENCE")
   if (response.ok) {
     const updatedPhoto = await response.json();
     dispatch(updatePhoto(updatedPhoto));
+    console.log('HAS OT', updatedPhoto)
     return updatedPhoto;
   }
   return response;
