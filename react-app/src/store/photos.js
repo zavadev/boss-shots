@@ -42,6 +42,7 @@ export const getAllPhotosThunk = () => async (dispatch) => {
 }
 
 export const postPhotoThunk = (photo) => async (dispatch) => {
+  console.log("ENTERED THUNK")
   const response = await fetch('/api/photos/add_photo', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

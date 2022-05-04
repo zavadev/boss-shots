@@ -1,0 +1,19 @@
+.photo-feed {
+  border: 1px solid blue;
+  display: flex;
+  justify-content: center;
+}
+
+.feed-ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: space-between;
+  flex-direction: row;
+  list-style-type: none;
+}
+
+.photo-source {
+  max-width: 100px;
+  max-height: 100px;
+  margin: 10px;
+}
