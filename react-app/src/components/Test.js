@@ -6,14 +6,20 @@ import { useHistory, useParams } from 'react-router-dom'
 export default function Test() {
   const [tag_name, setTag_name] = useState("")
   const dispatch = useDispatch()
+  const result = useSelector(state => state.tags)
 
-  // useEffect(() => {
-  //   dispatch
-  // })
-
+  useEffect(() => {
+    dispatch(tagActions.getAllTags())
+  }, [])
+  const tags = Object.values(result)
 
   return (
     <>
+      {tags.map(tag => (
+
+        <p key={tag.id}>{tag.tag_name}</p>
+
+      ))}
 
     </>
   )
