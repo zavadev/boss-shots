@@ -16,7 +16,6 @@ photo_routes = Blueprint('photos', __name__, url_prefix="/photos")
 @photo_routes.route('/all')
 def photos():
     photos = Photo.query.all()
-    form = NewPhotoForm()
     # print(photos)
     return {'photos' : [photo.to_dict() for photo in photos]}
     # return render_template("new_photo.html", form=form)
@@ -54,6 +53,8 @@ def create_photo():
         photo_url = upload["url"]
 
         new_photo = Photo(user_id = current_user.id,title = form.data["title"],description = form.data["description"],photo_url = photo_url)
+
+        print( "NEW PHOTO:", new_photo.to_dict())
         # add data to db
         # print(form.data)
         # data = {

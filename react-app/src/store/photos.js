@@ -42,17 +42,24 @@ export const getAllPhotosThunk = () => async (dispatch) => {
 }
 
 export const postPhotoThunk = (photo) => async (dispatch) => {
-  console.log("ENTERED THUNK")
+  const {title, image, description, user_id} = photo;
+
+  const formData = new FormData();
+  formData.append("title", title);
+  formData.append("description", description);
+  formData.append("user_id", user_id);
+
+  if (image) formData.append("image", image);
+
   const response = await fetch('/api/photos/add_photo', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(photo)
+    body: formData
   })
 
   if (response.ok) {
     const newPhoto = await response.json();
     dispatch(postPhoto(newPhoto));
-    return newPhoto;
+    // return newPhoto;
   }
   return response;
 }
