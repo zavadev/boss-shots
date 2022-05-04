@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
 import AddAlbumForm from './AddAlbumForm';
-import './AddAlbumForm.css';
+// import './AddAlbumForm.css';
 
 function AddAlbumModal() {
     const [showModal, setShowModal] = useState(false);
