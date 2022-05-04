@@ -25,19 +25,20 @@ function PhotoDetail() {
         const responseData = await response.json();
         setUsers(responseData.users);
     }, [dispatch])
-
-    const photoOwner = users?.filter(user => {
-        if (photos[0]?.user_id == user?.id) {
-            return user.username;
-        }
-    })
-
+    console.log('users',users)
     return (
         <div className='photo-detail'>
             <div className='photo-post'>
                 <h1>{photos[0]?.title}</h1>
                 <img src={photos[0]?.photo_url} />
-                <h6>Posted By: {photoOwner[0]?.username}</h6>
+                {users?.map(user =>{
+                    console.log(user)
+                        if(photos[0]?.user_id == user?.id){
+                            return (
+                                <p>Posted By: {user.username}</p>
+                            )
+                        }
+                    })}
                 <p>{photos[0]?.description}</p>
                 <div id="edit-delete">
                     <EditPhotoModal photo={photos[0]}/>
