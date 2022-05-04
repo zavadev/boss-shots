@@ -45,3 +45,48 @@ fetch('/api/albums/1/add_photo', {
       photo_id: 3
     })
   }).then(res => res.json()).then((data) => console.log(data))
+
+
+
+//   return (
+//     <>
+//       {tags.map(tag => (
+//         <p>{tag}</p>
+
+//       ))}
+//     </>
+//   )
+// }
+
+
+  // ADD ALBUM:
+  // const [title, setTitle] = useState('')
+  // const history = useHistory()
+  // const onSubmit = (e) => {
+  //   e.preventDefault();
+  //   const user_id = state.session?.user.id
+  //   console.log(user_id, '---user----------');
+  //   console.log(title, 'title-------------');
+  //   dispatch(albumActions.addSingleAlbum(title, user_id))
+  //   history.push('/allAlbums')
+  // }
+  // display album with photos
+  //   return (
+  //     <div>
+  //       <h1>{album?.title}</h1>
+  //       {photosInAlbum?.map(photo => (
+  //         <div key={photo.id}>
+  //           <p>{photo.title}</p>
+  //           <img src={photo.photo_url} alt={photo.title} style={{ width: '250px' }} />
+  //           <p>{photo.description}</p>
+
+  //         </div>
+  //       ))}
+  //     </div>
+  //   )
+  // }
+
+//    <form onSubmit={onSubmit}>
+// <label>Album Title</label>
+// <input type="text" onChange={ e => setTitle(e.target.value)} value={title}></input>
+// <button>Submit</button>

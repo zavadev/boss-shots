@@ -4,12 +4,13 @@ import { useDispatch } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/NavBar';
+import MainPage from './components/MainPage/MainPage.js'
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import AlbumList from './components/AllAlbums';
-// import Test from './components/Test';
+import Test from './components/Test';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -36,9 +37,9 @@ function App() {
         <Route path='/allAlbums' exact={true}>
           <AlbumList />
         </Route>
-        {/* <Route path='/:albumId'>
+        <Route path='/test'>
           <Test />
-        </Route> */}
+        </Route>
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
         </Route>
@@ -51,6 +52,9 @@ function App() {
         <ProtectedRoute path='/' exact={true} >
           <h1>My Home Page</h1>
         </ProtectedRoute>
+        <Route path='/home' exact={true} >
+          <MainPage />
+        </Route>
       </Switch>
     </BrowserRouter>
   );
