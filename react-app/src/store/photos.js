@@ -69,7 +69,7 @@ export const getOnePhotoThunk = (photoId) => async (dispatch) => {
 
   if (response.ok) {
     const photo = await response.json();
-    dispatch(getOnePhoto(photo));
+    dispatch(getOnePhoto(photo.photo));
     return photo;
   }
   return response;

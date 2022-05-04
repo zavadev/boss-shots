@@ -9,7 +9,7 @@ function PhotoDetail(){
 
     const photos = useSelector(state => Object.values(state.photos))
 
-    console.log(photo_id.photo_id)
+    console.log(photos[0])
 
     useEffect(()=>{
         dispatch(getOnePhotoThunk(photo_id.photo_id))
@@ -17,7 +17,8 @@ function PhotoDetail(){
 
     return (
         <>
-            <h1>Photo</h1>
+            <h1>{photos[0]?.title}</h1>
+            <img src={photos[0]?.photo_url}/>
         </>
     )
 }
