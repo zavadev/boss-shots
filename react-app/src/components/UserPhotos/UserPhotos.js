@@ -20,10 +20,10 @@ function UserPhotos({photos}) {
         My Photos
       </div>
       <div>
-        <ul>
+        <ul id="my-photos-ul">
           { filteredPhotos?.map(photo => (
             <li key={photo?.id}>
-              <img src={photo?.photo_url} alt={photo.title}/>
+              <img src={photo?.photo_url} className="my-filtered-photos" alt={photo.title}/>
             </li>
           )) }
         </ul>

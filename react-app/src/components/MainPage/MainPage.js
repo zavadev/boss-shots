@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getAllPhotosThunk } from '../../store/photos';
 import AddPhotoModal from '../AddPhotoModal'
 import UserPhotos from '../UserPhotos/UserPhotos';
-
+import './MainPage.css'
 
 function MainPage() {
   const dispatch = useDispatch();

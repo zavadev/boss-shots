@@ -1,5 +1,5 @@
 .photo-feed {
-  border: 1px solid blue;
+  border: 2px solid blue;
   display: flex;
   justify-content: center;
 }
@@ -16,4 +16,12 @@
   max-width: 100px;
   max-height: 100px;
   margin: 10px;
+}
+
+#user-photos-div {
+  border: 2px solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
