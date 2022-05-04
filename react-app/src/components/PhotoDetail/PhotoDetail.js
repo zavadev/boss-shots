@@ -18,6 +18,15 @@ function PhotoDetail() {
     let comments = photoComments[0];
 
 
+    const owner = users?.filter(user =>{
+        //console.log(user)
+            if(photos[0]?.user_id == user?.id){
+                return user;
+            }
+    });
+
+    console.log(owner)
+
     useEffect(async () => {
         dispatch(getOnePhotoThunk(photo_id.photo_id))
         dispatch(getOnePhotoCommentsThunk(photo_id.photo_id))
@@ -25,25 +34,29 @@ function PhotoDetail() {
         const responseData = await response.json();
         setUsers(responseData.users);
     }, [dispatch])
-    console.log('users',users)
+    //console.log('users',users)
     return (
         <div className='photo-detail'>
             <div className='photo-post'>
                 <h1>{photos[0]?.title}</h1>
                 <img src={photos[0]?.photo_url} />
                 {users?.map(user =>{
-                    console.log(user)
+                    //console.log(user)
                         if(photos[0]?.user_id == user?.id){
                             return (
                                 <p>Posted By: {user.username}</p>
                             )
                         }
-                    })}
-                <p>{photos[0]?.description}</p>
-                <div id="edit-delete">
-                    <EditPhotoModal photo={photos[0]}/>
-                    <DeletePhotoModal photo={photos[0]}/>
-                </div>
+                    })
+                    }
+                    <p>{photos[0]?.description}</p>
+                    {sessionUser && sessionUser.id === owner[0]?.id &&
+                    <div id="edit-delete">
+                        <EditPhotoModal photo={photos[0]}/>
+                        <DeletePhotoModal photo={photos[0]}/>
+                    </div>
+                    }
+
             </div>
 
             <div className='photo-comments'>
