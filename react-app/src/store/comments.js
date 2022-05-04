@@ -1,5 +1,11 @@
 const POST_COMMENT = 'comment/POST_COMMENT'
 const DELETE_COMMENT = 'comment/DELETE_COMMENT'
+const GET_COMMENTS = 'comment/GET_COMMENTS'
+
+const getAllComments = (comments) => ({
+  type: GET_COMMENTS,
+  payload: comments
+})
 
 const postComment = (comment) => ({
   type: POST_COMMENT,
@@ -19,7 +25,7 @@ export const postCommentThunk = (photoId, comment) => async (dispatch) => {
   })
   if (response.ok) {
     const newComment = await response.json();
-    dispatch(postCommentThunk(newComment));
+    dispatch(postComment(newComment));
     return newComment;
   }
   return response;
@@ -38,9 +44,24 @@ export const deleteCommentThunk = (commentId) => async (dispatch) => {
   return response;
 }
 
+export const getOnePhotoCommentsThunk = (photoId) => async (dispatch) => {
+  const response = await fetch(`/api/photos/${photoId}`)
+
+  if (response.ok) {
+    const photo = await response.json();
+    dispatch(getAllComments(photo.comments));
+    return photo;
+  }
+  return response;
+}
+
 const commentsReducer = (state = {}, action) => {
   let newState;
   switch (action.type) {
+    case GET_COMMENTS:
+      newState = { ...state };
+      newState[action.payload.id] = action.payload;
+      return newState;
     case POST_COMMENT:
       newState = { [action.payload.id]: action.payload, ...state };
       return newState;

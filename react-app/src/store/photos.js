@@ -75,6 +75,7 @@ export const getOnePhotoThunk = (photoId) => async (dispatch) => {
   return response;
 }
 
+
 export const updatePhotoThunk = (photo) => async (dispatch) => {
   const response = await fetch(`/api/photos/${photo.id}/edit`, {
     method: 'PATCH',
