@@ -37,7 +37,7 @@ export const getAllPhotosThunk = () => async (dispatch) => {
     const photos = await response.json();
     // console.log('json photo',photos.photos)
     dispatch(getAllPhotos(photos.photos))
-    return photos;
+    return response;
   }
 }
 

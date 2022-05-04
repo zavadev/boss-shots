@@ -50,9 +50,9 @@ def create_photo():
             # so we send back that error message
             return upload, 400
 
-        photo_url = upload["url"]
+        url = upload["url"]
 
-        new_photo = Photo(user_id = current_user.id,title = form.data["title"],description = form.data["description"],photo_url = photo_url)
+        new_photo = Photo(user_id = current_user.id,title = form.data["title"],description = form.data["description"],photo_url = url)
 
         print( "NEW PHOTO:", new_photo.to_dict())
         # add data to db
@@ -69,7 +69,7 @@ def create_photo():
 
         db.session.add(new_photo)
         db.session.commit()
-        return {"url": photo_url}
+        return new_photo.to_dict()
 
     return {"errors": validation_errors_to_error_messages(form.errors)}
 

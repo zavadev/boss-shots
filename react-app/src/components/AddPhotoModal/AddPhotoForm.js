@@ -22,6 +22,11 @@ function AddPhotoForm({setShowModal}){
     }
     console.log("====>>>>>>", newPhoto);
     dispatch(postPhotoThunk(newPhoto))
+      .then((() => {
+        setTitle("")
+        setDescription("")
+        setImage(null);
+      }))
       .then((() => setShowModal(false)))
   }
   const updateImage = (e) => {
@@ -58,7 +63,6 @@ function AddPhotoForm({setShowModal}){
             type="text"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            required
           />
         </label>
         <div id="submit-btn-div">
