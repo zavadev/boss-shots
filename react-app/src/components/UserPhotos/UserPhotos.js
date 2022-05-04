@@ -6,7 +6,7 @@ import './UserPhotos.css'
 function UserPhotos({photos}) {
   const dispatch = useDispatch()
 
-  const user_id = useSelector(state => state.session?.user.id);
+  const user_id = useSelector(state => state.session?.user?.id);
   const filteredPhotos = photos?.filter(photo => photo?.user_id === user_id )
 
 
