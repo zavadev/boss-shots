@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getAllPhotosThunk } from '../../store/photos';
 import { getAllAlbums } from '../../store/albums';
 import AddPhotoModal from '../AddPhotoModal'
-import AddAlbumModal from '../AddAlbumModel.js';
+import AddAlbumModal from '../AddAlbumModal.js/index.js';
 import './MainPage.css';
 
 function MainPage() {
