@@ -90,8 +90,9 @@ export const updatePhotoThunk = (photo) => async (dispatch) => {
   return response;
 }
 
-export const deletePhotoThunk = (photoId) => async (dispatch) => {
-  const response = await fetch(`/api/${photoId}`, {
+export const deletePhotoThunk = (photo) => async (dispatch) => {
+  console.log("ENTER DELETE THUNK")
+  const response = await fetch(`/api/photos/${photo.id}`, {
     method: 'DELETE',
   })
 

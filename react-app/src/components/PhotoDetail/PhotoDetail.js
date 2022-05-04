@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { getOnePhotoThunk } from '../../store/photos';
 import { getOnePhotoCommentsThunk } from '../../store/comments';
 import EditPhotoModal from '../EditPhotoModal';
+import DeletePhotoModal from '../DeletePhotoModal';
 import './PhotoDetail.css'
 
 function PhotoDetail() {
@@ -40,7 +41,7 @@ function PhotoDetail() {
                 <p>{photos[0]?.description}</p>
                 <div id="edit-delete">
                     <EditPhotoModal photo={photos[0]}/>
-                <button>Delete Photo</button>
+                    <DeletePhotoModal photo={photos[0]}/>
                 </div>
             </div>
 
