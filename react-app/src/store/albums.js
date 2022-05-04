@@ -1,6 +1,9 @@
 const GET_ALL_ALBUMS = 'albums/GET_ALL_ALBUMS';
 const GET_ALBUM = 'albums/GET_ALBUM';
 const ADD_ALBUM = 'albums/ADD_ALBUM';
+const UPDATE_ALBUM = 'albums/UPDATE_ALBUM';
+const DELETE_ALBUM = 'albums/DELETE_ALBUM'
+
 
 const getAlbums = albums => ({
   type: GET_ALL_ALBUMS,
@@ -16,6 +19,19 @@ const addAlbum = album => ({
   type: ADD_ALBUM,
   payload: album
 })
+const updatedAlbum = (album, albumId) => ({
+  type: UPDATE_ALBUM,
+  payload: album,
+  id: albumId
+
+})
+const deleteAlbum = (id) => {
+  return {
+    type: DELETE_ALBUM,
+    payload: id
+  }
+}
+
 // const getPhotosInAlbums()
 
 
@@ -52,6 +68,35 @@ export const addSingleAlbum = (title, user_id) => async (dispatch) => {
   }
 }
 
+export const updateSingleAlbum = (title, albumId) => async (dispatch) => {
+  const res = await fetch(`/api/albums/${albumId}/edit`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      title,
+    }),
+  })
+
+  if (res.ok) {
+    const data = await res.json()
+    console.log("in the fetch for updete", data)
+    dispatch(updatedAlbum(albumId, data))
+  }
+}
+export const deleteSingleAlbum = (id) => async (dispatch) => {
+  const res = await fetch(`/api/albums/${id}`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  if (res.ok) {
+    const data = await res.json()
+    dispatch(deleteAlbum(id))
+  }
+}
+
 export default function albumReducer(state = {}, action) {
   let newState;
 
@@ -69,6 +114,14 @@ export default function albumReducer(state = {}, action) {
       newState = { ...state }
       newState[album.id] = album
       return { ...newState, ...state }
+    case UPDATE_ALBUM:
+      newState = { ...state }
+      newState[action.id] = action.payload
+      return { ...newState, ...state }
+    case DELETE_ALBUM:
+      newState = { ...state }
+      delete state[action.payload]
+      return newState
     default:
       return state;
   }

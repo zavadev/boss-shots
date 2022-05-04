@@ -9,7 +9,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import AlbumList from './components/AllAlbums';
-// import Test from './components/Test';
+import Test from './components/Test';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -36,9 +36,9 @@ function App() {
         <Route path='/allAlbums' exact={true}>
           <AlbumList />
         </Route>
-        {/* <Route path='/:albumId'>
+        <Route path='/test'>
           <Test />
-        </Route> */}
+        </Route>
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
         </Route>
