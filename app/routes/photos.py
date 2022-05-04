@@ -5,7 +5,7 @@ from app.forms.new_photo_form import NewPhotoForm,EditPhotoForm
 from app.forms.new_comment_form import NewCommentForm
 from flask_login import current_user
 from app.api.auth_routes import validation_errors_to_error_messages
-from app.s3_helpers import (
+from app.aws3 import (
     upload_file_to_s3, allowed_file, get_unique_filename)
 
 photo_routes = Blueprint('photos', __name__, url_prefix="/photos")
@@ -24,32 +24,34 @@ def photos():
 # Create a photo
 # POST /photos
 # WORKS
-@photo_routes.route('/add_photo', methods = ["GET","POST"])
+@photo_routes.route('/add_photo', methods = ["POST"])
 def create_photo():
     form = NewPhotoForm()
     user_id = current_user.get_id()
     # print(user_id)
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        if "photo" not in request.files:
-            return {"errors": "photo required"}, 400
+        if "image" not in request.files:
+            return {"errors": "image required"}, 400
 
-        photo = request.files["photo"]
+        image = request.files["image"]
 
-        if not allowed_file(photo.filename):
+        if not allowed_file(image.filename):
             return {"errors": "file type not permitted"}, 400
 
-        photo.filename = get_unique_filename(photo.filename)
+        image.filename = get_unique_filename(image.filename)
 
-        upload = upload_file_to_s3(photo)
+        upload = upload_file_to_s3(image)
 
-        if "photo_url" not in  upload:
+        print('uploading', upload)
+
+        if "url" not in upload:
             # if the dictionary doesn't have a url key
             # it means that there was an error when we tried to upload
             # so we send back that error message
             return upload, 400
 
-        photo_url = upload["photo_url"]
+        photo_url = upload["url"]
 
         new_photo = Photo(user_id = current_user.id,title = form.data["title"],description = form.data["description"],photo_url = photo_url)
         # add data to db
@@ -66,7 +68,7 @@ def create_photo():
 
         db.session.add(new_photo)
         db.session.commit()
-        return new_photo.to_dict()
+        return {"url": photo_url}
 
     return {"errors": validation_errors_to_error_messages(form.errors)}
 
