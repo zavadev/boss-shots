@@ -30,7 +30,7 @@ function AddAlbumForm({ setShowModal }) {
                 </label>
 
                 <div id="submit-btn-div">
-                    <button id="submit-button" type="submit">Add Photo</button>
+                    <button id="submit-button" type="submit">Add Album</button>
                 </div>
             </form>
         </>
