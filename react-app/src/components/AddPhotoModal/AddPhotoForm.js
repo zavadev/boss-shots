@@ -7,6 +7,8 @@ function AddPhotoForm({setShowModal}){
   const [title, setTitle] = useState("");
   const [photo_url, setPhotoURL] = useState("");
   const [description, setDescription] = useState("");
+  const [image, setImage] = useState(null);
+  const [imageLoading, setImageLoading] = useState(false);
   const user_id = useSelector(state => state.session.user.id);
 
 
@@ -15,14 +17,22 @@ function AddPhotoForm({setShowModal}){
     let newPhoto = {
       user_id,
       title,
-      photo_url,
+      image,
       description
     }
     console.log("====>>>>>>", newPhoto);
     dispatch(postPhotoThunk(newPhoto))
+      .then((() => {
+        setTitle("")
+        setDescription("")
+        setImage(null);
+      }))
       .then((() => setShowModal(false)))
   }
-
+  const updateImage = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+  }
   return (
     <>
       <form id="add-photo-form" onSubmit={photoSubmit}>
@@ -41,9 +51,8 @@ function AddPhotoForm({setShowModal}){
           Photo URL
           <input
             id="url-input"
-            type="url"
-            value={photo_url}
-            onChange={(e) => setPhotoURL(e.target.value)}
+            type="file"
+            onChange={updateImage}
             required
           />
         </label>
@@ -54,7 +63,6 @@ function AddPhotoForm({setShowModal}){
             type="text"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            required
           />
         </label>
         <div id="submit-btn-div">
