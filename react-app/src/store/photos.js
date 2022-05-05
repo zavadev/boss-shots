@@ -69,11 +69,12 @@ export const getOnePhotoThunk = (photoId) => async (dispatch) => {
 
   if (response.ok) {
     const photo = await response.json();
-    dispatch(getOnePhoto(photo));
+    dispatch(getOnePhoto(photo.photo));
     return photo;
   }
   return response;
 }
+
 
 export const updatePhotoThunk = (photo) => async (dispatch) => {
   const response = await fetch(`/api/photos/${photo.id}/edit`, {
@@ -81,7 +82,6 @@ export const updatePhotoThunk = (photo) => async (dispatch) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(photo)
   })
-
   if (response.ok) {
     const updatedPhoto = await response.json();
     dispatch(updatePhoto(updatedPhoto));
@@ -90,8 +90,9 @@ export const updatePhotoThunk = (photo) => async (dispatch) => {
   return response;
 }
 
-export const deletePhotoThunk = (photoId) => async (dispatch) => {
-  const response = await fetch(`/api/${photoId}`, {
+export const deletePhotoThunk = (photo) => async (dispatch) => {
+  console.log("ENTER DELETE THUNK")
+  const response = await fetch(`/api/photos/${photo.id}`, {
     method: 'DELETE',
   })
 
@@ -122,7 +123,8 @@ const photosReducer =  (state = initialState, action) => {
       newState[action.payload.id] = action.payload;
       return newState;
     case UPDATE_PHOTO:
-      newState = { [action.payload.id]: action.payload, ...state };
+      newState = { ...state };
+      newState = { [action.payload.id]: action.payload};
       return newState;
     case DELETE_PHOTO:
       newState = { ...state };
