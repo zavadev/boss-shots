@@ -30,13 +30,13 @@ function AlbumDetails() {
           <DeleteAlbumModal album={album} id={album_id}/>
         </div>
         <div id="album-photos-div">
-          <ul id="album-ul">
+          <dl id="album-dl">
             { photos?.map(photo => (
-              <li key={photo?.id}>
+              <dt key={photo?.id}>
                 <img src={photo?.photo_url} alt={photo.title} className="album-images"/>
-              </li>
+              </dt>
             )) }
-          </ul>
+          </dl>
         </div>
       </div>
     </>
