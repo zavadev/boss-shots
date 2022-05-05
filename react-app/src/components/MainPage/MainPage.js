@@ -5,7 +5,7 @@ import { getAllPhotosThunk } from '../../store/photos';
 import { getAllAlbums } from '../../store/albums';
 import AddPhotoModal from '../AddPhotoModal'
 import UserPhotos from '../UserPhotos/UserPhotos';
-import AddAlbumModal from '../AddAlbumModal.js/index.js';
+import DisplayAlbums from '../DisplayAlbums/DisplayAlbums';
 import './MainPage.css';
 
 function MainPage() {
@@ -43,22 +43,9 @@ function MainPage() {
         <UserPhotos photos={photos} />
       </div>
       <div>
-        <h3>Albums</h3>
-        <AddAlbumModal></AddAlbumModal>
-
-        <ul className="albumClass">
-          {albums.map(album => (
-            <NavLink to='/' exact={true} activeClassName='active'>
-              <li key={album.id} className="albumLi"
-                style={{
-                  listStyle: "none", width: "50px", height: "50px", background: `url(${album?.photos?.photos[0]?.photo_url})`, backgroundRepeat: "no-repeat",
-                  backgroundSize: "50px 50px", borderRadius: "4px"
-                }}>{album.title}
-              </li>
-            </NavLink>
-          ))}
-        </ul>
+        <DisplayAlbums albums={albums} />
       </div>
+
     </>
   )
 }
