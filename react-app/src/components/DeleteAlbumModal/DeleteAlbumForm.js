@@ -9,6 +9,7 @@ export default function DeleteAlbumForm({ id, setShowModal, album }) {
         dispatch(deleteSingleAlbum(id))
         dispatch(getAllAlbums())
         setShowModal(false)
+        
     }
     return (
         <>

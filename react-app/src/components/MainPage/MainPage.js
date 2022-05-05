@@ -46,9 +46,6 @@ function MainPage() {
       <div>
         <DisplayAlbums albums={albums} />
       </div>
-      <div>
-        <AlbumList></AlbumList>
-      </div>
 
     </>
   )
