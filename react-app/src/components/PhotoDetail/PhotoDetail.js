@@ -5,6 +5,7 @@ import { getOnePhotoThunk } from '../../store/photos';
 import { getOnePhotoCommentsThunk } from '../../store/comments';
 import EditPhotoModal from '../EditPhotoModal';
 import DeletePhotoModal from '../DeletePhotoModal';
+import DeleteCommentModal from '../DeleteCommentModal';
 import './PhotoDetail.css'
 
 function PhotoDetail() {
@@ -72,6 +73,11 @@ function PhotoDetail() {
                             )
                         }
                     })}
+                    {sessionUser && sessionUser.id === comment?.user_id &&
+                    <div id="delete">
+                        <DeleteCommentModal comment={comment}/>
+                    </div>
+                    }
                     </div>)
                 })}
             </div>
