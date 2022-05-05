@@ -12,7 +12,7 @@ export default function DisplayAlbums({ albums }) {
     const userId = useSelector(state => state.session?.user?.id)
     const myAlbums = albums1.filter(album => album.user_id === userId);
 
-    console.log(myAlbums)
+
     useEffect(() => {
         dispatch(getAllAlbums())
     }, [dispatch])

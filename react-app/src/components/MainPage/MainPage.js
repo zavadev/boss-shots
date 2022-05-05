@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllPhotosThunk } from '../../store/photos';
@@ -11,20 +11,22 @@ import './MainPage.css';
 
 function MainPage() {
   const dispatch = useDispatch();
-  const state = useSelector(state => state)
+  // const state = useSelector(state => state)
+  const albums = useSelector(state => Object.values(state.albums))
   const photos = useSelector(state => Object.values(state.photos))
-  // const albums = useSelector(state => Object.values(state.albums))
-  const albums = Object.values(state.albums)
+
+
+  // const albums = Object.values(state.albums)
   useEffect(() => {
     dispatch(getAllAlbums())
     dispatch(getAllPhotosThunk())
 
   }, [dispatch])
-  // let url = albums[0]?.photos?.photos[0]?.photo_url
-  // if (!url) {
-  //   url = "https://www.shutterbug.com/images/photo_post/[uid]/N9010100_mod4.jpg"
-  // }
-  // console.log(url)
+  // useEffect(() => {
+
+  //   setAlbums([...Object.values(albumsObj)])
+
+  // }, [dispatch, albumsObj])
 
 
   return (
