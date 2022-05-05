@@ -36,15 +36,15 @@ export const postCommentThunk = (photoId, comment) => async (dispatch) => {
 }
 
 export const deleteCommentThunk = (comment) => async (dispatch) => {
-  console.log('COMMENT SHOULD ENTER DELETE')
+  //console.log('COMMENT SHOULD ENTER DELETE')
   const response = await fetch(`/api/comments/${comment.id}`, {
     method: 'DELETE'
   })
-  console.log('GIVE DELETE RESPONSE,' ,response)
+  //console.log('GIVE DELETE RESPONSE,' ,response)
   if (response.ok) {
     const deletedComment = await response.json();
     await dispatch(deleteComment(deletedComment));
-    console.log('DELETED',deletedComment)
+    //console.log('DELETED',deletedComment)
   }
 }
 

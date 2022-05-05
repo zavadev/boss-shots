@@ -33,7 +33,7 @@ function PhotoDetail() {
 
     useEffect(async () => {
         dispatch(getOnePhotoThunk(photo_id.photo_id))
-        await dispatch(getOnePhotoCommentsThunk(photo_id.photo_id))
+        dispatch(getOnePhotoCommentsThunk(photo_id.photo_id))
         const response = await fetch('/api/users/');
         const responseData = await response.json();
         setUsers(responseData.users);
