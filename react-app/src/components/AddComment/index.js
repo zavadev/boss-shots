@@ -6,8 +6,8 @@ function AddCommentForm({photo}){
   const dispatch = useDispatch();
   const [comment, setComment] = useState("");
 
-  const user_id = useSelector(state => state.session.user);
 
+  const user_id = useSelector(state => state.session.user);
 
   const commentSubmit = (e) => {
     e.preventDefault();

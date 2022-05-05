@@ -18,7 +18,7 @@ const deleteComment = (comment) => ({
 })
 
 export const postCommentThunk = (photoId, comment) => async (dispatch) => {
-  //console.log('ENTER POST THUNK')
+  console.log('ENTER POST THUNK')
   const response = await fetch(`/api/photos/${photoId}/comment`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
