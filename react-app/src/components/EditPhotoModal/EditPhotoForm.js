@@ -5,10 +5,10 @@ import { updatePhotoThunk } from "../../store/photos.js"
 function EditPhotoForm({setShowModal,photo}){
   const dispatch = useDispatch();
   const [title, setTitle] = useState(photo.title);
-  const [photo_url, setPhotoURL] = useState("");
+  //const [photo_url, setPhotoURL] = useState("");
   const [description, setDescription] = useState(photo.description);
   const [image, setImage] = useState(photo.photo_url);
-  const [imageLoading, setImageLoading] = useState(false);
+  //const [imageLoading, setImageLoading] = useState(false);
   const user_id = useSelector(state => state.session.user.id);
 
 
@@ -21,7 +21,7 @@ function EditPhotoForm({setShowModal,photo}){
       image,
       description
     }
-    console.log("====>>>>>>", newPhoto);
+    //console.log("====>>>>>>", newPhoto);
     dispatch(updatePhotoThunk(newPhoto))
       .then((() => {
         setTitle("")

@@ -1,28 +1,32 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllPhotosThunk } from '../../store/photos';
 import { getAllAlbums } from '../../store/albums';
 import AddPhotoModal from '../AddPhotoModal'
 import UserPhotos from '../UserPhotos/UserPhotos';
-import AddAlbumModal from '../AddAlbumModal.js/index.js';
+import DisplayAlbums from '../DisplayAlbums/DisplayAlbums';
+import AlbumList from "../AllAlbums/AllAlbums"
 import './MainPage.css';
 
 function MainPage() {
   const dispatch = useDispatch();
-
-  const photos = useSelector(state => Object.values(state.photos))
+  // const state = useSelector(state => state)
   const albums = useSelector(state => Object.values(state.albums))
+  const photos = useSelector(state => Object.values(state.photos))
 
+
+  // const albums = Object.values(state.albums)
   useEffect(() => {
-    dispatch(getAllPhotosThunk())
     dispatch(getAllAlbums())
+    dispatch(getAllPhotosThunk())
+
   }, [dispatch])
-  // let url = albums[0]?.photos?.photos[0]?.photo_url
-  // if (!url) {
-  //   url = "https://www.shutterbug.com/images/photo_post/[uid]/N9010100_mod4.jpg"
-  // }
-  // console.log(url)
+  // useEffect(() => {
+
+  //   setAlbums([...Object.values(albumsObj)])
+
+  // }, [dispatch, albumsObj])
 
 
   return (
@@ -43,22 +47,9 @@ function MainPage() {
         <UserPhotos photos={photos} />
       </div>
       <div>
-        <h3>Albums</h3>
-        <AddAlbumModal></AddAlbumModal>
-
-        <ul className="albumClass">
-          {albums.map(album => (
-            <NavLink to='/' exact={true} activeClassName='active'>
-              <li key={album.id} className="albumLi"
-                style={{
-                  listStyle: "none", width: "50px", height: "50px", background: `url(${album?.photos?.photos[0]?.photo_url})`, backgroundRepeat: "no-repeat",
-                  backgroundSize: "50px 50px", borderRadius: "4px"
-                }}>{album.title}
-              </li>
-            </NavLink>
-          ))}
-        </ul>
+        <DisplayAlbums albums={albums} />
       </div>
+
     </>
   )
 }

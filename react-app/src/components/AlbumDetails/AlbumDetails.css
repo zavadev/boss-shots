@@ -1,0 +1,25 @@
+#album-details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid green;
+}
+
+#album-photos-div {
+  display: flex;
+  justify-content: center;
+  border: 2px solid red;
+}
+
+.album-images {
+  max-width: 300px;
+  max-height: 300px;
+  margin: 10px;
+}
+
+#album-dl{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}

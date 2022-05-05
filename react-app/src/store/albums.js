@@ -19,18 +19,19 @@ const addAlbum = album => ({
   type: ADD_ALBUM,
   payload: album
 })
-const updatedAlbum = (album, albumId) => ({
+const updatedAlbum = (album) => ({
   type: UPDATE_ALBUM,
-  payload: album,
-  id: albumId
+  payload: album
+})
+const deleteAlbum = (id) => ({
+
+  type: DELETE_ALBUM,
+  payload: id
 
 })
-const deleteAlbum = (id) => {
-  return {
-    type: DELETE_ALBUM,
-    payload: id
-  }
-}
+// const addPhotoToAlbum = (id) => ({
+//   type: ADD_PHOTO
+// })
 
 // const getPhotosInAlbums()
 
@@ -79,10 +80,13 @@ export const updateSingleAlbum = (title, albumId) => async (dispatch) => {
 
   if (res.ok) {
     const data = await res.json()
-    console.log("in the fetch for updete", data)
-    dispatch(updatedAlbum(albumId, data))
+    console.log("=====>>>>>>>in the fetch for updete", data)
+    dispatch(updatedAlbum(data))
+    return data
   }
+  return res
 }
+
 export const deleteSingleAlbum = (id) => async (dispatch) => {
   const res = await fetch(`/api/albums/${id}`,
     {
@@ -94,6 +98,7 @@ export const deleteSingleAlbum = (id) => async (dispatch) => {
   if (res.ok) {
     const data = await res.json()
     dispatch(deleteAlbum(id))
+    return data;
   }
 }
 
@@ -101,27 +106,36 @@ export default function albumReducer(state = {}, action) {
   let newState;
 
   switch (action.type) {
+
     case GET_ALL_ALBUMS:
       newState = { ...state }
-      action.payload.forEach(album => newState[album.id] = album)
-      return { ...newState, ...state }
+      // console.log("getAllAlb========>>>>", newState)
+      action.payload.map(album => newState[album.id] = album)
+      // console.log("new state after ======>>>>>>>", newState)
+      // console.log("test", { ...newState, ...state })
+      return newState
     case GET_ALBUM:
       newState = { ...state }
       newState[action.payload.id] = action.payload
-      return { ...newState, ...state }
+
+      return newState;
     case ADD_ALBUM:
       let album = action.payload
       newState = { ...state }
       newState[album.id] = album
-      return { ...newState, ...state }
+      return newState
     case UPDATE_ALBUM:
       newState = { ...state }
-      newState[action.id] = action.payload
-      return { ...newState, ...state }
+      newState = { [action.payload.id]: action.payload }
+      return newState
     case DELETE_ALBUM:
       newState = { ...state }
-      delete state[action.payload]
+      // console.log("---------->>>>>>>>", newState)
+      // newState = Object.values(state).filter(album => album.id != action.payload)
+      // console.log("---------->>>>>>>> after ", newState)
+      delete newState[action.payload]
       return newState
+
     default:
       return state;
   }
