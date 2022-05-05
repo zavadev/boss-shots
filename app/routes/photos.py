@@ -93,7 +93,7 @@ def photo(id):
 # Create a comment
 # POST /photos/:photoId
 # WORKS
-@photo_routes.route('/<int:id>/comment',methods=["GET","POST"])
+@photo_routes.route('/<int:id>/comment',methods=["POST"])
 @login_required
 def add_comment(id):
     form = NewCommentForm()

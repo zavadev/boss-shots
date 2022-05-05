@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { deletePhotoThunk } from "../../store/photos.js"
@@ -6,11 +6,6 @@ import { deletePhotoThunk } from "../../store/photos.js"
 function DeletePhotoForm({setShowModal,photo}){
   const history = useHistory();
   const dispatch = useDispatch();
-  const [title, setTitle] = useState(photo.title);
-  const [photo_url, setPhotoURL] = useState("");
-  const [description, setDescription] = useState(photo.description);
-  const [image, setImage] = useState(photo.photo_url);
-  const [imageLoading, setImageLoading] = useState(false);
   const user_id = useSelector(state => state.session.user.id);
   return (
     <>

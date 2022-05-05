@@ -128,7 +128,9 @@ const photosReducer =  (state = initialState, action) => {
       return newState;
     case DELETE_PHOTO:
       newState = { ...state };
+      console.log('NEW STATE OF DELETE PHOTO IS', newState)
       delete newState[action.payload.id];
+      console.log('AFTER DELETE SHOULD BE.',newState )
       return newState;
     default:
       return state;

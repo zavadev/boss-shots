@@ -10,7 +10,8 @@ comment_routes = Blueprint('comments', __name__, url_prefix="/comments")
 # WORKS
 @comment_routes.route('/<int:id>', methods=["DELETE"])
 def delete_comment(id):
+    print('ENTER ROUTE DELETE')
     comment = Comment.query.get(id)
     db.session.delete(comment)
     db.session.commit()
-    return redirect("/api/photos/all")
+    return comment.to_dict()

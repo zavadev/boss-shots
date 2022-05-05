@@ -17,12 +17,16 @@ const deleteComment = (comment) => ({
   payload: comment
 })
 
+
 export const postCommentThunk = (photoId, comment) => async (dispatch) => {
-  const response = await fetch(`/api/photos/${photoId}`, {
+  console.log('ENTER POST THUNK')
+  const response = await fetch(`/api/photos/${photoId}/comment`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(comment)
   })
+
+  //console.log('response for comment is',response)
   if (response.ok) {
     const newComment = await response.json();
     dispatch(postComment(newComment));
@@ -31,28 +35,31 @@ export const postCommentThunk = (photoId, comment) => async (dispatch) => {
   return response;
 }
 
-export const deleteCommentThunk = (commentId) => async (dispatch) => {
-  const response = await fetch(`/api/comments/${commentId}`, {
+export const deleteCommentThunk = (comment) => async (dispatch) => {
+  //console.log('COMMENT SHOULD ENTER DELETE')
+  const response = await fetch(`/api/comments/${comment.id}`, {
     method: 'DELETE'
   })
-
+  //console.log('GIVE DELETE RESPONSE,' ,response)
   if (response.ok) {
     const deletedComment = await response.json();
-    dispatch(deleteComment(deletedComment));
-    return deletedComment;
+    await dispatch(deleteComment(deletedComment));
+    //console.log('DELETED',deletedComment)
   }
-  return response;
 }
 
 export const getOnePhotoCommentsThunk = (photoId) => async (dispatch) => {
+  console.log('enter load comments')
   const response = await fetch(`/api/photos/${photoId}`)
+  console.log('response load',response)
 
   if (response.ok) {
     const photo = await response.json();
     dispatch(getAllComments(photo.comments));
-    return photo;
+    console.log('photo comments', photo)
+    console.log(' comments res thunk', response)
+    return response;
   }
-  return response;
 }
 
 const commentsReducer = (state = {}, action) => {
@@ -60,15 +67,18 @@ const commentsReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_COMMENTS:
       newState = { ...state };
-      newState[action.payload.id] = action.payload;
-      return newState;
+      console.log('load comments',newState)
+      //console.log('====================================',action,action.payload)
+      action.payload.forEach(comment => newState[comment.id] = comment);
+      //newState[action.payload.id] = action.payload;
+      return {...newState,...state};
     case POST_COMMENT:
       newState = { [action.payload.id]: action.payload, ...state };
       return newState;
     case DELETE_COMMENT:
-      newState = { ...state };
-      delete newState[action.payload.id];
-      return newState;
+      newState = {...state}
+      delete newState[action.payload.id]
+      return {...newState}
     default:
       return state;
   }
