@@ -11,13 +11,14 @@ import './MainPage.css';
 
 function MainPage() {
   const dispatch = useDispatch();
-
+  const state = useSelector(state => state)
   const photos = useSelector(state => Object.values(state.photos))
-  const albums = useSelector(state => Object.values(state.albums))
-
+  // const albums = useSelector(state => Object.values(state.albums))
+  const albums = Object.values(state.albums)
   useEffect(() => {
-    dispatch(getAllPhotosThunk())
     dispatch(getAllAlbums())
+    dispatch(getAllPhotosThunk())
+
   }, [dispatch])
   // let url = albums[0]?.photos?.photos[0]?.photo_url
   // if (!url) {

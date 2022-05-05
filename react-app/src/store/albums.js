@@ -19,11 +19,9 @@ const addAlbum = album => ({
   type: ADD_ALBUM,
   payload: album
 })
-const updatedAlbum = (album, albumId) => ({
+const updatedAlbum = (album) => ({
   type: UPDATE_ALBUM,
-  payload: album,
-  id: albumId
-
+  payload: album
 })
 const deleteAlbum = (id) => {
   return {
@@ -79,12 +77,13 @@ export const updateSingleAlbum = (title, albumId) => async (dispatch) => {
 
   if (res.ok) {
     const data = await res.json()
-    console.log("in the fetch for updete", data)
-    dispatch(updatedAlbum(albumId, data))
+    console.log("=====>>>>>>>in the fetch for updete", data)
+    dispatch(updatedAlbum(data))
     return data
   }
   return res
 }
+
 export const deleteSingleAlbum = (id) => async (dispatch) => {
   const res = await fetch(`/api/albums/${id}`,
     {
@@ -104,27 +103,31 @@ export default function albumReducer(state = {}, action) {
   let newState;
 
   switch (action.type) {
+
     case GET_ALL_ALBUMS:
       newState = { ...state }
+      console.log("=============>>>>>>>>", newState)
       action.payload.forEach(album => newState[album.id] = album)
       return { ...newState, ...state }
     case GET_ALBUM:
       newState = { ...state }
       newState[action.payload.id] = action.payload
-      return { ...newState, ...state }
+
+      return newState;
     case ADD_ALBUM:
       let album = action.payload
       newState = { ...state }
       newState[album.id] = album
       return { ...newState, ...state }
     case UPDATE_ALBUM:
-      // newState = { ...state }
-      newState = { [action.payload.id]: action.payload, ...state }
+      newState = { ...state }
+      newState = { [action.payload.id]: action.payload }
       return newState
     case DELETE_ALBUM:
       newState = { ...state }
-      delete newState[action.payload]
+      delete newState[action.payload.id]
       return newState
+
     default:
       return state;
   }

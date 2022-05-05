@@ -1,0 +1,24 @@
+.photo-detail{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.photo-post {
+    text-align: center;
+    border-bottom: 1px solid grey;
+}
+.photo-post img{
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.photo-comments{
+    border: 1px solid blue;
+    padding: 5px;
+}
+.comment{
+    border: 1px solid red;
+    padding: 5px;
+}

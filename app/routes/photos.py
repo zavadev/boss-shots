@@ -5,6 +5,8 @@ from app.forms.new_photo_form import NewPhotoForm,EditPhotoForm
 from app.forms.new_comment_form import NewCommentForm
 from flask_login import current_user
 from app.api.auth_routes import validation_errors_to_error_messages
+from flask_login import current_user, login_user, logout_user, login_required
+
 from app.aws3 import (
     upload_file_to_s3, allowed_file, get_unique_filename)
 
@@ -24,6 +26,7 @@ def photos():
 # POST /photos
 # WORKS
 @photo_routes.route('/add_photo', methods = ["POST"])
+@login_required
 def create_photo():
     form = NewPhotoForm()
     user_id = current_user.get_id()
@@ -91,6 +94,7 @@ def photo(id):
 # POST /photos/:photoId
 # WORKS
 @photo_routes.route('/<int:id>/comment',methods=["GET","POST"])
+@login_required
 def add_comment(id):
     form = NewCommentForm()
     user_id = current_user.id
@@ -113,6 +117,7 @@ def add_comment(id):
 # PUT /photos/:photoId
 # NOT WORKS FOR NOW
 @photo_routes.route('/<int:id>/edit',methods=["PATCH"])
+@login_required
 def update_photo(id):
     photo = Photo.query.get(id)
     data = photo.to_dict()
@@ -143,6 +148,7 @@ def update_photo(id):
 # DELETE /photos/:photoId
 # WORKS
 @photo_routes.route('/<int:id>', methods=["DELETE"])
+@login_required
 def delete_photo(id):
     photo = Photo.query.get(id)
     db.session.delete(photo)

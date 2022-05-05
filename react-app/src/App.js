@@ -9,7 +9,8 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
-// import AlbumList from './components/AllAlbums';
+import AlbumDetails from './components/AlbumDetails/AlbumDetails';
+import PhotoDetail from './components/PhotoDetail/PhotoDetail';
 import DisplayAlbums from './components/DisplayAlbums/DisplayAlbums';
 
 function App() {
@@ -40,6 +41,9 @@ function App() {
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
         </Route>
+        <Route path='/photos/:photo_id' exact={true}>
+          <PhotoDetail />
+        </Route>
         <ProtectedRoute path='/users' exact={true} >
           <UsersList />
         </ProtectedRoute>
@@ -51,6 +55,9 @@ function App() {
         </ProtectedRoute>
         <Route path='/home' exact={true} >
           <MainPage />
+        </Route>
+        <Route path='/albums/:album_id' exact={true}>
+          <AlbumDetails />
         </Route>
       </Switch>
     </BrowserRouter>
