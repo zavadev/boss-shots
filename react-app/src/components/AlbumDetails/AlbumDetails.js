@@ -1,31 +1,36 @@
 import React, { useEffect } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllPhotosThunk } from '../../store/photos';
+import { getSingleAlbum } from '../../store/albums';
 import './AlbumDetails.css';
 
 function AlbumDetails() {
   const dispatch = useDispatch();
-  const albumId = useParams();
-  const photos = useSelector(state => Object.values(state.albums.photos))
-  const filteredPhotos = photos?.filter(photo => photo?.album_id === albumId)
-  console.log("======>>>>>>>>>", filteredPhotos);
+  const { album_id } = useParams();
+  const album = useSelector(state => state.albums[album_id]);
+  const photos = album?.photos?.photos?.map(photo => ({id: photo.id, photo_url: photo.photo_url, title: photo.title}));
 
   useEffect(() => {
-    dispatch(getAllPhotosThunk())
+    dispatch(getSingleAlbum(album_id))
   }, [dispatch])
 
 
   return (
     <>
-      <h3>ALBUM DETAILS</h3>
-      <ul>
-        { filteredPhotos?.map(photo => (
-          <li key={photo?.id}>
-            <img src={photo?.photo_url} alt={photo.title}/>
-          </li>
-        )) }
-      </ul>
+      <div id="album-details-container">
+        <div id="album-details-title">
+          <h3>ALBUM DETAILS</h3>
+        </div>
+        <div id="album-photos-div">
+          <ul id="album-ul">
+            { photos?.map(photo => (
+              <li key={photo?.id}>
+                <img src={photo?.photo_url} alt={photo.title} className="album-images"/>
+              </li>
+            )) }
+          </ul>
+        </div>
+      </div>
     </>
   )
 }

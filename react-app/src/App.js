@@ -56,7 +56,7 @@ function App() {
         <Route path='/home' exact={true} >
           <MainPage />
         </Route>
-        <Route path='/albums/:albumId' exact={true}>
+        <Route path='/albums/:album_id' exact={true}>
           <AlbumDetails />
         </Route>
       </Switch>
