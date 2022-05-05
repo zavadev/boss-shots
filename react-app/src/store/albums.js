@@ -81,7 +81,9 @@ export const updateSingleAlbum = (title, albumId) => async (dispatch) => {
     const data = await res.json()
     console.log("in the fetch for updete", data)
     dispatch(updatedAlbum(albumId, data))
+    return data
   }
+  return res
 }
 export const deleteSingleAlbum = (id) => async (dispatch) => {
   const res = await fetch(`/api/albums/${id}`,
@@ -94,6 +96,7 @@ export const deleteSingleAlbum = (id) => async (dispatch) => {
   if (res.ok) {
     const data = await res.json()
     dispatch(deleteAlbum(id))
+    return data;
   }
 }
 
@@ -115,12 +118,12 @@ export default function albumReducer(state = {}, action) {
       newState[album.id] = album
       return { ...newState, ...state }
     case UPDATE_ALBUM:
-      newState = { ...state }
-      newState[action.id] = action.payload
-      return { ...newState, ...state }
+      // newState = { ...state }
+      newState = { [action.payload.id]: action.payload, ...state }
+      return newState
     case DELETE_ALBUM:
       newState = { ...state }
-      delete state[action.payload]
+      delete newState[action.payload]
       return newState
     default:
       return state;

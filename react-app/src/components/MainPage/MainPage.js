@@ -6,6 +6,7 @@ import { getAllAlbums } from '../../store/albums';
 import AddPhotoModal from '../AddPhotoModal'
 import UserPhotos from '../UserPhotos/UserPhotos';
 import DisplayAlbums from '../DisplayAlbums/DisplayAlbums';
+import AlbumList from "../AllAlbums/AllAlbums"
 import './MainPage.css';
 
 function MainPage() {
@@ -44,6 +45,9 @@ function MainPage() {
       </div>
       <div>
         <DisplayAlbums albums={albums} />
+      </div>
+      <div>
+        <AlbumList></AlbumList>
       </div>
 
     </>

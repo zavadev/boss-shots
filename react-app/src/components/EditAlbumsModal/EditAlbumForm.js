@@ -12,8 +12,8 @@ export default function EditAlbumForm({ album, setShowModal }) {
     const onSubmit = (e) => {
         e.preventDefault()
         dispatch(updateSingleAlbum(title, album.id))
+        setShowModal(false)
         history.push("/home")
-        // setShowModal(false)
     }
     return (
         <form onSubmit={onSubmit}>

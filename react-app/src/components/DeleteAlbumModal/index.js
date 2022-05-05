@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import { Modal } from "../../context/Modal"
-import EditAlbumForm from "./EditAlbumForm"
+import DeleteAlbumForm from "./DeleteAlbumForm"
 
-export default function EditAlbumModel({ album }) {
+
+export default function DeleteAlbumModal({ id, album }) {
     const [showModal, setShowModal] = useState(false)
+
     return (
         <>
-            <button onClick={() => setShowModal(true)}>Update Album</button>
+            <button onClick={() => setShowModal(true)} >Delete</button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <EditAlbumForm setShowModal={setShowModal} album={album}></EditAlbumForm>
+                    <DeleteAlbumForm setShowModal={setShowModal} album={album} id={id} />
                 </Modal>
             )
             }
         </>
     )
-
 
 }
