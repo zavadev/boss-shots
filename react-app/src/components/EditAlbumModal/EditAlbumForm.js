@@ -13,7 +13,6 @@ export default function EditAlbumForm({ album, setShowModal }) {
         e.preventDefault()
         dispatch(updateSingleAlbum(title, album.id))
         setShowModal(false)
-        history.push("/home")
     }
     return (
         <form onSubmit={onSubmit}>

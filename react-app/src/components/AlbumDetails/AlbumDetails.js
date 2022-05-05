@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSingleAlbum } from '../../store/albums';
+import EditAlbumModal from '../EditAlbumModal';
+import DeleteAlbumModal from '../DeleteAlbumModal';
 import './AlbumDetails.css';
 
 function AlbumDetails() {
@@ -19,7 +21,13 @@ function AlbumDetails() {
     <>
       <div id="album-details-container">
         <div id="album-details-title">
-          <h3>ALBUM DETAILS</h3>
+          <h3>{album?.title}</h3>
+        </div>
+        <div>
+          <EditAlbumModal album={album} />
+        </div>
+        <div>
+          <DeleteAlbumModal album={album} id={album_id}/>
         </div>
         <div id="album-photos-div">
           <ul id="album-ul">

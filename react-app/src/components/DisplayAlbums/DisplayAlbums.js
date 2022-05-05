@@ -3,8 +3,6 @@ import { getAllAlbums } from "../../store/albums"
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom"
 import AddAlbumModal from '../AddAlbumModal.js/index.js';
-import EditAlbumModal from "../EditAlbumsModal";
-import DeleteAlbumModal from "../DeleteAlbumModal";
 import "./DisplayAlbums.css"
 
 
@@ -29,7 +27,7 @@ export default function DisplayAlbums({ albums }) {
                 {myAlbums?.map(album => (
                     <>
 
-                        <NavLink key={album.id} to='/' exact={true} activeClassName='active'>
+                        <NavLink key={album.id} to={`/albums/${album.id}`} exact={true} activeClassName='active'>
                             <li className="albumLi"
                                 style={{
                                     listStyle: "none", width: "50px", height: "50px", background: `url(${album?.photos?.photos[0]?.photo_url})`, backgroundRepeat: "no-repeat",
