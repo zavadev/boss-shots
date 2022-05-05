@@ -11,6 +11,7 @@ import User from './components/User';
 import { authenticate } from './store/session';
 import AlbumList from './components/AllAlbums';
 import AlbumDetails from './components/AlbumDetails/AlbumDetails';
+import PhotoDetail from './components/PhotoDetail/PhotoDetail';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -39,6 +40,9 @@ function App() {
         </Route>
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
+        </Route>
+        <Route path='/photos/:photo_id' exact={true}>
+          <PhotoDetail />
         </Route>
         <ProtectedRoute path='/users' exact={true} >
           <UsersList />
