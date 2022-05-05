@@ -25,7 +25,7 @@ function PhotoDetail() {
             }
     });
 
-    console.log(owner)
+    //console.log(owner)
 
     useEffect(async () => {
         dispatch(getOnePhotoThunk(photo_id.photo_id))

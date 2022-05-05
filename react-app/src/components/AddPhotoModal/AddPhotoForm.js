@@ -5,10 +5,8 @@ import { postPhotoThunk } from "../../store/photos.js"
 function AddPhotoForm({setShowModal}){
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
-  const [photo_url, setPhotoURL] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
-  const [imageLoading, setImageLoading] = useState(false);
   const user_id = useSelector(state => state.session.user.id);
 
 
