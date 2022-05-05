@@ -10,6 +10,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import AlbumList from './components/AllAlbums';
+import AlbumDetails from './components/AlbumDetails/AlbumDetails';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -50,6 +51,9 @@ function App() {
         </ProtectedRoute>
         <Route path='/home' exact={true} >
           <MainPage />
+        </Route>
+        <Route path='/albums/:albumId' exact={true}>
+          <AlbumDetails />
         </Route>
       </Switch>
     </BrowserRouter>
