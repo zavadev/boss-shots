@@ -48,12 +48,12 @@ function PhotoDetail() {
                     //console.log(user)
                         if(photos[0]?.user_id == user?.id){
                             return (
-                                <p>Posted By: {user.username}</p>
+                                <p key={user?.id}>Posted By: {user.username}</p>
                             )
                         }
                     })
                     }
-                    <p>{photos[0]?.description}</p>
+                    <p key={photos[0]?.id}>{photos[0]?.description}</p>
                     {sessionUser && sessionUser.id === owner[0]?.id &&
                     <div id="edit-delete">
                         <EditPhotoModal photo={photos[0]}/>
@@ -65,7 +65,7 @@ function PhotoDetail() {
 
             <div className='photo-comments'>
                 <h4>Comments</h4>
-                <AddCommentForm photo={photos[0]}/>
+                {sessionUser && <AddCommentForm photo={photos[0]}/>}
                 {photoComments?.map(comment=>{
                     return(
                     <div className='comment'>
@@ -73,7 +73,7 @@ function PhotoDetail() {
                     {users?.map(user =>{
                         if(comment?.user_id == user?.id){
                             return (
-                                <p>{user.username}</p>
+                                <p key={user?.id}>{user?.username}</p>
                             )
                         }
                     })}

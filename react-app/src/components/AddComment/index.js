@@ -17,6 +17,7 @@ function AddCommentForm({photo}){
       comment,
     }
     dispatch(postCommentThunk(photo.id,newComment))
+    .then(()=>setComment(""))
   }
 
   return (

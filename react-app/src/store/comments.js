@@ -18,14 +18,14 @@ const deleteComment = (comment) => ({
 })
 
 export const postCommentThunk = (photoId, comment) => async (dispatch) => {
-  console.log('ENTER POST THUNK')
+  //console.log('ENTER POST THUNK')
   const response = await fetch(`/api/photos/${photoId}/comment`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(comment)
   })
 
-  console.log('response for comment is',response)
+  //console.log('response for comment is',response)
   if (response.ok) {
     const newComment = await response.json();
     dispatch(postComment(newComment));
@@ -35,14 +35,14 @@ export const postCommentThunk = (photoId, comment) => async (dispatch) => {
 }
 
 export const deleteCommentThunk = (comment) => async (dispatch) => {
-  //console.log('COMMENT SHOULD ENTER DELETE')
+  console.log('COMMENT SHOULD ENTER DELETE')
   const response = await fetch(`/api/comments/${comment.id}`, {
     method: 'DELETE'
   })
-  //console.log('GIVE DELETE RESPONSE,' ,response)
+  console.log('GIVE DELETE RESPONSE,' ,response)
   if (response.ok) {
     const deletedComment = await response.json();
-    dispatch(deleteComment(deletedComment));
+    await dispatch(deleteComment(deletedComment));
   }
 }
 
@@ -54,7 +54,6 @@ export const getOnePhotoCommentsThunk = (photoId) => async (dispatch) => {
     dispatch(getAllComments(photo.comments));
     return photo;
   }
-  return response;
 }
 
 const commentsReducer = (state = {}, action) => {
