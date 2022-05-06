@@ -1,8 +1,9 @@
 from lib2to3.pgen2 import pgen
 from flask import Blueprint, jsonify, render_template,redirect, request, session
-from app.models import db, Photo, User, Comment
+from app.models import db, Photo, User, Comment, Tag
 from app.forms.new_photo_form import NewPhotoForm,EditPhotoForm
 from app.forms.new_comment_form import NewCommentForm
+from app.forms.add_tag_to_photo_form import AddTagToPhotoForm
 from flask_login import current_user
 from app.api.auth_routes import validation_errors_to_error_messages
 from flask_login import current_user, login_user, logout_user, login_required
@@ -154,3 +155,39 @@ def delete_photo(id):
     db.session.delete(photo)
     db.session.commit()
     return photo.to_dict()
+
+@photo_routes.route('/<int:id>/add_tag', methods=["GET", "POST"])
+@login_required
+def add_tag_to_photo(id):
+  photo = Photo.query.get(id)
+  form = AddTagToPhotoForm()
+
+  form['csrf_token'].data = request.cookies['csrf_token']
+
+  print("BEFORE IF STATEMENT", form.data)
+
+  if form.validate_on_submit():
+    tag = Tag.query.get(form.data["tag_id"])
+    print("INSIDE IF STATEMENT", tag)
+    photo.tags.append(tag)
+    db.session.add(photo)
+    db.session.commit()
+    return photo.to_dict()
+
+  return {"errors": validation_errors_to_error_messages(form.errors)}
+
+@photo_routes.route('/<int:id>/remove_tag', methods=["PUT"])
+@login_required
+def remove_tag_from_photo(id):
+  photo = Photo.query.get(id)
+  form = AddTagToPhotoForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+
+  if form.validate_on_submit():
+    tag = Tag.query.get(form.data["tag_id"])
+    photo.tags.remove(tag)
+    db.session.add(photo)
+    db.session.commit()
+    return photo.to_dict()
+
+  return {"errors": validation_errors_to_error_messages(form.errors)}
