@@ -3,7 +3,7 @@ const GET_ALBUM = 'albums/GET_ALBUM';
 const ADD_ALBUM = 'albums/ADD_ALBUM';
 const UPDATE_ALBUM = 'albums/UPDATE_ALBUM';
 const DELETE_ALBUM = 'albums/DELETE_ALBUM'
-
+const ADD_PHOTO = 'albums/ADD_PHOTO'
 
 const getAlbums = albums => ({
   type: GET_ALL_ALBUMS,
@@ -29,11 +29,26 @@ const deleteAlbum = (id) => ({
   payload: id
 
 })
-// const addPhotoToAlbum = (id) => ({
-//   type: ADD_PHOTO
-// })
+const addPhotoToAlbum = (photos) => ({
+  type: ADD_PHOTO,
+  payload: photos
+})
 
-// const getPhotosInAlbums()
+export const addPhotoAlbum = (id, photo_id) => async (dispatch) => {
+
+  const res = await fetch(`/api/albums/${id}/add_photo`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      photo_id
+    })
+  })
+  if (res.ok) {
+    const photos = await res.json()
+    console.log(photos)
+    dispatch(addPhotoToAlbum(photos))
+  }
+}
 
 
 
@@ -135,6 +150,11 @@ export default function albumReducer(state = {}, action) {
       // console.log("---------->>>>>>>> after ", newState)
       delete newState[action.payload]
       return newState
+    case ADD_PHOTO:
+      newState = { ...state }
+      newState[action.payload.id] = action.payload
+
+      return newState;
 
     default:
       return state;
