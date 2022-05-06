@@ -91,7 +91,7 @@ export const updatePhotoThunk = (photo) => async (dispatch) => {
 }
 
 export const deletePhotoThunk = (photo) => async (dispatch) => {
-  console.log("ENTER DELETE THUNK")
+  //console.log("ENTER DELETE THUNK")
   const response = await fetch(`/api/photos/${photo.id}`, {
     method: 'DELETE',
   })
@@ -128,9 +128,9 @@ const photosReducer =  (state = initialState, action) => {
       return newState;
     case DELETE_PHOTO:
       newState = { ...state };
-      console.log('NEW STATE OF DELETE PHOTO IS', newState)
+      //console.log('NEW STATE OF DELETE PHOTO IS', newState)
       delete newState[action.payload.id];
-      console.log('AFTER DELETE SHOULD BE.',newState )
+      //console.log('AFTER DELETE SHOULD BE.',newState )
       return newState;
     default:
       return state;

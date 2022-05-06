@@ -49,15 +49,15 @@ export const deleteCommentThunk = (comment) => async (dispatch) => {
 }
 
 export const getOnePhotoCommentsThunk = (photoId) => async (dispatch) => {
-  console.log('enter load comments')
+  //console.log('enter load comments')
   const response = await fetch(`/api/photos/${photoId}`)
-  console.log('response load',response)
+  //console.log('response load',response)
 
   if (response.ok) {
     const photo = await response.json();
     dispatch(getAllComments(photo.comments));
-    console.log('photo comments', photo)
-    console.log(' comments res thunk', response)
+    //console.log('photo comments', photo)
+    //console.log(' comments res thunk', response)
     return response;
   }
 }
@@ -67,7 +67,7 @@ const commentsReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_COMMENTS:
       newState = { ...state };
-      console.log('load comments',newState)
+      //console.log('load comments',newState)
       //console.log('====================================',action,action.payload)
       action.payload.forEach(comment => newState[comment.id] = comment);
       //newState[action.payload.id] = action.payload;
