@@ -36,9 +36,11 @@ function AlbumDetails() {
         <div id="album-photos-div">
           <dl id="album-dl">
             {photos?.map(photo => (
-              <dt key={photo?.id}>
-                <img src={photo?.photo_url} alt={photo.title} className="album-images" />
-              </dt>
+              <>
+                <NavLink key={photo.id} to={`/photos/${photo.id}`} ><dt >
+                  <img src={photo?.photo_url} alt={photo.title} className="album-images" />
+                </dt> </NavLink>
+              </>
             ))}
           </dl>
         </div>

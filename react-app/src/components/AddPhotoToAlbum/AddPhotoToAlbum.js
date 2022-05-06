@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, NavLink } from 'react-router-dom';
 import { addPhotoAlbum } from '../../store/albums'
 import { getAllPhotosThunk } from "../../store/photos"
 
@@ -26,7 +26,7 @@ export default function AddPhotoToAlbum({ id, setShowModal }) {
             <dl>
                 {photos.map(photo => (
                     <>
-                        <dt key={photo.id}>
+                        <dt key={photo.id} >
                             <button onClick={() => setSelectedPhoto(photo.id)} style={{ background: `url(${photo.photo_url})`, height: "100px", width: "100px", backgroundSize: "100px 100px" }} />
                         </dt>
 
