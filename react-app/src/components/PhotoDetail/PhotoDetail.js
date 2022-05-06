@@ -8,6 +8,8 @@ import DeletePhotoModal from '../DeletePhotoModal';
 import DeleteCommentModal from '../DeleteCommentModal';
 import AddCommentForm from '../AddComment';
 import './PhotoDetail.css'
+import { getAllTags} from '../../store/tags'
+import {addTagToPhoto} from '../../store/photos'
 
 function PhotoDetail() {
     const photo_id = useParams();
@@ -16,10 +18,8 @@ function PhotoDetail() {
     const sessionUser = useSelector(state => state.session.user);
     const photos = useSelector(state => Object.values(state.photos))
     const photoComments = useSelector(state => Object.values(state.comments))
-    //console.log(photoComments)
+    const tags = useSelector(state => Object.values(state.tags))
 
-    //let comments = photoComments[0];
-    
 
     const owner = users?.filter(user =>{
         //console.log(user)
@@ -29,7 +29,9 @@ function PhotoDetail() {
             return
     });
 
-    //console.log(owner)
+
+
+    console.log('photos ---- ',photos)
 
     useEffect(async () => {
         dispatch(getOnePhotoThunk(photo_id.photo_id))
@@ -37,7 +39,9 @@ function PhotoDetail() {
         const response = await fetch('/api/users/');
         const responseData = await response.json();
         setUsers(responseData.users);
+        dispatch(getAllTags())
     }, [dispatch,photo_id])
+
     //console.log('users',users)
     return (
         <div className='photo-detail'>
@@ -60,7 +64,17 @@ function PhotoDetail() {
                         <DeletePhotoModal photo={photos[0]}/>
                     </div>
                     }
+                <div>
+                    <label>
+                        tags
+                    </label>
+                    <select>
+                        {tags.map(tag => (<option value={tag.tag_name} key={tag.id} onClick={() => dispatch(addTagToPhoto(photo_id, tag.id))} >
+                            {tag.tag_name}
+                        </option>))}
+                    </select>
 
+                </div>
             </div>
 
             <div className='photo-comments'>
