@@ -12,6 +12,7 @@ import { authenticate } from './store/session';
 import AlbumDetails from './components/AlbumDetails/AlbumDetails';
 import PhotoDetail from './components/PhotoDetail/PhotoDetail';
 import DisplayAlbums from './components/DisplayAlbums/DisplayAlbums';
+import DeadEnd from './components/404Page/DeadEnd';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -58,6 +59,9 @@ function App() {
         </Route>
         <Route path='/albums/:album_id' exact={true}>
           <AlbumDetails />
+        </Route>
+        <Route>
+          <DeadEnd/>
         </Route>
       </Switch>
     </BrowserRouter>
