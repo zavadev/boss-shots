@@ -9,6 +9,7 @@
 #album-photos-div {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   border: 2px solid red;
 }
 
@@ -18,8 +19,8 @@
   margin: 10px;
 }
 
-#album-dl{
+#album-dl {
   display: flex;
-  justify-content: space-between;
-  flex-direction: row;
+
+  flex-wrap: wrap;
 }

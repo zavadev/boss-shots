@@ -159,8 +159,10 @@ def delete_photo(id):
 @photo_routes.route('/<int:id>/add_tag', methods=["GET", "POST"])
 @login_required
 def add_tag_to_photo(id):
+  print("ENTERED API ROUTE")
   photo = Photo.query.get(id)
   form = AddTagToPhotoForm()
+  print("PRINTING FORM ===>>>>", form)
 
   form['csrf_token'].data = request.cookies['csrf_token']
 

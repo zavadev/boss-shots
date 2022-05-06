@@ -45,7 +45,7 @@ export const addPhotoAlbum = (id, photo_id) => async (dispatch) => {
   })
   if (res.ok) {
     const photos = await res.json()
-    console.log(photos)
+    //console.log(photos)
     dispatch(addPhotoToAlbum(photos))
   }
 }
@@ -95,7 +95,7 @@ export const updateSingleAlbum = (title, albumId) => async (dispatch) => {
 
   if (res.ok) {
     const data = await res.json()
-    console.log("=====>>>>>>>in the fetch for updete", data)
+    //console.log("=====>>>>>>>in the fetch for updete", data)
     dispatch(updatedAlbum(data))
     return data
   }

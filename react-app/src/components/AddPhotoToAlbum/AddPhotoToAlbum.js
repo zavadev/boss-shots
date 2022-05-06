@@ -12,7 +12,7 @@ export default function AddPhotoToAlbum({ id, setShowModal }) {
     const [selectedPhoto, setSelectedPhoto] = useState("")
     const photos = useSelector(state => Object.values(state.photos))
     // const albums = Object.values(state.albums)
-    console.log(selectedPhoto)
+    //console.log(selectedPhoto)
     useEffect(() => {
         dispatch(getAllPhotosThunk())
 

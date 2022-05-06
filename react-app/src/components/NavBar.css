@@ -1,0 +1,14 @@
+.navbar {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    list-style-type: none;
+    background-color: #414a4c;
+    padding: 15px;
+}
+
+.navLink {
+    color: #fff;
+    text-decoration: none;
+}

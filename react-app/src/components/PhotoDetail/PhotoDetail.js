@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, NavLink } from 'react-router-dom';
 import { getOnePhotoThunk } from '../../store/photos';
 import { getOnePhotoCommentsThunk } from '../../store/comments';
 import EditPhotoModal from '../EditPhotoModal';
@@ -8,6 +8,8 @@ import DeletePhotoModal from '../DeletePhotoModal';
 import DeleteCommentModal from '../DeleteCommentModal';
 import AddCommentForm from '../AddComment';
 import './PhotoDetail.css'
+import { getAllTags} from '../../store/tags'
+import {addTagToPhoto} from '../../store/photos'
 
 function PhotoDetail() {
     const photo_id = useParams();
@@ -15,21 +17,32 @@ function PhotoDetail() {
     const [users, setUsers] = useState([]);
     const sessionUser = useSelector(state => state.session.user);
     const photos = useSelector(state => Object.values(state.photos))
-    const photoComments = useSelector(state => Object.values(state.comments))
-    //console.log(photoComments)
+    const tags = useSelector(state => Object.values(state.tags))
 
-    //let comments = photoComments[0];
-    
+    const comments = useSelector(state => Object.values(state.comments))
+
+    let mainPhoto = photos?.filter(photo =>{
+      if(photo?.id === parseInt( photo_id?.photo_id)){
+        return photo;
+      }
+    });
+
+    const my_tags = mainPhoto[0]?.tags
+
+    let photoComments = comments?.filter(comment =>{
+
+        if(comment?.photo_id === mainPhoto[0]?.id){
+            return comment;
+        }
+    });
 
     const owner = users?.filter(user =>{
-        //console.log(user)
-            if(photos[0]?.user_id === user?.id){
+            if(mainPhoto[0]?.user_id === user?.id){
                 return user;
             }
             return
     });
 
-    //console.log(owner)
 
     useEffect(async () => {
         dispatch(getOnePhotoThunk(photo_id.photo_id))
@@ -37,35 +50,49 @@ function PhotoDetail() {
         const response = await fetch('/api/users/');
         const responseData = await response.json();
         setUsers(responseData.users);
+        dispatch(getAllTags())
     }, [dispatch,photo_id])
-    //console.log('users',users)
+
     return (
         <div className='photo-detail'>
             <div className='photo-post'>
-                <h1>{photos[0]?.title}</h1>
-                <img src={photos[0]?.photo_url} alt={photos[0]?.title}/>
+                <h1>{mainPhoto[0]?.title}</h1>
+                <img src={mainPhoto[0]?.photo_url} alt={mainPhoto[0]?.title}/>
                 {users?.map(user =>{
-                    //console.log(user)
-                        if(photos[0]?.user_id == user?.id){
+                        if(mainPhoto[0]?.user_id == user?.id){
                             return (
                                 <p key={user?.id}>Posted By: {user.username}</p>
                             )
                         }
                     })
                     }
-                    <p key={photos[0]?.id}>{photos[0]?.description}</p>
+                    <p key={mainPhoto[0]?.id}>{mainPhoto[0]?.description}</p>
                     {sessionUser && sessionUser.id === owner[0]?.id &&
                     <div id="edit-delete">
-                        <EditPhotoModal photo={photos[0]}/>
-                        <DeletePhotoModal photo={photos[0]}/>
+                        <EditPhotoModal photo={mainPhoto[0]}/>
+                        <DeletePhotoModal photo={mainPhoto[0]}/>
                     </div>
                     }
-
+                <div>
+                    <label>
+                        Add a Tag
+                    </label>
+                    <select onChange={(e) => dispatch(addTagToPhoto(photo_id.photo_id, +e.target.value))}>
+                        {tags?.map(tag => (<option value={tag?.id} key={tag?.id} >
+                            {tag?.tag_name}
+                        </option>))}
+                    </select>
+                </div>
+                <div>
+                  {my_tags?.map(tag => (
+                    <NavLink to={'/home'} key={tag.id}>{tag.tag_name}</NavLink>
+                  ))}
+                </div>
             </div>
 
             <div className='photo-comments'>
                 <h4>Comments</h4>
-                {sessionUser && <AddCommentForm photo={photos[0]}/>}
+                {sessionUser && <AddCommentForm photo={mainPhoto[0]}/>}
                 {photoComments?.map(comment=>{
                     return(
                     <div className='comment'>
