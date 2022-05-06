@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
   'photos': photosReducer,
   'comments': commentsReducer,
   albums: albumReducer,
-  tags: tagReducer
+  'tags': tagReducer,
 });
 
 

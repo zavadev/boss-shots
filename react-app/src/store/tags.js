@@ -1,5 +1,6 @@
-const GET_ALL_TAGS = 'albums/GET_ALL_TAGS';
-const ADD_TAG = 'albums/ADD_TAG';
+const GET_ALL_TAGS = 'tags/GET_ALL_TAGS';
+const ADD_TAG = 'tags/ADD_TAG';
+
 
 
 const getTags = (tags) => ({
@@ -16,7 +17,7 @@ export const getAllTags = () => async (dispatch) => {
     const res = await fetch(`/api/tags/all`)
     if (res.ok) {
         const data = await res.json()
-
+        console.log('DATA in fetch =========', data);
         dispatch(getTags(data.tags))
     }
 
@@ -39,16 +40,20 @@ export const addNewTag = (tag_name) => async (dispatch) => {
 
 export default function tagReducer(state = {}, action) {
     let newState;
+    console.log(action, 'action in tagreducer ==========');
+
     switch (action.type) {
         case GET_ALL_TAGS:
             newState = { ...state }
+            console.log('---->>>>> NEWSTATE', newState);
             action.payload.forEach(tag => newState[tag.id] = tag)
-            return { ...newState, ...state }
+            console.log('----------<<<<<<', newState);
+            return { ...newState }
         case ADD_TAG:
             newState = { ...state }
             newState[action.payload.id] = action.payload
             return { ...newState, ...state }
-        default: ;
+        default:
             return state;
     }
 }

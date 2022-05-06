@@ -3,6 +3,7 @@ const POST_PHOTO = 'photos/POST_PHOTO'
 const GET_ONE_PHOTO = 'photos/GET_ONE_PHOTO'
 const UPDATE_PHOTO = 'photos/UPDATE_PHOTO'
 const DELETE_PHOTO = 'photos/DELETE_PHOTO'
+const ADD_TAG = 'photos/ADD_TAG'
 
 const getAllPhotos = (photos) => ({
   type: GET_PHOTOS,
@@ -26,6 +27,11 @@ const updatePhoto = (photo) => ({
 
 const deletePhoto = (photo) => ({
   type: DELETE_PHOTO,
+  payload: photo
+})
+
+const addTag = (photo) => ({
+  type: ADD_TAG,
   payload: photo
 })
 
@@ -91,7 +97,7 @@ export const updatePhotoThunk = (photo) => async (dispatch) => {
 }
 
 export const deletePhotoThunk = (photo) => async (dispatch) => {
-  console.log("ENTER DELETE THUNK")
+  //console.log("ENTER DELETE THUNK")
   const response = await fetch(`/api/photos/${photo.id}`, {
     method: 'DELETE',
   })
@@ -104,6 +110,18 @@ export const deletePhotoThunk = (photo) => async (dispatch) => {
   return response;
 }
 
+export const addTagToPhoto = (photo_id, tag_id) => async (dispatch) => {
+  console.log("===>>>>>", tag_id)
+  const response = await fetch(`/api/photos/${photo_id}/add_tag`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({tag_id})
+  })
+  if (response.ok) {
+    const addedTag = await response.json();
+    dispatch(addTag(addedTag))
+  }
+}
 
 const initialState = {};
 
@@ -128,9 +146,13 @@ const photosReducer =  (state = initialState, action) => {
       return newState;
     case DELETE_PHOTO:
       newState = { ...state };
-      console.log('NEW STATE OF DELETE PHOTO IS', newState)
+      //console.log('NEW STATE OF DELETE PHOTO IS', newState)
       delete newState[action.payload.id];
-      console.log('AFTER DELETE SHOULD BE.',newState )
+      //console.log('AFTER DELETE SHOULD BE.',newState )
+      return newState;
+    case ADD_TAG:
+      newState = {...state}
+      newState[action.payload.id] = action.payload
       return newState;
     default:
       return state;
