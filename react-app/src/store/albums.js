@@ -152,8 +152,8 @@ export default function albumReducer(state = {}, action) {
       return newState
     case ADD_PHOTO:
       newState = { ...state }
-      // newState = { [action.payload.id]: action.payload }
-      console.log("in addd photos tp albm ===========>>>", action.payload)
+      newState[action.payload.id] = action.payload
+
       return newState;
 
     default:

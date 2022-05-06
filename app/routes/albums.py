@@ -77,7 +77,7 @@ def add_photo_to_album(id):
     db.session.add(album)
     db.session.commit()
 
-    return album.photos_to_dict()
+    return album.to_dict()
 
 
   return {"errors": validation_errors_to_error_messages(form.errors)}
