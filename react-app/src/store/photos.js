@@ -111,10 +111,11 @@ export const deletePhotoThunk = (photo) => async (dispatch) => {
 }
 
 export const addTagToPhoto = (photo_id, tag_id) => async (dispatch) => {
+  console.log("===>>>>>", tag_id)
   const response = await fetch(`/api/photos/${photo_id}/add_tag`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(tag_id)
+    body: JSON.stringify({tag_id})
   })
   if (response.ok) {
     const addedTag = await response.json();

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, NavLink } from 'react-router-dom';
 import { getOnePhotoThunk } from '../../store/photos';
 import { getOnePhotoCommentsThunk } from '../../store/comments';
 import EditPhotoModal from '../EditPhotoModal';
@@ -19,19 +19,15 @@ function PhotoDetail() {
     const photos = useSelector(state => Object.values(state.photos))
     const photoComments = useSelector(state => Object.values(state.comments))
     const tags = useSelector(state => Object.values(state.tags))
-
+    const my_tags = photos[0]?.tags
 
     const owner = users?.filter(user =>{
-        //console.log(user)
             if(photos[0]?.user_id === user?.id){
                 return user;
             }
             return
     });
 
-
-
-    console.log('photos ---- ',photos)
 
     useEffect(async () => {
         dispatch(getOnePhotoThunk(photo_id.photo_id))
@@ -42,14 +38,12 @@ function PhotoDetail() {
         dispatch(getAllTags())
     }, [dispatch,photo_id])
 
-    //console.log('users',users)
     return (
         <div className='photo-detail'>
             <div className='photo-post'>
                 <h1>{photos[0]?.title}</h1>
                 <img src={photos[0]?.photo_url} alt={photos[0]?.title}/>
                 {users?.map(user =>{
-                    //console.log(user)
                         if(photos[0]?.user_id == user?.id){
                             return (
                                 <p key={user?.id}>Posted By: {user.username}</p>
@@ -66,14 +60,18 @@ function PhotoDetail() {
                     }
                 <div>
                     <label>
-                        tags
+                        Add a Tag
                     </label>
-                    <select>
-                        {tags.map(tag => (<option value={tag.tag_name} key={tag.id} onClick={() => dispatch(addTagToPhoto(photo_id, tag.id))} >
+                    <select onChange={(e) => dispatch(addTagToPhoto(photo_id.photo_id, +e.target.value))}>
+                        {tags?.map(tag => (<option value={tag.id} key={tag.id} >
                             {tag.tag_name}
                         </option>))}
                     </select>
-
+                </div>
+                <div>
+                  {my_tags?.map(tag => (
+                    <NavLink to={'/home'} key={tag.id}>{tag.tag_name}</NavLink>
+                  ))}
                 </div>
             </div>
 
