@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, NavLink } from 'react-router-dom';
 import { addPhotoAlbum } from '../../store/albums'
 import { getAllPhotosThunk } from "../../store/photos"
+import './AddPhotoToAlbum.css'
 
 export default function AddPhotoToAlbum({ id, setShowModal }) {
     const dispatch = useDispatch()
@@ -22,8 +23,8 @@ export default function AddPhotoToAlbum({ id, setShowModal }) {
 
     return (
         <>
-            <p>Test</p>
-            <dl>
+            <p>Choose a photo</p>
+            <dl className="choosePhoto">
                 {photos.map(photo => (
                     <>
                         <dt key={photo.id} >

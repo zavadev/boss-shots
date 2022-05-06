@@ -5,7 +5,7 @@ from app.models.album import Album
 from app.forms.add_album_form import AlbumForm
 from app.forms.add_photo_to_album_form import AddPhotoToAlbumForm
 from app.models.photo import Photo
-from flask_login import current_user
+from flask_login import current_user, login_required
 from app.api.auth_routes import validation_errors_to_error_messages
 
 
@@ -65,6 +65,7 @@ def delete_album(id):
   return {"SUCESS": "DELETED"}
 
 @albums_router.route("/<int:id>/add_photo", methods=["GET", "POST"])
+@login_required
 def add_photo_to_album(id):
   album = Album.query.get(id)
   form = AddPhotoToAlbumForm()
