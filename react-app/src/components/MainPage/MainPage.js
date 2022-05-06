@@ -37,9 +37,10 @@ function MainPage() {
       <div className="photo-feed">
         <ul className="feed-ul">
           {photos?.map(photo => (
-            <li key={photo.id}>
+            <NavLink key={photo.id} to={`/photos/${photo.id}`}> <li >
               <img src={photo.photo_url} className="photo-source" alt={photo.title} />
             </li>
+            </NavLink>
           ))}
         </ul>
       </div>

@@ -19,7 +19,7 @@ function PhotoDetail() {
     //console.log(photoComments)
 
     //let comments = photoComments[0];
-
+    
 
     const owner = users?.filter(user =>{
         //console.log(user)
