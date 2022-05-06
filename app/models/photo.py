@@ -23,5 +23,6 @@ class Photo(db.Model):
             'user_id': self.user_id,
             'photo_url': self.photo_url,
             'title' : self.title,
-            'description' : self.description
+            'description' : self.description,
+            'tags': [ tag.to_dict() for tag in self.tags ]
         }
