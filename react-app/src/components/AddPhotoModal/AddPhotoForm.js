@@ -18,7 +18,7 @@ function AddPhotoForm({setShowModal}){
       image,
       description
     }
-    console.log("====>>>>>>", newPhoto);
+    //console.log("====>>>>>>", newPhoto);
     dispatch(postPhotoThunk(newPhoto))
       .then((() => {
         setTitle("")

@@ -17,12 +17,27 @@ function PhotoDetail() {
     const [users, setUsers] = useState([]);
     const sessionUser = useSelector(state => state.session.user);
     const photos = useSelector(state => Object.values(state.photos))
-    const photoComments = useSelector(state => Object.values(state.comments))
     const tags = useSelector(state => Object.values(state.tags))
-    const my_tags = photos[0]?.tags
+
+    const comments = useSelector(state => Object.values(state.comments))
+
+    let mainPhoto = photos?.filter(photo =>{
+      if(photo?.id === parseInt( photo_id?.photo_id)){
+        return photo;
+      }
+    });
+
+    const my_tags = mainPhoto[0]?.tags
+
+    let photoComments = comments?.filter(comment =>{
+
+        if(comment?.photo_id === mainPhoto[0]?.id){
+            return comment;
+        }
+    });
 
     const owner = users?.filter(user =>{
-            if(photos[0]?.user_id === user?.id){
+            if(mainPhoto[0]?.user_id === user?.id){
                 return user;
             }
             return
@@ -41,21 +56,21 @@ function PhotoDetail() {
     return (
         <div className='photo-detail'>
             <div className='photo-post'>
-                <h1>{photos[0]?.title}</h1>
-                <img src={photos[0]?.photo_url} alt={photos[0]?.title}/>
+                <h1>{mainPhoto[0]?.title}</h1>
+                <img src={mainPhoto[0]?.photo_url} alt={mainPhoto[0]?.title}/>
                 {users?.map(user =>{
-                        if(photos[0]?.user_id == user?.id){
+                        if(mainPhoto[0]?.user_id == user?.id){
                             return (
                                 <p key={user?.id}>Posted By: {user.username}</p>
                             )
                         }
                     })
                     }
-                    <p key={photos[0]?.id}>{photos[0]?.description}</p>
+                    <p key={mainPhoto[0]?.id}>{mainPhoto[0]?.description}</p>
                     {sessionUser && sessionUser.id === owner[0]?.id &&
                     <div id="edit-delete">
-                        <EditPhotoModal photo={photos[0]}/>
-                        <DeletePhotoModal photo={photos[0]}/>
+                        <EditPhotoModal photo={mainPhoto[0]}/>
+                        <DeletePhotoModal photo={mainPhoto[0]}/>
                     </div>
                     }
                 <div>
@@ -63,8 +78,8 @@ function PhotoDetail() {
                         Add a Tag
                     </label>
                     <select onChange={(e) => dispatch(addTagToPhoto(photo_id.photo_id, +e.target.value))}>
-                        {tags?.map(tag => (<option value={tag.id} key={tag.id} >
-                            {tag.tag_name}
+                        {tags?.map(tag => (<option value={tag?.id} key={tag?.id} >
+                            {tag?.tag_name}
                         </option>))}
                     </select>
                 </div>
@@ -77,7 +92,7 @@ function PhotoDetail() {
 
             <div className='photo-comments'>
                 <h4>Comments</h4>
-                {sessionUser && <AddCommentForm photo={photos[0]}/>}
+                {sessionUser && <AddCommentForm photo={mainPhoto[0]}/>}
                 {photoComments?.map(comment=>{
                     return(
                     <div className='comment'>
