@@ -1,3 +1,6 @@
+# LiveLink
+https://boss-shots.herokuapp.com/login
+
 # Flask React Project
 
 This is the starter for the Flask React project.
@@ -49,19 +52,19 @@ This is the starter for the Flask React project.
 
 ### Dev Containers (Option for M1 Users)
 
-1. Make sure you have the [Microsoft Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension installed. 
-2. Make sure you have [Docker](https://www.docker.com/products/docker-desktop/) installed on your computer. 
+1. Make sure you have the [Microsoft Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension installed.
+2. Make sure you have [Docker](https://www.docker.com/products/docker-desktop/) installed on your computer.
 3. Clone the repository (only this branch)
    ```bash
    git clone https://github.com/appacademy-starters/python-project-starter.git
    ```
-4. Open the repo in VS Code. 
-5. Click "Open in Container" when VS Code prompts to open container in the bottom right hand corner. 
+4. Open the repo in VS Code.
+5. Click "Open in Container" when VS Code prompts to open container in the bottom right hand corner.
 6. **Be Patient!** The initial install will take a LONG time, it's building a container that has postgres preconfigured and even installing all your project dependencies. (For both flask and react!)
 
    **Note:** This will take much less time on future starts because everything will be cached.
 
-7. Once everything is up, be sure to make a `.env` file based on `.env.example` in both the root directory and the *react-app* directory before running your app. 
+7. Once everything is up, be sure to make a `.env` file based on `.env.example` in both the root directory and the *react-app* directory before running your app.
 
 8. Get into your pipenv, migrate your database, seed your database, and run your flask app
 
@@ -86,7 +89,7 @@ This is the starter for the Flask React project.
 <br>
 
 ## Deploy to Heroku
-This repo comes configured with Github Actions. When you push to your main branch, Github will automatically pull your code, package and push it to Heroku, and then release the new image and run db migrations. 
+This repo comes configured with Github Actions. When you push to your main branch, Github will automatically pull your code, package and push it to Heroku, and then release the new image and run db migrations.
 
 1. Before you deploy, don't forget to run the following command in order to
 ensure that your production environment has all of your up-to-date
