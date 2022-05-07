@@ -10,7 +10,7 @@ import AddCommentForm from '../AddComment';
 import './PhotoDetail.css'
 import { getAllTags} from '../../store/tags'
 import {addTagToPhoto, removeTagFromPhoto} from '../../store/photos'
-
+import DeadEnd from '../404Page/DeadEnd';
 
 function PhotoDetail() {
     const photo_id = useParams();
@@ -52,7 +52,13 @@ function PhotoDetail() {
         const responseData = await response.json();
         setUsers(responseData.users);
         dispatch(getAllTags())
-    }, [dispatch,photo_id])
+    }, [dispatch,photo_id]);
+
+    if(!mainPhoto[0]){
+        return (
+            <DeadEnd/>
+        )
+    }
 
     return (
         <div className='photo-detail'>
