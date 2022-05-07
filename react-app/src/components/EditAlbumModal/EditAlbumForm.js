@@ -17,7 +17,7 @@ export default function EditAlbumForm({ album, setShowModal }) {
     return (
         <form onSubmit={onSubmit}>
             <label> Title </label>
-            <input type="text" onChange={e => setTitle(e.target.value)} value={title} required></input>
+            <input type="text" onChange={e => setTitle(e.target.value)} value={title}></input>
             <button>Submit</button>
         </form>
 
