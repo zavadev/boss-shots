@@ -6,6 +6,7 @@ import EditAlbumModal from '../EditAlbumModal';
 import DeleteAlbumModal from '../DeleteAlbumModal';
 import AddPhotoToAlbumModal from "../AddPhotoToAlbum"
 import './AlbumDetails.css';
+import DeadEnd from '../404Page/DeadEnd';
 
 function AlbumDetails() {
   const dispatch = useDispatch();
@@ -17,6 +18,11 @@ function AlbumDetails() {
     dispatch(getSingleAlbum(album_id))
   }, [dispatch])
 
+  if(!album){
+    return(
+      <DeadEnd/>
+    )
+  }
 
   return (
     <>

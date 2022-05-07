@@ -64,6 +64,7 @@ def delete_album(id):
   db.session.commit()
   return {"SUCESS": "DELETED"}
 
+#ADD A PHOTO TO AN ALBUM
 @albums_router.route("/<int:id>/add_photo", methods=["GET", "POST"])
 def add_photo_to_album(id):
   album = Album.query.get(id)
@@ -78,7 +79,6 @@ def add_photo_to_album(id):
     db.session.commit()
 
     return album.to_dict()
-
 
   return {"errors": validation_errors_to_error_messages(form.errors)}
 

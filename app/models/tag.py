@@ -9,8 +9,16 @@ class Tag(db.Model):
 
   photos = db.relationship("Photo", back_populates="tags", secondary=tagged_photos)
 
+  def photosToDict(self):
+    result = {
+      "id": self.id,
+      "tag_name": self.tag_name,
+      "photos": [photo.to_dict() for photo in self.photos]
+    }
+    return result
+
   def to_dict(self):
     return {
       "id": self.id,
-      "tag_name": self.tag_name
+      "tag_name": self.tag_name,
     }

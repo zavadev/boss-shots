@@ -9,7 +9,8 @@ import DeleteCommentModal from '../DeleteCommentModal';
 import AddCommentForm from '../AddComment';
 import './PhotoDetail.css'
 import { getAllTags} from '../../store/tags'
-import {addTagToPhoto} from '../../store/photos'
+import {addTagToPhoto, removeTagFromPhoto} from '../../store/photos'
+import DeadEnd from '../404Page/DeadEnd';
 
 function PhotoDetail() {
     const photo_id = useParams();
@@ -22,9 +23,9 @@ function PhotoDetail() {
     const comments = useSelector(state => Object.values(state.comments))
 
     let mainPhoto = photos?.filter(photo =>{
-      if(photo?.id === parseInt( photo_id?.photo_id)){
-        return photo;
-      }
+        if(photo?.id === parseInt( photo_id?.photo_id)){
+            return photo;
+        }
     });
 
     const my_tags = mainPhoto[0]?.tags
@@ -51,7 +52,13 @@ function PhotoDetail() {
         const responseData = await response.json();
         setUsers(responseData.users);
         dispatch(getAllTags())
-    }, [dispatch,photo_id])
+    }, [dispatch,photo_id]);
+
+    if(!mainPhoto[0]){
+        return (
+            <DeadEnd/>
+        )
+    }
 
     return (
         <div className='photo-detail'>
@@ -74,19 +81,20 @@ function PhotoDetail() {
                     </div>
                     }
                 <div>
-                    <label>
-                        Add a Tag
-                    </label>
                     <select onChange={(e) => dispatch(addTagToPhoto(photo_id.photo_id, +e.target.value))}>
+                        <option value="none" selected disabled>Add a tag</option>
                         {tags?.map(tag => (<option value={tag?.id} key={tag?.id} >
                             {tag?.tag_name}
                         </option>))}
                     </select>
                 </div>
                 <div>
-                  {my_tags?.map(tag => (
-                    <NavLink to={'/home'} key={tag.id}>{tag.tag_name}</NavLink>
-                  ))}
+                    {my_tags?.map(tag => (
+                        <>
+                            <NavLink to={'/'} key={tag.id}>{tag.tag_name}</NavLink>
+                            <button onClick={() => dispatch(removeTagFromPhoto(photo_id.photo_id, tag.id))}>RemoveTag</button>
+                        </>
+                    ))}
                 </div>
             </div>
 
