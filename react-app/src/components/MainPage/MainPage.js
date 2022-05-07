@@ -14,7 +14,7 @@ function MainPage() {
   // const state = useSelector(state => state)
   const albums = useSelector(state => Object.values(state.albums))
   const photos = useSelector(state => Object.values(state.photos))
-
+  const user = useSelector(state => state.session?.user);
 
   // const albums = Object.values(state.albums)
   useEffect(() => {
@@ -31,9 +31,9 @@ function MainPage() {
 
   return (
     <>
-      <div className="add-photo-div">
+      {user && <div className="add-photo-div">
         <AddPhotoModal />
-      </div>
+      </div>}
       <div className="photo-feed">
         <ul className="feed-ul">
           {photos?.map(photo => (

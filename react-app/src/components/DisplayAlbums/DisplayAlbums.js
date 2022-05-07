@@ -22,7 +22,7 @@ export default function DisplayAlbums({ albums }) {
     return (
         <div>
             <h3>My Albums</h3>
-            <AddAlbumModal></AddAlbumModal>
+            {userId && <AddAlbumModal />}
 
             <ul className="albumClass">
                 {myAlbums?.map(album => (
