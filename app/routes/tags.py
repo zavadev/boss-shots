@@ -1,7 +1,9 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, request
 from app.models.db import db
 from app.models.tag import Tag
 from app.forms.create_tag_form import CreateTagForm
+from flask_login import current_user,login_required
+
 from app.api.auth_routes import validation_errors_to_error_messages
 
 tags_router = Blueprint("tags", __name__)
@@ -14,6 +16,7 @@ def all_tags():
 
 # POST (CREATE) new Tag
 @tags_router.route("/create_tag", methods=["GET", "POST"])
+@login_required
 def create_tag():
   form = CreateTagForm()
   form['csrf_token'].data = request.cookies['csrf_token']

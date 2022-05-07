@@ -5,7 +5,7 @@ from app.models.album import Album
 from app.forms.add_album_form import AlbumForm
 from app.forms.add_photo_to_album_form import AddPhotoToAlbumForm
 from app.models.photo import Photo
-from flask_login import current_user
+from flask_login import current_user,login_required
 from app.api.auth_routes import validation_errors_to_error_messages
 
 
@@ -20,6 +20,7 @@ def all_albums():
 
 # POST new Album
 @albums_router.route("/add_album", methods=["POST"])
+@login_required
 def add_album():
   user_id = current_user.id
   form = AlbumForm()
@@ -45,6 +46,7 @@ def single_album(id):
 
 # UPDATE Album
 @albums_router.route("/<int:id>/edit", methods=["PUT", "GET"])
+@login_required
 def update_album(id):
   album = Album.query.get(id)
   form = AlbumForm()
@@ -58,6 +60,7 @@ def update_album(id):
 
 #DELETE an Album
 @albums_router.route("/<int:id>", methods=["DELETE"])
+@login_required
 def delete_album(id):
   album = Album.query.get(id)
   db.session.delete(album)
@@ -66,6 +69,7 @@ def delete_album(id):
 
 #ADD A PHOTO TO AN ALBUM
 @albums_router.route("/<int:id>/add_photo", methods=["GET", "POST"])
+@login_required
 def add_photo_to_album(id):
   album = Album.query.get(id)
   form = AddPhotoToAlbumForm()
