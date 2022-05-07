@@ -104,6 +104,10 @@ export const updateSingleAlbum = (title, albumId) => async (dispatch) => {
     const data = await res.json()
     //console.log("=====>>>>>>>in the fetch for updete", data)
     dispatch(updatedAlbum(data))
+    //return data
+  }else if (res.status < 500) {
+    const data = await res.json();
+    //console.log('ERROR BASED',data)
     return data
   }
   return res

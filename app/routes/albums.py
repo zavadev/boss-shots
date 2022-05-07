@@ -54,7 +54,7 @@ def update_album(id):
     db.session.commit()
     return album.to_dict()
 
-  return render_template("test.html", form=form)
+  return {"errors": validation_errors_to_error_messages(form.errors)},401
 
 #DELETE an Album
 @albums_router.route("/<int:id>", methods=["DELETE"])

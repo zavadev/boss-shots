@@ -104,7 +104,10 @@ export const updatePhotoThunk = (photo) => async (dispatch) => {
   if (response.ok) {
     const updatedPhoto = await response.json();
     dispatch(updatePhoto(updatedPhoto));
-    return updatedPhoto;
+  }else if (response.status < 500) {
+    const data = await response.json();
+    //console.log('ERROR BASED',data)
+    return data
   }
   return response;
 }

@@ -143,7 +143,7 @@ def update_photo(id):
         print('PHOTO SUBMIT', photo.to_dict())
         db.session.commit()
         return photo.to_dict()
-    return {"errors": validation_errors_to_error_messages(form.errors)}
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 
 # Delete specific photo
