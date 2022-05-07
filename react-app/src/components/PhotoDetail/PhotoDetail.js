@@ -80,14 +80,14 @@ function PhotoDetail() {
                         <DeletePhotoModal photo={mainPhoto[0]}/>
                     </div>
                     }
-                <div>
+                {sessionUser && <div>
                     <select onChange={(e) => dispatch(addTagToPhoto(photo_id.photo_id, +e.target.value))}>
                         <option value="none" selected disabled>Add a tag</option>
                         {tags?.map(tag => (<option value={tag?.id} key={tag?.id} >
                             {tag?.tag_name}
                         </option>))}
                     </select>
-                </div>
+                </div>}
                 <div>
                     {my_tags?.map(tag => (
                         <>
