@@ -19,7 +19,7 @@ def all_albums():
   return { "albums": [album.to_dict() for album in results] }
 
 # POST new Album
-@albums_router.route("/add_album", methods=["GET", "POST"])
+@albums_router.route("/add_album", methods=["POST"])
 def add_album():
   user_id = current_user.id
   form = AlbumForm()

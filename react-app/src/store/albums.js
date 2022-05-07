@@ -82,12 +82,13 @@ export const addSingleAlbum = (title, user_id) => async (dispatch) => {
     const data = await res.json()
     dispatch(addAlbum(data))
     console.log('res backend ok',data)
-    return data
+    //return data
   } else if (res.status < 500) {
     const data = await res.json();
     //console.log('ERROR BASED',data)
     return data
   }
+  return res;
 }
 
 export const updateSingleAlbum = (title, albumId) => async (dispatch) => {
@@ -159,7 +160,6 @@ export default function albumReducer(state = {}, action) {
     case ADD_PHOTO:
       newState = { ...state }
       newState[action.payload.id] = action.payload
-
       return newState;
 
     default:

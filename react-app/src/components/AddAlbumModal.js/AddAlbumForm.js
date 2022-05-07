@@ -13,15 +13,15 @@ function AddAlbumForm({ setShowModal }) {
         e.preventDefault();
         await dispatch(addSingleAlbum(title, user_id))
         .then((res)=>{
-            console.log('REES',res)
+            console.log(res,"rest p")
             if(!res?.ok){
-                console.log('REES',res)
               setErrors(res?.errors)
-            }else if(res.title){
-                console.log('REES',res)
-                setShowModal(false)
+            }else{
+              setErrors([])
+              setShowModal(false)
             }
           })
+          .then(()=>{setTitle("");})
 
     }
 
