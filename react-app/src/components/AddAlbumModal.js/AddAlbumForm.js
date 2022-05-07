@@ -13,7 +13,7 @@ function AddAlbumForm({ setShowModal }) {
         e.preventDefault();
         await dispatch(addSingleAlbum(title, user_id))
         .then((res)=>{
-            console.log(res,"rest p")
+            //console.log(res,"rest p")
             if(!res?.ok){
               setErrors(res?.errors)
             }else{

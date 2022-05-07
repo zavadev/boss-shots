@@ -80,6 +80,7 @@ export const postPhotoThunk = (photo) => async (dispatch) => {
     //   return data.errors;
     // }
   }
+  return response;
 }
 
 export const getOnePhotoThunk = (photoId) => async (dispatch) => {
