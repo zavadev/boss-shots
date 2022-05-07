@@ -1,0 +1,6 @@
+.choosePhoto {
+    display: flex;
+    flex-wrap: wrap;
+    width: 200px;
+    height: 400px;
+}

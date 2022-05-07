@@ -1,15 +1,17 @@
 .photo-feed {
-  border: 2px solid blue;
+
   display: flex;
+  flex-wrap: wrap;
+  border: 2px solid blue;
   justify-content: center;
 }
 
 .feed-ul {
   display: flex;
-  justify-content: space-between;
-  align-items: space-between;
-  flex-direction: row;
+
+  flex-wrap: wrap;
   list-style-type: none;
+  padding-right: 40px;
 }
 
 .photo-source {
@@ -25,4 +27,3 @@
   align-items: center;
   flex-direction: column;
 }
-
