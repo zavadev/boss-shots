@@ -12,6 +12,7 @@ import { authenticate } from './store/session';
 import AlbumDetails from './components/AlbumDetails/AlbumDetails';
 import PhotoDetail from './components/PhotoDetail/PhotoDetail';
 import DisplayAlbums from './components/DisplayAlbums/DisplayAlbums';
+import AllTaggedPhotos from './components/AllTaggedPhotos/AllTaggedPhotos'
 
 function App() {
   const [loaded, setLoaded] = useState(false);

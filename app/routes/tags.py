@@ -28,6 +28,7 @@ def create_tag():
 
   return {"errors": validation_errors_to_error_messages(form.errors)}
 
+#GET single Tag
 @tags_router.route('/<int:id>/photos', methods=["GET"])
 def tags_photos(id):
   tag = Tag.query.get(id)
