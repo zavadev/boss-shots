@@ -43,11 +43,14 @@ export const addNewTag = (tag_name) => async (dispatch) => {
 }
 
 export const getAllTaggedPhotos = (id) => async (dispatch) => {
-    const res = await fetch(`/api/tags/${id}/photos`)
-    if (res.ok) {
-        const data = await res.json()
-        dispatch(getTaggedPhotos(data))
-    }
+  console.log("====>>>>>> ENTERING GET ALL TAGGED PHOTOS THUNK >>>>>><<======")
+  const res = await fetch(`/api/tags/${id}/photos`)
+  if (res.ok) {
+    const data = await res.json()
+    console.log("====>>>>>>", data)
+    dispatch(getTaggedPhotos(data))
+    console.log("====>>>>>> THUNK RETURN >>>>>><<======", data)
+  }
 }
 
 export default function tagReducer(state = {}, action) {

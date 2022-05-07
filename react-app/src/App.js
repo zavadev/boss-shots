@@ -61,6 +61,9 @@ function App() {
         <Route path='/albums/:album_id' exact={true}>
           <AlbumDetails />
         </Route>
+        <Route path='/tags/:tag_id/photos' exact={true}>
+          <AllTaggedPhotos />
+        </Route>
         <Route>
           <DeadEnd/>
         </Route>
