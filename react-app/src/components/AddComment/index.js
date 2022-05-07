@@ -20,9 +20,11 @@ function AddCommentForm({photo}){
     .then((res)=>{
       if(!res?.ok){
         setErrors(res?.errors)
+      }else{
+        setErrors([])
       }
     })
-    .then(()=>setComment(""))
+    .then(()=>{setComment("");})
   }
 
   return (

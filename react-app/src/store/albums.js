@@ -77,10 +77,16 @@ export const addSingleAlbum = (title, user_id) => async (dispatch) => {
       user_id
     }),
   })
-
+  console.log('backend',res)
   if (res.ok) {
     const data = await res.json()
     dispatch(addAlbum(data))
+    console.log('res backend ok',data)
+    return data
+  } else if (res.status < 500) {
+    const data = await res.json();
+    //console.log('ERROR BASED',data)
+    return data
   }
 }
 

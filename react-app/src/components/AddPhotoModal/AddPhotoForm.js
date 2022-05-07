@@ -33,10 +33,11 @@ function AddPhotoForm({ setShowModal }) {
     //console.log("====>>>>>>", newPhoto);
     await dispatch(postPhotoThunk(newPhoto))
     .then((res)=>{
-      if(res?.ok){
-        setShowModal(false)
-      }else{
+      console.log('REES',res)
+      if(!res?.ok){
         setErrors(res?.errors)
+      }else{
+          setShowModal(false)
       }
     })
     // .catch(res => {

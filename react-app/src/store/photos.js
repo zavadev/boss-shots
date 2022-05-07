@@ -76,11 +76,10 @@ export const postPhotoThunk = (photo) => async (dispatch) => {
     const data = await response.json();
     //console.log('ERROR BASED',data)
     return data
-    if (data.errors) {
-      return data.errors;
-    }
+    // if (data.errors) {
+    //   return data.errors;
+    // }
   }
-  return response;
 }
 
 export const getOnePhotoThunk = (photoId) => async (dispatch) => {

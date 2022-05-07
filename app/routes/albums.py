@@ -35,7 +35,7 @@ def add_album():
     db.session.commit()
     return  new_album.to_dict()
 
-  return render_template("test.html", form=form)
+  return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 # GET single Album by id
 @albums_router.route("<int:id>")
