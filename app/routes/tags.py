@@ -27,3 +27,8 @@ def create_tag():
     return new_tag.to_dict()
 
   return {"errors": validation_errors_to_error_messages(form.errors)}
+
+@tags_router.route('/<int:id>/photos', methods=["GET"])
+def tags_photos(id):
+  tag = Tag.query.get(id)
+  return tag.photosToDict()

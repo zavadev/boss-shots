@@ -9,7 +9,8 @@ import DeleteCommentModal from '../DeleteCommentModal';
 import AddCommentForm from '../AddComment';
 import './PhotoDetail.css'
 import { getAllTags} from '../../store/tags'
-import {addTagToPhoto} from '../../store/photos'
+import {addTagToPhoto, removeTagFromPhoto} from '../../store/photos'
+
 
 function PhotoDetail() {
     const photo_id = useParams();
@@ -22,9 +23,9 @@ function PhotoDetail() {
     const comments = useSelector(state => Object.values(state.comments))
 
     let mainPhoto = photos?.filter(photo =>{
-      if(photo?.id === parseInt( photo_id?.photo_id)){
-        return photo;
-      }
+        if(photo?.id === parseInt( photo_id?.photo_id)){
+            return photo;
+        }
     });
 
     const my_tags = mainPhoto[0]?.tags
@@ -74,19 +75,20 @@ function PhotoDetail() {
                     </div>
                     }
                 <div>
-                    <label>
-                        Add a Tag
-                    </label>
                     <select onChange={(e) => dispatch(addTagToPhoto(photo_id.photo_id, +e.target.value))}>
+                        <option value="none" selected disabled>Add a tag</option>
                         {tags?.map(tag => (<option value={tag?.id} key={tag?.id} >
                             {tag?.tag_name}
                         </option>))}
                     </select>
                 </div>
                 <div>
-                  {my_tags?.map(tag => (
-                    <NavLink to={'/home'} key={tag.id}>{tag.tag_name}</NavLink>
-                  ))}
+                    {my_tags?.map(tag => (
+                        <>
+                            <NavLink to={'/'} key={tag.id}>{tag.tag_name}</NavLink>
+                            <button onClick={() => dispatch(removeTagFromPhoto(photo_id.photo_id, tag.id))}>RemoveTag</button>
+                        </>
+                    ))}
                 </div>
             </div>
 
