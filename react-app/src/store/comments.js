@@ -30,7 +30,14 @@ export const postCommentThunk = (photoId, comment) => async (dispatch) => {
   if (response.ok) {
     const newComment = await response.json();
     dispatch(postComment(newComment));
-    return newComment;
+    //return newComment;
+  }else if (response.status < 500) {
+    const data = await response.json();
+    //console.log('ERROR BASED',data)
+    return data
+    if (data.errors) {
+      return data.errors;
+    }
   }
   return response;
 }
