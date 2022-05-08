@@ -1,18 +1,38 @@
 .albumClass {
-    display: flex;
-    flex-wrap: wrap;
-    padding-left: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 16px;
 }
 
 .albumLi {
   font-family: cursive;
   font-size: 10px;
   list-style: "none";
+  text-decoration: none;
+
 }
 
-.my-albums-div {
+.nav-link-album {
+  text-decoration: none;
+}
+
+.albumLi:hover {
+  box-shadow: #f2f3f4 1px 2px 9px 0px;
+
+}
+
+.album-my-album-div {
+
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
+  align-self: center;
   justify-content: center;
-  flex-direction: column;
+}
+
+.div-for-button-add-album {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  margin: 10px;
+
 }

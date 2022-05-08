@@ -35,16 +35,8 @@ const NavBar = () => {
             Users
           </NavLink>
         </li>
-        <li>
-          <NavLink className="navLink" to='/allAlbums' exact={true} activeClassName='active'>
-            All Albums
-          </NavLink>
-        </li>
-        <li>
-          <NavLink className="navLink" to='/test' exact={true} activeClassName='active'>
-            Test
-          </NavLink>
-        </li>
+
+
         {sessionUser &&
           <li>
             <LogoutButton />

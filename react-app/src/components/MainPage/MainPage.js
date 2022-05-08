@@ -22,22 +22,22 @@ function MainPage() {
 
   return (
     <>
-      {user_id && <div className="add-photo-div">
-        <AddPhotoModal />
-      </div>}
+
       <div id="main-page-container">
         <div className="photo-feed">
           <ul className="feed-ul">
             {photos?.map(photo => (
-              <NavLink key={photo.id} to={`/photos/${photo.id}`}> <li >
+              <NavLink key={photo.id} to={`/photos/${photo.id}`} className="photo-display-main"> <li >
                 <img src={photo.photo_url} className="photo-source" alt={photo.title} />
               </li>
               </NavLink>
             ))}
           </ul>
-      </div>
+        </div>
         <div id="user-photos-div">
+
           <UserPhotos photos={photos} />
+
         </div>
         <div id="my-albums-div">
           <DisplayAlbums albums={albums} />
@@ -48,3 +48,7 @@ function MainPage() {
 }
 
 export default MainPage;
+
+// {user_id && <div className="add-photo-div">
+// <AddPhotoModal />
+// </div>}

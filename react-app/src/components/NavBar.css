@@ -4,9 +4,14 @@
     flex-direction: row;
     justify-content: space-between;
     list-style-type: none;
-    background-color: #414a4c;
+
     padding: 15px;
+    background: linear-gradient(0deg, #000, #272727);
+    box-shadow: rgba(200, 194, 194, 0.865) 0px 2px 8px 0px;
 }
+
+
+
 
 .navLink {
     color: #fff;
