@@ -9,14 +9,17 @@
   font-weight: bold;
   font-size: 1.2em;
 }
-/*
-#submit-button {
-  margin-right: 10px;
-  background-image: none;
-  background-color: red;
-  color: white;
+
+#delete-photo-btn-div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#delete-button{
-  margin-left: 10px;
-} */
+#submit-btn-div{
+  margin-right: 5px;
+}
+#no-photo-btn{
+  margin-left: 5px;
+  margin-bottom: 3px;
+}
