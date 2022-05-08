@@ -86,7 +86,7 @@ const SignUpForm = () => {
           required={true}
         ></input>
       </div>
-      <button type='submit'>Sign Up</button>
+      <button className="btn-rnb" type='submit'>Sign Up</button>
     </form>
   );
 };

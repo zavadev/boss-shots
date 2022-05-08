@@ -8,7 +8,7 @@ function AddAlbumModal() {
 
     return (
         <>
-            <button id="add-photo-btn" onClick={() => setShowModal(true)}>Add Album</button>
+            <button className="btn-rnb" id="add-album-btn" onClick={() => setShowModal(true)}>Add Album</button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
                     <AddAlbumForm setShowModal={setShowModal} />

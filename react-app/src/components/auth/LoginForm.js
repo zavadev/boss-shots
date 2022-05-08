@@ -56,7 +56,7 @@ const LoginForm = () => {
           value={password}
           onChange={updatePassword}
         />
-        <button type='submit'>Login</button>
+        <button className="btn-rnb" type='submit'>Login</button>
       </div>
     </form>
   );

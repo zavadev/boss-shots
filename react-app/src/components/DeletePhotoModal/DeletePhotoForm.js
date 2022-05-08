@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { deletePhotoThunk } from "../../store/photos.js"
 
-function DeletePhotoForm({setShowModal,photo}){
+function DeletePhotoForm({ setShowModal, photo }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const user_id = useSelector(state => state.session.user.id);
@@ -12,12 +12,12 @@ function DeletePhotoForm({setShowModal,photo}){
       <form id="delete-photo-form">
         <p>Are you sure you want to delete?</p>
         <div id="submit-btn-div">
-          <button id="submit-button"  onClick={() => {
+          <button id="submit-button" onClick={() => {
             dispatch(deletePhotoThunk(photo))
             history.push(`/home`)
           }
-            }>Yes</button>
-            <button onClick={()=>setShowModal(false)}>No</button>
+          }>Yes</button>
+          <button className="btn-rnb" onClick={() => setShowModal(false)}>No</button>
         </div>
       </form>
     </>

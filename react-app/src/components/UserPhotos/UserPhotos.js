@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllPhotosThunk } from '../../store/photos';
+import AddPhotoModal from '../AddPhotoModal'
 import './UserPhotos.css'
 
-function UserPhotos({photos}) {
+function UserPhotos({ photos }) {
   const dispatch = useDispatch()
 
   const user_id = useSelector(state => state.session?.user?.id);
-  const filteredPhotos = photos?.filter(photo => photo?.user_id === user_id )
+  const filteredPhotos = photos?.filter(photo => photo?.user_id === user_id)
 
 
   useEffect(() => {
@@ -17,17 +18,21 @@ function UserPhotos({photos}) {
   return (
     <>
       <div id="user-photos-title">
-        My Photos
+        <h3>My Photos </h3>
+
+        {user_id && <div className="add-photo-div">
+          <div><AddPhotoModal /></div>
+
+        </div>}
+
       </div>
-      <div>
-        <ul id="my-photos-ul">
-          { filteredPhotos?.map(photo => (
-            <li key={photo?.id}>
-              <img src={photo?.photo_url} className="my-filtered-photos" alt={photo.title}/>
-            </li>
-          )) }
-        </ul>
-      </div>
+      <dl id="my-photos-ul">
+        {filteredPhotos?.map(photo => (
+          <dt key={photo?.id}>
+            <img src={photo?.photo_url} className="my-filtered-photos" alt={photo.title} />
+          </dt>
+        ))}
+      </dl>
     </>
   )
 }

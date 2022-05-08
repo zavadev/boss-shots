@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
 import EditPhotoForm from './EditPhotoForm';
 
-function EditPhotoModal({photo}) {
+function EditPhotoModal({ photo }) {
   const [showModal, setShowModal] = useState(false);
 
   return (
     <>
-      <button id="edit-photo-btn" onClick={() => setShowModal(true)}>Edit Photo</button>
+      <button className="btn-rnb" id="edit-photo-btn" onClick={() => setShowModal(true)}>Edit Photo</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <EditPhotoForm setShowModal={setShowModal} photo={photo}/>
+          <EditPhotoForm setShowModal={setShowModal} photo={photo} />
         </Modal>
       )}
     </>

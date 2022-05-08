@@ -27,7 +27,7 @@ export default function DeleteAlbumForm({ id, setShowModal, album }) {
             <form onSubmit={onSubmit} action="/home">
                 <h2> {album?.title}</h2>
                 <h3>Are you sure you want to delete this album?</h3>
-                <button>Submit</button>
+                <button className="btn-rnb" >Submit</button>
             </form>
         </>
     )

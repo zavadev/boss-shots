@@ -67,11 +67,18 @@ export const postPhotoThunk = (photo) => async (dispatch) => {
     method: 'POST',
     body: formData
   })
-
+  //console.log('res',response)
   if (response.ok) {
     const newPhoto = await response.json();
     dispatch(postPhoto(newPhoto));
-    // return newPhoto;
+    //return newPhoto;
+  }else if (response.status < 500) {
+    const data = await response.json();
+    //console.log('ERROR BASED',data)
+    return data
+    // if (data.errors) {
+    //   return data.errors;
+    // }
   }
   return response;
 }
@@ -97,7 +104,10 @@ export const updatePhotoThunk = (photo) => async (dispatch) => {
   if (response.ok) {
     const updatedPhoto = await response.json();
     dispatch(updatePhoto(updatedPhoto));
-    return updatedPhoto;
+  }else if (response.status < 500) {
+    const data = await response.json();
+    //console.log('ERROR BASED',data)
+    return data
   }
   return response;
 }

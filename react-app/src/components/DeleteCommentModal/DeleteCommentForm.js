@@ -16,7 +16,7 @@ function DeleteCommentForm({setShowModal,comment}){
       <form id="delete-photo-form" onSubmit={onSubmit}>
         <p>Are you sure you want to delete?</p>
         <div id="submit-btn-div">
-          <button id="submit-button"  onClick={async () => {
+          <button className="btn-rnb" id="submit-button"  onClick={async () => {
             dispatch(deleteCommentThunk(comment))
             // history.push('/home')
           }

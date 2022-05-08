@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, NavLink } from 'react-router-dom';
 import { addPhotoAlbum } from '../../store/albums'
 import { getAllPhotosThunk } from "../../store/photos"
+import './AddPhotoToAlbum.css'
 
 export default function AddPhotoToAlbum({ id, setShowModal }) {
     const dispatch = useDispatch()
@@ -22,12 +23,12 @@ export default function AddPhotoToAlbum({ id, setShowModal }) {
 
     return (
         <>
-            <p>Test</p>
-            <dl>
+            <p>Choose a photo</p>
+            <dl className="choosePhoto">
                 {photos.map(photo => (
                     <>
                         <dt key={photo.id} >
-                            <button onClick={() => setSelectedPhoto(photo.id)} style={{ background: `url(${photo.photo_url})`, height: "100px", width: "100px", backgroundSize: "100px 100px" }} />
+                            <button className="btn-choose-photo" onClick={() => setSelectedPhoto(photo.id)} style={{ background: `url(${photo.photo_url})`, height: "100px", width: "100px", backgroundSize: "100px 100px" }} />
                         </dt>
 
                     </>

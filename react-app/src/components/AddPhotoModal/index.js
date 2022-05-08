@@ -8,10 +8,10 @@ function AddPhotoModal() {
 
   return (
     <>
-      <button id="add-photo-btn" onClick={() => setShowModal(true)}>Add Photo</button>
+      <button className="btn-rnb" id="add-photo-btn" onClick={() => setShowModal(true)}>Add Photo</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <AddPhotoForm setShowModal={setShowModal}/>
+          <AddPhotoForm setShowModal={setShowModal} />
         </Modal>
       )}
     </>

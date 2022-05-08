@@ -40,6 +40,7 @@ def create_photo():
         image = request.files["image"]
 
         if not allowed_file(image.filename):
+            print('not allowed')
             return {"errors": "file type not permitted"}, 400
 
         image.filename = get_unique_filename(image.filename)
@@ -75,7 +76,7 @@ def create_photo():
         db.session.commit()
         return new_photo.to_dict()
 
-    return {"errors": validation_errors_to_error_messages(form.errors)}
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 # Get one photo
 # GET /photos/:photoId
@@ -112,7 +113,7 @@ def add_comment(id):
         db.session.add(new_comment)
         db.session.commit()
         return new_comment.to_dict()
-    return {"errors": validation_errors_to_error_messages(form.errors)}
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 # Update specific photo
 # PUT /photos/:photoId
@@ -142,7 +143,7 @@ def update_photo(id):
         print('PHOTO SUBMIT', photo.to_dict())
         db.session.commit()
         return photo.to_dict()
-    return {"errors": validation_errors_to_error_messages(form.errors)}
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 
 # Delete specific photo
@@ -192,4 +193,4 @@ def remove_tag_from_photo(id):
     db.session.commit()
     return photo.to_dict()
 
-  return {"errors": validation_errors_to_error_messages(form.errors)}
+  return {"errors": validation_errors_to_error_messages(form.errors)},401

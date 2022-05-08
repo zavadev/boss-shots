@@ -1,13 +1,32 @@
 #my-photos-ul {
   display: flex;
-  justify-content: space-between;
-  align-items: space-between;
-  flex-direction: row;
   list-style-type: none;
+  flex-wrap: wrap;
+  margin: none;
+  padding-left: 16px;
 }
 
 .my-filtered-photos {
-  max-width: 100px;
-  max-height: 100px;
-  margin: 10px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin: 3px;
+  border-radius: 4px;
+}
+
+.my-filtered-photos:hover {
+  box-shadow: #f2f3f4 1px 2px 9px 0px;
+}
+
+#user-photos-title {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+
+.add-photo-div {
+  margin-left: 10px;
+  display: flex;
+  justify-content: center;
+  align-self: center
 }

@@ -18,9 +18,9 @@ function AlbumDetails() {
     dispatch(getSingleAlbum(album_id))
   }, [dispatch])
 
-  if(!album){
-    return(
-      <DeadEnd/>
+  if (!album) {
+    return (
+      <DeadEnd />
     )
   }
 
@@ -30,14 +30,16 @@ function AlbumDetails() {
         <div id="album-details-title">
           <h3>{album?.title}</h3>
         </div>
-        <div>
-          <EditAlbumModal album={album} />
-        </div>
-        <div>
-          <DeleteAlbumModal album={album} id={album_id} />
-        </div>
-        <div>
-          <AddPhotoToAlbumModal id={album_id}></AddPhotoToAlbumModal>
+        <div className="album-details-buttons">
+          <div className="buttons-for-album-album" >
+            <EditAlbumModal album={album} />
+          </div>
+          <div className="album-details-buttons">
+            <DeleteAlbumModal album={album} id={album_id} />
+          </div>
+          <div className="album-details-buttons">
+            <AddPhotoToAlbumModal id={album_id}></AddPhotoToAlbumModal>
+          </div>
         </div>
         <div id="album-photos-div">
           <dl id="album-dl">

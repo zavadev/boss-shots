@@ -5,7 +5,7 @@ from app.models.album import Album
 from app.forms.add_album_form import AlbumForm
 from app.forms.add_photo_to_album_form import AddPhotoToAlbumForm
 from app.models.photo import Photo
-from flask_login import current_user
+from flask_login import current_user, login_required
 from app.api.auth_routes import validation_errors_to_error_messages
 
 
@@ -19,7 +19,7 @@ def all_albums():
   return { "albums": [album.to_dict() for album in results] }
 
 # POST new Album
-@albums_router.route("/add_album", methods=["GET", "POST"])
+@albums_router.route("/add_album", methods=["POST"])
 def add_album():
   user_id = current_user.id
   form = AlbumForm()
@@ -35,7 +35,7 @@ def add_album():
     db.session.commit()
     return  new_album.to_dict()
 
-  return render_template("test.html", form=form)
+  return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 # GET single Album by id
 @albums_router.route("<int:id>")
@@ -54,7 +54,7 @@ def update_album(id):
     db.session.commit()
     return album.to_dict()
 
-  return render_template("test.html", form=form)
+  return {"errors": validation_errors_to_error_messages(form.errors)},401
 
 #DELETE an Album
 @albums_router.route("/<int:id>", methods=["DELETE"])
@@ -66,6 +66,7 @@ def delete_album(id):
 
 #ADD A PHOTO TO AN ALBUM
 @albums_router.route("/<int:id>/add_photo", methods=["GET", "POST"])
+@login_required
 def add_photo_to_album(id):
   album = Album.query.get(id)
   form = AddPhotoToAlbumForm()

@@ -1,24 +1,40 @@
-.photo-detail{
+.photo-detail {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
 }
+
 .photo-post {
     text-align: center;
     border-bottom: 1px solid grey;
 }
-.photo-post img{
+
+.photo-post img {
     max-width: 200px;
     max-height: 200px;
 }
 
-.photo-comments{
+.photo-comments {
     border: 1px solid blue;
     padding: 5px;
 }
-.comment{
+
+.comment {
     border: 1px solid red;
     padding: 5px;
+}
+
+.tads-display-nav {
+    text-decoration: none;
+    color: white;
+    margin-left: 10px;
+}
+
+#edit-delete {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 15px;
+
 }
