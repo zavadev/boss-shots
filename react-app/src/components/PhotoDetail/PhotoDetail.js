@@ -72,9 +72,10 @@ function PhotoDetail() {
         })
         if (tag.ok) {
             const data = await tag.json()
-            console.log(data)
+            console.log(".............>>>>>>>>>", data)
             dispatch(addTag(data))
             dispatch(addTagToPhoto(photo_id.photo_id, data.id))
+            setNewTag("")
         }
 
     }
