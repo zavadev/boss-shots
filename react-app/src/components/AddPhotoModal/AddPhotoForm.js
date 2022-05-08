@@ -111,7 +111,7 @@ function AddPhotoForm({ setShowModal }) {
           />
         </label>
         <div id="submit-btn-div">
-          <button id="submit-button" type="submit">Add Photo</button>
+          <button className="btn-rnb" id="submit-button" type="submit">Add Photo</button>
         </div>
       </form>
     </>

@@ -24,3 +24,12 @@
 
   flex-wrap: wrap;
 }
+
+.album-details-buttons {
+  display: flex;
+}
+
+.album-details-buttons {
+  margin-left: 15px;
+  margin-bottom: 20px;
+}

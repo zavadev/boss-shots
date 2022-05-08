@@ -46,7 +46,7 @@ function AddAlbumForm({ setShowModal }) {
         </label>
 
         <div id="submit-btn-div">
-          <button id="submit-button" type="submit">Add Album</button>
+          <button className="btn-rnb" id="submit-button" type="submit">Add Album</button>
         </div>
       </form>
     </>

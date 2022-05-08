@@ -29,7 +29,7 @@ export default function EditAlbumForm({ album, setShowModal }) {
       ))}
       <label> Title </label>
       <input type="text" onChange={e => setTitle(e.target.value)} value={title} ></input>
-      <button>Submit</button>
+      <button className="btn-rnb">Submit</button>
     </form>
 
   )

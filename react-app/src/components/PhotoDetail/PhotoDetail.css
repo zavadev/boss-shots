@@ -29,4 +29,12 @@
 .tads-display-nav {
     text-decoration: none;
     color: white;
+    margin-left: 10px;
+}
+
+#edit-delete {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 15px;
+
 }

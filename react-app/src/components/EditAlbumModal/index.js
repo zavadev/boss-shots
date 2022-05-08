@@ -6,7 +6,7 @@ export default function EditAlbumModal({ album }) {
     const [showModal, setShowModal] = useState(false)
     return (
         <>
-            <button onClick={() => setShowModal(true)}>Update Album</button>
+            <button className="btn-rnb" onClick={() => setShowModal(true)}>Update Album</button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
                     <EditAlbumForm setShowModal={setShowModal} album={album}></EditAlbumForm>
