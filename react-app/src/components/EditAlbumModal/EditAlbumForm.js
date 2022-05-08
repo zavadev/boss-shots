@@ -13,7 +13,7 @@ export default function EditAlbumForm({ album, setShowModal }) {
     e.preventDefault()
     dispatch(updateSingleAlbum(title, album.id))
       .then((res) => {
-        //console.log(res,"rest p")
+    
         if (!res?.ok) {
           setErrors(res?.errors)
         } else {

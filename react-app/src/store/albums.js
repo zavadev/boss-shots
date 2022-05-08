@@ -45,7 +45,7 @@ export const addPhotoAlbum = (id, photo_id) => async (dispatch) => {
   })
   if (res.ok) {
     const photos = await res.json()
-    //console.log(photos)
+
     dispatch(addPhotoToAlbum(photos))
   }
 }
@@ -77,15 +77,15 @@ export const addSingleAlbum = (title, user_id) => async (dispatch) => {
       user_id
     }),
   })
-  console.log('backend',res)
+
   if (res.ok) {
     const data = await res.json()
     dispatch(addAlbum(data))
-    console.log('res backend ok',data)
+
     //return data
   } else if (res.status < 500) {
     const data = await res.json();
-    //console.log('ERROR BASED',data)
+
     return data
   }
   return res;
@@ -102,12 +102,12 @@ export const updateSingleAlbum = (title, albumId) => async (dispatch) => {
 
   if (res.ok) {
     const data = await res.json()
-    //console.log("=====>>>>>>>in the fetch for updete", data)
+
     dispatch(updatedAlbum(data))
     //return data
   }else if (res.status < 500) {
     const data = await res.json();
-    //console.log('ERROR BASED',data)
+
     return data
   }
   return res
@@ -135,10 +135,9 @@ export default function albumReducer(state = {}, action) {
 
     case GET_ALL_ALBUMS:
       newState = { ...state }
-      // console.log("getAllAlb========>>>>", newState)
+
       action.payload.map(album => newState[album.id] = album)
-      // console.log("new state after ======>>>>>>>", newState)
-      // console.log("test", { ...newState, ...state })
+
       return newState
     case GET_ALBUM:
       newState = { ...state }
@@ -156,9 +155,7 @@ export default function albumReducer(state = {}, action) {
       return newState
     case DELETE_ALBUM:
       newState = { ...state }
-      // console.log("---------->>>>>>>>", newState)
-      // newState = Object.values(state).filter(album => album.id != action.payload)
-      // console.log("---------->>>>>>>> after ", newState)
+      
       delete newState[action.payload]
       return newState
     case ADD_PHOTO:

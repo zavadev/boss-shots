@@ -42,12 +42,12 @@ const removeTag = (tag) => ({
 })
 
 export const getAllPhotosThunk = () => async (dispatch) => {
-  // console.log("ENTER")
+
   const response = await fetch('/api/photos/all')
-  // console.log("RESPONSE",response)
+
   if (response.ok) {
     const photos = await response.json();
-    // console.log('json photo',photos.photos)
+
     dispatch(getAllPhotos(photos.photos))
     return response;
   }
@@ -67,14 +67,14 @@ export const postPhotoThunk = (photo) => async (dispatch) => {
     method: 'POST',
     body: formData
   })
-  //console.log('res',response)
+
   if (response.ok) {
     const newPhoto = await response.json();
     dispatch(postPhoto(newPhoto));
     //return newPhoto;
   }else if (response.status < 500) {
     const data = await response.json();
-    //console.log('ERROR BASED',data)
+
     return data
     // if (data.errors) {
     //   return data.errors;
@@ -106,14 +106,14 @@ export const updatePhotoThunk = (photo) => async (dispatch) => {
     dispatch(updatePhoto(updatedPhoto));
   }else if (response.status < 500) {
     const data = await response.json();
-    //console.log('ERROR BASED',data)
+
     return data
   }
   return response;
 }
 
 export const deletePhotoThunk = (photo) => async (dispatch) => {
-  //console.log("ENTER DELETE THUNK")
+
   const response = await fetch(`/api/photos/${photo.id}`, {
     method: 'DELETE',
   })
@@ -127,7 +127,7 @@ export const deletePhotoThunk = (photo) => async (dispatch) => {
 }
 
 export const addTagToPhoto = (photo_id, tag_id) => async (dispatch) => {
-  console.log("===>>>>>", tag_id)
+
   const response = await fetch(`/api/photos/${photo_id}/add_tag`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -140,7 +140,7 @@ export const addTagToPhoto = (photo_id, tag_id) => async (dispatch) => {
 }
 
 export const removeTagFromPhoto = (photo_id, tag_id) => async (dispatch) => {
-  //console.log("ENTER DELETE THUNK")
+
   const response = await fetch(`/api/photos/${photo_id}/remove_tag`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
@@ -164,7 +164,7 @@ const photosReducer =  (state = initialState, action) => {
   switch (action.type) {
     case GET_PHOTOS:
       newState = { ...state }
-      //console.log('====================================',action,action.payload)
+
       action.payload.forEach(photo => newState[photo.id] = photo);
       return {...newState,...state};
     case POST_PHOTO:
@@ -180,9 +180,9 @@ const photosReducer =  (state = initialState, action) => {
       return newState;
     case DELETE_PHOTO:
       newState = { ...state };
-      //console.log('NEW STATE OF DELETE PHOTO IS', newState)
+      
       delete newState[action.payload.id];
-      //console.log('AFTER DELETE SHOULD BE.',newState )
+
       return newState;
     case ADD_TAG:
       newState = {...state}
