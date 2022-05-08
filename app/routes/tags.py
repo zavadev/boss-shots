@@ -24,6 +24,7 @@ def create_tag():
     )
     db.session.add(new_tag)
     db.session.commit()
+    print("in back end =======>", new_tag.to_dict())
     return new_tag.to_dict()
 
   return {"errors": validation_errors_to_error_messages(form.errors)}

@@ -26,7 +26,7 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username'),
-    
+
 
 
     )
@@ -71,7 +71,7 @@ def upgrade():
     )
     op.create_table('tags',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('tag_name',sa.String(),nullable=False),
+    sa.Column('tag_name',sa.String(),nullable=False, unique=True),
     sa.PrimaryKeyConstraint('id'),
     )
     op.create_table('tagged_photos',

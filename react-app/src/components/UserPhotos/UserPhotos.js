@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
+import { NavLink } from 'react-router-dom';
 import { getAllPhotosThunk } from '../../store/photos';
 import AddPhotoModal from '../AddPhotoModal'
 import './UserPhotos.css'
@@ -29,7 +30,7 @@ function UserPhotos({ photos }) {
       <dl id="my-photos-ul">
         {filteredPhotos?.map(photo => (
           <dt key={photo?.id}>
-            <img src={photo?.photo_url} className="my-filtered-photos" alt={photo.title} />
+            <NavLink to={`/photos/${photo.id}`}><img src={photo?.photo_url} className="my-filtered-photos" alt={photo.title} /></NavLink>
           </dt>
         ))}
       </dl>

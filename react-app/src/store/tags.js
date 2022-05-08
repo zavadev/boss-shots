@@ -8,7 +8,7 @@ const getTags = (tags) => ({
     payload: tags
 })
 
-const addTag = (tag) => ({
+export const addTag = (tag) => ({
     type: ADD_TAG,
     payload: tag
 })
@@ -37,20 +37,21 @@ export const addNewTag = (tag_name) => async (dispatch) => {
             })
     })
     if (res.ok) {
-        const data = res.json()
+        const data = await res.json()
+
         dispatch(addTag(data))
     }
 }
 
 export const getAllTaggedPhotos = (id) => async (dispatch) => {
-  console.log("====>>>>>> ENTERING GET ALL TAGGED PHOTOS THUNK >>>>>><<======")
-  const res = await fetch(`/api/tags/${id}/photos`)
-  if (res.ok) {
-    const data = await res.json()
-    console.log("====>>>>>>", data)
-    dispatch(getTaggedPhotos(data))
-    console.log("====>>>>>> THUNK RETURN >>>>>><<======", data)
-  }
+
+    const res = await fetch(`/api/tags/${id}/photos`)
+    if (res.ok) {
+        const data = await res.json()
+
+        dispatch(getTaggedPhotos(data))
+
+    }
 }
 
 export default function tagReducer(state = {}, action) {
@@ -62,7 +63,10 @@ export default function tagReducer(state = {}, action) {
             return { ...newState }
         case ADD_TAG:
             newState = { ...state }
+
             newState[action.payload.id] = action.payload
+
+
             return { ...newState, ...state }
         case GET_TAGGED_PHOTOS:
             newState = { ...state }
