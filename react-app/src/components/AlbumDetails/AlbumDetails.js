@@ -28,7 +28,7 @@ function AlbumDetails() {
     <>
       <div id="album-details-container">
         <div id="album-details-title">
-          <h3>{album?.title}</h3>
+          <div>{album?.title}</div>
         </div>
         <div className="album-details-buttons">
           <div className="buttons-for-album-album" >

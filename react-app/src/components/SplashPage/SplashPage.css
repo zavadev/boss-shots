@@ -1,0 +1,29 @@
+#splash-logo {
+  /* max-width: 600px;
+  height: auto; */
+  margin-bottom: 15px;
+}
+#splash-main-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 50px;
+}
+#splash-slogan{
+  font-size: 2em;
+}
+#splash-slogan-two{
+  font-size: 2em;
+}
+#splash-links-div{
+  margin-top: 15px;
+}
+.splash-links {
+  margin-left: 7px;
+  margin-right: 7px;
+  font-size: 1.3em;
+  font-weight: bold;
+  text-decoration: none;
+  color: red;
+}
