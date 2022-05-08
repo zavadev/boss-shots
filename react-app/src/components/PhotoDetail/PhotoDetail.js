@@ -8,7 +8,7 @@ import DeletePhotoModal from '../DeletePhotoModal';
 import DeleteCommentModal from '../DeleteCommentModal';
 import AddCommentForm from '../AddComment';
 import './PhotoDetail.css'
-import { getAllTags } from '../../store/tags'
+import { getAllTags, addNewTag, addTag } from '../../store/tags'
 import { addTagToPhoto, removeTagFromPhoto } from '../../store/photos'
 import DeadEnd from '../404Page/DeadEnd';
 
@@ -19,6 +19,7 @@ function PhotoDetail() {
     const sessionUser = useSelector(state => state.session.user);
     const photos = useSelector(state => Object.values(state.photos))
     const tags = useSelector(state => Object.values(state.tags))
+    const [newTag, setNewTag] = useState("")
 
     const comments = useSelector(state => Object.values(state.comments))
 
@@ -59,6 +60,25 @@ function PhotoDetail() {
             <DeadEnd />
         )
     }
+    const onSubmit = async (e) => {
+        e.preventDefault()
+        const tag = await fetch(`/api/tags/create_tag`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(
+                {
+                    tag_name: newTag
+                })
+        })
+        if (tag.ok) {
+            const data = await tag.json()
+            console.log(".............>>>>>>>>>", data)
+            dispatch(addTag(data))
+            dispatch(addTagToPhoto(photo_id.photo_id, data.id))
+            setNewTag("")
+        }
+
+    }
 
     return (
         <div className='photo-detail'>
@@ -82,27 +102,38 @@ function PhotoDetail() {
                 }
                 <div>
                     {sessionUser && sessionUser.id === owner[0]?.id &&
-                        <select onChange={(e) => dispatch(addTagToPhoto(photo_id.photo_id, +e.target.value))}>
-                            <option value="none" selected disabled>Add a tag</option>
-                            {tags?.map(tag => (<option value={tag?.id} key={tag?.id} >
-                                {tag?.tag_name}
-                            </option>))}
-                        </select>
+                        <>
+                            <div>
+                                <form method="get" onSubmit={onSubmit}>
+                                    <input type="text" onChange={(e) => setNewTag(e.target.value)} value={newTag} ></input>
+
+                                    <button >add new tag </button>
+                                </form> </div>
+                            <select onChange={(e) => dispatch(addTagToPhoto(photo_id.photo_id, +e.target.value))}>
+                                <option value="none" selected disabled>Select tag</option>
+                                {tags?.map(tag => (<option value={tag?.id} key={tag?.id} >
+                                    {tag?.tag_name}
+                                </option>))}
+                            </select>
+                        </>
                     }
+
                 </div>
                 <div>
                     {my_tags?.map(tag => (
                         <>
-                            <NavLink className="tads-display-nav" to={`/tags/${tag?.id}/photos`} key={tag.id} exact={true}>{tag.tag_name}</NavLink>
-                            {sessionUser && sessionUser.id === owner[0]?.id && <i class="fa-solid fa-minus" onClick={() => dispatch(removeTagFromPhoto(photo_id.photo_id, tag.id))}> </i>}
+                            <NavLink className="tads-display-nav" to={`/tags/${tag?.id}/photos`} key={tag.id} exact={true}>#{tag.tag_name}</NavLink>
+                            {sessionUser && sessionUser.id === owner[0]?.id && <i className="fa-solid fa-minus" onClick={() => dispatch(removeTagFromPhoto(photo_id.photo_id, tag.id))}> </i>}
                         </>
                     ))}
                 </div>
             </div>
 
             <div className='photo-comments'>
-                <h4>Comments</h4>
-                {sessionUser && <AddCommentForm photo={mainPhoto[0]} />}
+                <div id="add-comment-div">
+                    {sessionUser && <AddCommentForm photo={mainPhoto[0]} />}
+                </div>
+                <div id="comments-div-title">Comments</div>
                 {photoComments?.map(comment => {
                     return (
                         <div className='comment'>
@@ -122,7 +153,7 @@ function PhotoDetail() {
                         </div>)
                 })}
             </div>
-        </div>
+        </div >
     )
 }
 

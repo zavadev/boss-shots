@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllPhotosThunk } from '../../store/photos';
 import { getAllAlbums } from '../../store/albums';
-import AddPhotoModal from '../AddPhotoModal'
+
 import UserPhotos from '../UserPhotos/UserPhotos';
 import DisplayAlbums from '../DisplayAlbums/DisplayAlbums';
 import './MainPage.css';
@@ -12,7 +12,7 @@ function MainPage() {
   const dispatch = useDispatch();
   const albums = useSelector(state => Object.values(state.albums))
   const photos = useSelector(state => Object.values(state.photos))
-  const user_id = useSelector(state => state?.session?.user);
+  const sessionUser = useSelector(state => state?.session?.user);
 
   useEffect(() => {
     dispatch(getAllAlbums())
@@ -34,14 +34,18 @@ function MainPage() {
             ))}
           </ul>
         </div>
-        <div id="user-photos-div">
+        {sessionUser && (
+          <>
+            <div id="user-photos-div">
 
-          <UserPhotos photos={photos} />
+              <UserPhotos photos={photos} />
 
-        </div>
-        <div id="my-albums-div">
-          <DisplayAlbums albums={albums} />
-        </div>
+            </div>
+            <div id="my-albums-div">
+              <DisplayAlbums albums={albums} />
+            </div>
+          </>
+        )}
       </div>
     </>
   )

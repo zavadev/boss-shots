@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePhotoThunk } from "../../store/photos.js"
+import './EditPhotoForm.css';
 
 function EditPhotoForm({ setShowModal, photo }) {
   const dispatch = useDispatch();
@@ -46,15 +47,14 @@ function EditPhotoForm({ setShowModal, photo }) {
         ))}
         <div id="edit-photo-title">Edit Photo</div>
         <label id="title-input-label">
-          Title
-          <input
-            id="title-input"
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-
-          />
+          Title:
         </label>
+        <input
+          id="title-input"
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
         {/* <label id="photo-url-label">
           Photo URL
           <input
@@ -64,14 +64,14 @@ function EditPhotoForm({ setShowModal, photo }) {
           />
         </label> */}
         <label id="description-label">
-          Description
-          <input
-            id="description-input"
-            type="text"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
+          Description:
         </label>
+        <textarea
+          id="description-input"
+          type="text"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
         <div id="submit-btn-div">
           <button className="btn-rnb" id="submit-button" type="submit">Edit Photo</button>
         </div>

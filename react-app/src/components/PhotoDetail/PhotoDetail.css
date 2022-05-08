@@ -17,13 +17,18 @@
 }
 
 .photo-comments {
-    border: 1px solid blue;
+    border: 5px solid silver;
+    border-radius: 10px;
     padding: 5px;
 }
 
 .comment {
-    border: 1px solid red;
+    border: 3px solid rgb(23, 106, 240);
+    border-radius: 8px;
     padding: 5px;
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-bottom: 5px;
 }
 
 .tads-display-nav {
@@ -36,5 +41,18 @@
     display: flex;
     justify-content: space-around;
     margin-bottom: 15px;
+}
 
+#add-comment-div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#comments-div-title{
+  margin-top: 12px;
+  margin-bottom: 3px;
+  margin-left: 5px;
+  font-weight: bold;
+  font-size: 1.2em;
 }

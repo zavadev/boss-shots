@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { postCommentThunk } from "../../store/comments"
+import { postCommentThunk } from "../../store/comments";
+import './AddComment.css';
 
 function AddCommentForm({ photo }) {
   const dispatch = useDispatch();
@@ -35,17 +36,15 @@ function AddCommentForm({ photo }) {
             <div key={ind}>{error}</div>
           ))}
         </div>
-        <div id="add-comment-title">Add Comment</div>
         <label id="comment-input-label">
-          Comment:
-          <input
-            id="comment-input"
-            type="text"
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-
-          />
+          Add Comment:
         </label>
+        <textarea
+          id="comment-input"
+          type="text"
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+        />
         <div id="submit-btn-div">
           <button className="btn-rnb" id="submit-button" type="submit">Add Comment</button>
         </div>

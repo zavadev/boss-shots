@@ -1,12 +1,27 @@
 .choosePhoto {
-    display: flex;
-    flex-wrap: wrap;
-    width: 200px;
-    height: 400px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 400px;
+  height: 400px;
+  overflow-y: scroll;
 }
 
-.btn-choose-photo:hover {
-    box-shadow: white 0px 2px;
+/* .btn-choose-photo{
+  margin: 3px;
+} */
 
+.btn-choose-photo:hover {
+  box-shadow: white 0px 2px;
+}
+
+.btn-choose-photo-album {
+  height: 20px;
+  width: 50px;
+
+}
+
+.div-btn-add-photo {
+  display: flex;
+  align-self: flex-end;
 
 }

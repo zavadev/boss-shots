@@ -17,6 +17,12 @@ def all_tags():
 def create_tag():
   form = CreateTagForm()
   form['csrf_token'].data = request.cookies['csrf_token']
+  tags = Tag.query.all()
+  results = {"tag_id": [tag.id for tag in tags if tag.tag_name == form.data["tag_name"]]}
+  print("lenght result ----->",len(results["tag_id"]))
+  if len(results["tag_id"]) > 0:
+    return {"id": results["tag_id"][0]}
+
 
   if form.validate_on_submit():
     new_tag = Tag(
@@ -24,6 +30,7 @@ def create_tag():
     )
     db.session.add(new_tag)
     db.session.commit()
+
     return new_tag.to_dict()
 
   return {"errors": validation_errors_to_error_messages(form.errors)}

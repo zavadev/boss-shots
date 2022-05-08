@@ -1,0 +1,48 @@
+.form-login {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 500px
+}
+
+.email-label {
+    margin-right: 30px;
+}
+
+.password-label {
+    margin-right: 5px
+}
+
+.email-div {
+    margin-bottom: 10px;
+}
+
+.password-div {
+    margin-bottom: 10px;
+}
+
+.btn-demo {
+    margin-left: 20px;
+}
+
+.login-btn {
+    margin-left: 30px;
+}
+
+.rereet-password-label {
+    margin-right: 9px;
+}
+
+.password-label-signup {
+    margin-right: 55px
+}
+
+.email-label-signup {
+    margin-right: 78px;
+}
+
+.username-label {
+    margin-right: 43px;
+}

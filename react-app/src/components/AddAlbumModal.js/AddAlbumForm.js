@@ -34,17 +34,16 @@ function AddAlbumForm({ setShowModal }) {
             <div key={ind}>{error}</div>
           ))}
         </div>
-        <div id="">Add Photo</div>
+        <div id="add-photo-main-title">Add Album</div>
         <label id="">
-          Title
-          <input
-            id="title-input"
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
+          Title:
         </label>
-
+        <input
+          id="title-input"
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
         <div id="submit-btn-div">
           <button className="btn-rnb" id="submit-button" type="submit">Add Album</button>
         </div>

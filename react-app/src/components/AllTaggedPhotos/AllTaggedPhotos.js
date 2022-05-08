@@ -15,13 +15,17 @@ export default function AllTaggedPhotos() {
 
   return (
     <>
-      <div><h1>{tag[tag_id]?.tag_name}</h1></div>
-      <div>
-        <dl>
-          {tag[tag_id]?.photos?.map(photo => (
-            <dt key={photo?.id}><img src={photo?.photo_url} alt={photo?.title} className="tagged-photo"/></dt>
-          ))}
-        </dl>
+      <div id="all-tagged-container">
+        <div id="tagged-photos-title">
+          <div>#{tag[tag_id]?.tag_name}</div>
+        </div>
+        <div id="tagged-photos-div">
+          <dl>
+            {tag[tag_id]?.photos?.map(photo => (
+              <dt key={photo?.id}><img src={photo?.photo_url} alt={photo?.title} className="tagged-photo"/></dt>
+            ))}
+          </dl>
+        </div>
       </div>
     </>
   )

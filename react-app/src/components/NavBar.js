@@ -17,7 +17,7 @@ const NavBar = () => {
           </NavLink>
         </li>
         {!sessionUser &&
-          <div>
+          <div className="login_sign_up_div">
             <li>
               <NavLink className="navLink" to='/login' exact={true} activeClassName='active'>
                 Login
@@ -30,11 +30,7 @@ const NavBar = () => {
             </li>
           </div>
         }
-        <li>
-          <NavLink className="navLink" to='/users' exact={true} activeClassName='active'>
-            Users
-          </NavLink>
-        </li>
+
 
 
         {sessionUser &&

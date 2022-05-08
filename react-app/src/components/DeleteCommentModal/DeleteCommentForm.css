@@ -1,0 +1,25 @@
+#delete-comment-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#delete-comment-title {
+  margin: 10px;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+#dlt-comment-buttons{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+#submit-btn-div{
+  margin-right: 5px;
+}
+#cancel-dlt-comment{
+  margin-left: 5px;
+}

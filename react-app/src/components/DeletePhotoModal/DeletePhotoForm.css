@@ -1,0 +1,24 @@
+#delete-photo-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#delete-title {
+  margin: 10px;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+#delete-photo-btn-div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#submit-btn-div{
+  margin-right: 5px;
+}
+#no-photo-btn{
+  margin-left: 5px;
+}
