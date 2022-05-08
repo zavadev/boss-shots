@@ -23,10 +23,10 @@ function EditPhotoForm({ setShowModal, photo }) {
       image,
       description
     }
-    //console.log("====>>>>>>", newPhoto);
+
     dispatch(updatePhotoThunk(newPhoto))
       .then((res) => {
-        //console.log(res,"rest p")
+       
         if (!res?.ok) {
           setErrors(res?.errors)
         } else {

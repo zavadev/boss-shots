@@ -30,10 +30,10 @@ function AddPhotoForm({ setShowModal }) {
       image,
       description
     }
-    //console.log("====>>>>>>", newPhoto);
+
     await dispatch(postPhotoThunk(newPhoto))
     .then((res)=>{
-      //console.log(res,"rest p")
+
       if(!res?.ok){
         setErrors(res?.errors)
       }else{
@@ -41,32 +41,7 @@ function AddPhotoForm({ setShowModal }) {
         setShowModal(false)
       }
     })
-    // .catch(res => {
-    //   console.log(res,'res')
-    //   if (res.length > 0) {
-    //     setErrors(data);
-    //   }
-    // })
-    // .then(()=>{
-    //     setTitle("")
-    //     setDescription("")
-    //     setImage(null);
-    //     setShowModal(false)
-    //   })
-    // .catch(data => {
-    //   console.log(data,'DATA')
-    //   setErrors(data);
-    // })
-    // .then((() => {
-    //   setTitle("")
-    //   setDescription("")
-    //   setImage(null);
-    // }))
-    // .then((() => setShowModal(false)))
-    // console.log(data)
-    // if (data) {
-    //   setErrors(data);
-    // }
+  
 
   }
   const updateImage = (e) => {
