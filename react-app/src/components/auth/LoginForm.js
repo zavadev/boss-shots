@@ -29,6 +29,12 @@ const LoginForm = () => {
   if (user) {
     return <Redirect to='/home' />;
   }
+  const demoUser = (e) => {
+    e.preventDefault();
+    dispatch(login("demo@aa.io", "password"));
+
+
+  }
 
   return (
     <form onSubmit={onLogin}>
@@ -58,6 +64,7 @@ const LoginForm = () => {
         />
         <button className="btn-rnb" type='submit'>Login</button>
       </div>
+      <button className="btn" onClick={demoUser}>Demo</button>
     </form>
   );
 };

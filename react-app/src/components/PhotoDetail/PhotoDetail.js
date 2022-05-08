@@ -81,18 +81,20 @@ function PhotoDetail() {
                     </div>
                 }
                 <div>
-                    <select onChange={(e) => dispatch(addTagToPhoto(photo_id.photo_id, +e.target.value))}>
-                        <option value="none" selected disabled>Add a tag</option>
-                        {tags?.map(tag => (<option value={tag?.id} key={tag?.id} >
-                            {tag?.tag_name}
-                        </option>))}
-                    </select>
+                    {sessionUser && sessionUser.id === owner[0]?.id &&
+                        <select onChange={(e) => dispatch(addTagToPhoto(photo_id.photo_id, +e.target.value))}>
+                            <option value="none" selected disabled>Add a tag</option>
+                            {tags?.map(tag => (<option value={tag?.id} key={tag?.id} >
+                                {tag?.tag_name}
+                            </option>))}
+                        </select>
+                    }
                 </div>
                 <div>
                     {my_tags?.map(tag => (
                         <>
                             <NavLink className="tads-display-nav" to={`/tags/${tag?.id}/photos`} key={tag.id} exact={true}>{tag.tag_name}</NavLink>
-                            <i class="fa-solid fa-minus" onClick={() => dispatch(removeTagFromPhoto(photo_id.photo_id, tag.id))}> </i>
+                            {sessionUser && sessionUser.id === owner[0]?.id && <i class="fa-solid fa-minus" onClick={() => dispatch(removeTagFromPhoto(photo_id.photo_id, tag.id))}> </i>}
                         </>
                     ))}
                 </div>
