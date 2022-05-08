@@ -12,8 +12,9 @@ import { authenticate } from './store/session';
 import AlbumDetails from './components/AlbumDetails/AlbumDetails';
 import PhotoDetail from './components/PhotoDetail/PhotoDetail';
 import DisplayAlbums from './components/DisplayAlbums/DisplayAlbums';
-import AllTaggedPhotos from './components/AllTaggedPhotos/AllTaggedPhotos'
+import AllTaggedPhotos from './components/AllTaggedPhotos/AllTaggedPhotos';
 import DeadEnd from './components/404Page/DeadEnd';
+import SplashPage from './components/SplashPage/SplashPage';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -53,7 +54,7 @@ function App() {
           <User />
         </ProtectedRoute>
         <ProtectedRoute path='/' exact={true} >
-          <h1>My Home Page</h1>
+          <SplashPage />
         </ProtectedRoute>
         <Route path='/home' exact={true} >
           <MainPage />

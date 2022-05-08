@@ -2,6 +2,8 @@ import React from 'react';
 import { deleteSingleAlbum, getAllAlbums } from "../../store/albums"
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import './DeleteAlbumForm.css';
+
 
 export default function DeleteAlbumForm({ id, setShowModal, album }) {
     const dispatch = useDispatch();
@@ -24,10 +26,10 @@ export default function DeleteAlbumForm({ id, setShowModal, album }) {
 
     return (
         <>
-            <form onSubmit={onSubmit} action="/home">
-                <h2> {album?.title}</h2>
-                <h3>Are you sure you want to delete this album?</h3>
-                <button className="btn-rnb" >Submit</button>
+            <form id="delete-album-form" onSubmit={onSubmit} action="/home">
+                <div id="album-to-delete"> {album?.title}</div>
+                <div id="delete-album-title">Are you sure you want to delete this album?</div>
+                <button className="btn-rnb" >Delete</button>
             </form>
         </>
     )

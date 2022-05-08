@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom"
 import { updateSingleAlbum } from "../../store/albums"
-
+import './EditAlbumForm.css';
 
 export default function EditAlbumForm({ album, setShowModal }) {
   const [errors, setErrors] = useState([]);
@@ -23,12 +23,13 @@ export default function EditAlbumForm({ album, setShowModal }) {
       })
   }
   return (
-    <form onSubmit={onSubmit}>
+    <form id="edit-album-form" onSubmit={onSubmit}>
+      <div id="edit-album-title">Edit Album</div>
       {errors?.length > 0 && errors?.map((error, ind) => (
         <div key={ind}>{error}</div>
       ))}
-      <label> Title </label>
-      <input type="text" onChange={e => setTitle(e.target.value)} value={title} ></input>
+      <label> Title: </label>
+      <input id="edit-album-title-input" type="text" onChange={e => setTitle(e.target.value)} value={title} ></input>
       <button className="btn-rnb">Submit</button>
     </form>
 

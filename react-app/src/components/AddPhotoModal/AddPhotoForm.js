@@ -83,33 +83,32 @@ function AddPhotoForm({ setShowModal }) {
         </div>
         <div id="add-photo-title">Add Photo</div>
         <label id="title-input-label">
-          Title
-          <input
-            id="title-input"
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-
-          />
+          Title:
         </label>
+        <input
+          id="title-input"
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+
+        />
         <label id="photo-url-label">
-          Photo URL
-          <input
-            id="url-input"
-            type="file"
-            onChange={updateImage}
-
-          />
+          Photo URL:
         </label>
+        <input
+          id="url-input"
+          type="file"
+          onChange={updateImage}
+        />
         <label id="description-label">
-          Description
-          <input
-            id="description-input"
-            type="text"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
+          Description:
         </label>
+        <textarea
+          id="description-input"
+          type="text"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
         <div id="submit-btn-div">
           <button className="btn-rnb" id="submit-button" type="submit">Add Photo</button>
         </div>
@@ -117,6 +116,5 @@ function AddPhotoForm({ setShowModal }) {
     </>
   )
 }
-
 
 export default AddPhotoForm;

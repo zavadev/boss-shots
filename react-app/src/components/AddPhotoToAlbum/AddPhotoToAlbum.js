@@ -23,19 +23,17 @@ export default function AddPhotoToAlbum({ id, setShowModal }) {
 
     return (
         <>
-            <p>Choose a photo</p>
-            <dl className="choosePhoto">
-                {photos.map(photo => (
-                    <>
-                        <dt key={photo.id} >
-                            <button className="btn-choose-photo" onClick={() => setSelectedPhoto(photo.id)} style={{ background: `url(${photo.photo_url})`, height: "100px", width: "100px", backgroundSize: "100px 100px" }} />
-                        </dt>
-
-                    </>
-
-                ))}
-                <button onClick={onClick}>Add</button>
-            </dl>
+          <p>Choose a photo</p>
+          <dl className="choosePhoto">
+            {photos.map(photo => (
+                <>
+                  <dt key={photo.id} >
+                    <button className="btn-choose-photo" onClick={() => setSelectedPhoto(photo.id)} style={{ background: `url(${photo.photo_url})`, height: "100px", width: "100px", backgroundSize: "100px 100px" }} />
+                  </dt>
+                </>
+              ))}
+            <button onClick={onClick}>Add</button>
+          </dl>
         </>
     )
 

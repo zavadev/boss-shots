@@ -1,0 +1,15 @@
+#delete-album-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#album-to-delete{
+  font-weight: bold;
+  font-size: 1.5em;
+}
+#delete-album-title {
+  margin: 10px;
+  font-weight: bold;
+  font-size: 1.2em;
+}

@@ -5,8 +5,10 @@
     height: 400px;
 }
 
+/* .btn-choose-photo{
+  margin: 3px;
+} */
+
 .btn-choose-photo:hover {
     box-shadow: white 0px 2px;
-
-
 }

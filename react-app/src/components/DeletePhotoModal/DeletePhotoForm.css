@@ -1,0 +1,22 @@
+#delete-photo-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#delete-title {
+  margin: 10px;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+/*
+#submit-button {
+  margin-right: 10px;
+  background-image: none;
+  background-color: red;
+  color: white;
+}
+
+#delete-button{
+  margin-left: 10px;
+} */

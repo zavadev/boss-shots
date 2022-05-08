@@ -20,7 +20,8 @@
 
 #modal-content {
   position: absolute;
-  background-color:white;
+  background-color:rgb(181, 181, 181);
+  color: black;
   height: 800;
   width: 800;
 }
