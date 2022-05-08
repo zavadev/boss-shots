@@ -20,29 +20,23 @@ export default function DisplayAlbums({ albums }) {
 
 
     return (
-        <div>
+        <div className="my-albums-div">
+          <div>
             <h3>My Albums</h3>
             {userId && <AddAlbumModal/>}
-
-
+          </div>
             <ul className="albumClass">
                 {myAlbums?.map(album => (
                     <>
-
                         <NavLink key={album.id} to={`/albums/${album.id}`} exact={true} activeClassName='active'>
                             <li className="albumLi"
                                 style={{
-                                    listStyle: "none", width: "50px", height: "50px", background: `url(${album?.photos?.photos[0]?.photo_url})`, backgroundRepeat: "no-repeat",
-                                    backgroundSize: "50px 50px", borderRadius: "4px"
+                                  listStyle: "none", width: "100px", height: "100px", background: `url(${album?.photos?.photos[0]?.photo_url})`, backgroundRepeat: "no-repeat",
+                                  backgroundSize: "100px 100px", borderRadius: "4px", margin: "3px"
                                 }}>{album.title}
-
                             </li>
                         </NavLink>
-
-
-
                     </>
-
                 ))}
             </ul>
         </div>

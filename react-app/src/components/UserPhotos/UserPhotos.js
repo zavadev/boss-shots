@@ -19,15 +19,13 @@ function UserPhotos({photos}) {
       <div id="user-photos-title">
         My Photos
       </div>
-      <div>
-        <ul id="my-photos-ul">
-          { filteredPhotos?.map(photo => (
-            <li key={photo?.id}>
-              <img src={photo?.photo_url} className="my-filtered-photos" alt={photo.title}/>
-            </li>
-          )) }
-        </ul>
-      </div>
+      <dl id="my-photos-ul">
+        { filteredPhotos?.map(photo => (
+          <dt key={photo?.id}>
+            <img src={photo?.photo_url} className="my-filtered-photos" alt={photo.title}/>
+          </dt>
+        )) }
+      </dl>
     </>
   )
 }

@@ -18,7 +18,7 @@ export default function AllTaggedPhotos() {
       <div><h1>{tag[tag_id]?.tag_name}</h1></div>
       <div>
         <dl>
-          {tag[tag_id]?.photos.map(photo => (
+          {tag[tag_id]?.photos?.map(photo => (
             <dt key={photo?.id}><img src={photo?.photo_url} alt={photo?.title} className="tagged-photo"/></dt>
           ))}
         </dl>

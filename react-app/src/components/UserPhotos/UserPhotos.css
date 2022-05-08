@@ -1,13 +1,15 @@
 #my-photos-ul {
   display: flex;
-  justify-content: space-between;
-  align-items: space-between;
-  flex-direction: row;
   list-style-type: none;
+  flex-wrap: wrap;
+  margin: none;
+  padding-left: 16px;
 }
 
 .my-filtered-photos {
-  max-width: 100px;
-  max-height: 100px;
-  margin: 10px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin: 3px;
+  border-radius: 4px;
 }

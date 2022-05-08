@@ -91,7 +91,7 @@ function PhotoDetail() {
                 <div>
                     {my_tags?.map(tag => (
                         <>
-                            <NavLink to={'/'} key={tag.id}>{tag.tag_name}</NavLink>
+                            <NavLink to={`/tags/${tag?.id}/photos`} key={tag.id} exact={true}>{tag.tag_name}</NavLink>
                             <button onClick={() => dispatch(removeTagFromPhoto(photo_id.photo_id, tag.id))}>RemoveTag</button>
                         </>
                     ))}
