@@ -17,3 +17,10 @@
     color: #fff;
     text-decoration: none;
 }
+
+.login_sign_up_div {
+    display: flex;
+
+    width: 100px;
+    justify-content: space-between;
+}

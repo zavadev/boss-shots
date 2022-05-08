@@ -122,8 +122,8 @@ function PhotoDetail() {
                 <div>
                     {my_tags?.map(tag => (
                         <>
-                            <NavLink className="tads-display-nav" to={`/tags/${tag?.id}/photos`} key={tag.id} exact={true}>{tag.tag_name}</NavLink>
-                            {sessionUser && sessionUser.id === owner[0]?.id && <i class="fa-solid fa-minus" onClick={() => dispatch(removeTagFromPhoto(photo_id.photo_id, tag.id))}> </i>}
+                            <NavLink className="tads-display-nav" to={`/tags/${tag?.id}/photos`} key={tag.id} exact={true}>#{tag.tag_name}</NavLink>
+                            {sessionUser && sessionUser.id === owner[0]?.id && <i className="fa-solid fa-minus" onClick={() => dispatch(removeTagFromPhoto(photo_id.photo_id, tag.id))}> </i>}
                         </>
                     ))}
                 </div>
@@ -131,7 +131,7 @@ function PhotoDetail() {
 
             <div className='photo-comments'>
                 <div id="add-comment-div">
-                  {sessionUser && <AddCommentForm photo={mainPhoto[0]} />}
+                    {sessionUser && <AddCommentForm photo={mainPhoto[0]} />}
                 </div>
                 <div id="comments-div-title">Comments</div>
                 {photoComments?.map(comment => {
