@@ -8,8 +8,8 @@ import DeletePhotoModal from '../DeletePhotoModal';
 import DeleteCommentModal from '../DeleteCommentModal';
 import AddCommentForm from '../AddComment';
 import './PhotoDetail.css'
-import { getAllTags} from '../../store/tags'
-import {addTagToPhoto, removeTagFromPhoto} from '../../store/photos'
+import { getAllTags } from '../../store/tags'
+import { addTagToPhoto, removeTagFromPhoto } from '../../store/photos'
 import DeadEnd from '../404Page/DeadEnd';
 
 function PhotoDetail() {
@@ -22,26 +22,26 @@ function PhotoDetail() {
 
     const comments = useSelector(state => Object.values(state.comments))
 
-    let mainPhoto = photos?.filter(photo =>{
-        if(photo?.id === parseInt( photo_id?.photo_id)){
+    let mainPhoto = photos?.filter(photo => {
+        if (photo?.id === parseInt(photo_id?.photo_id)) {
             return photo;
         }
     });
 
     const my_tags = mainPhoto[0]?.tags
 
-    let photoComments = comments?.filter(comment =>{
+    let photoComments = comments?.filter(comment => {
 
-        if(comment?.photo_id === mainPhoto[0]?.id){
+        if (comment?.photo_id === mainPhoto[0]?.id) {
             return comment;
         }
     });
 
-    const owner = users?.filter(user =>{
-            if(mainPhoto[0]?.user_id === user?.id){
-                return user;
-            }
-            return
+    const owner = users?.filter(user => {
+        if (mainPhoto[0]?.user_id === user?.id) {
+            return user;
+        }
+        return
     });
 
 
@@ -52,11 +52,11 @@ function PhotoDetail() {
         const responseData = await response.json();
         setUsers(responseData.users);
         dispatch(getAllTags())
-    }, [dispatch,photo_id]);
+    }, [dispatch, photo_id]);
 
-    if(!mainPhoto[0]){
+    if (!mainPhoto[0]) {
         return (
-            <DeadEnd/>
+            <DeadEnd />
         )
     }
 
@@ -64,22 +64,22 @@ function PhotoDetail() {
         <div className='photo-detail'>
             <div className='photo-post'>
                 <h1>{mainPhoto[0]?.title}</h1>
-                <img src={mainPhoto[0]?.photo_url} alt={mainPhoto[0]?.title}/>
-                {users?.map(user =>{
-                        if(mainPhoto[0]?.user_id == user?.id){
-                            return (
-                                <p key={user?.id}>Posted By: {user.username}</p>
-                            )
-                        }
-                    })
+                <img src={mainPhoto[0]?.photo_url} alt={mainPhoto[0]?.title} />
+                {users?.map(user => {
+                    if (mainPhoto[0]?.user_id == user?.id) {
+                        return (
+                            <p key={user?.id}>Posted By: {user.username}</p>
+                        )
                     }
-                    <p key={mainPhoto[0]?.id}>{mainPhoto[0]?.description}</p>
-                    {sessionUser && sessionUser.id === owner[0]?.id &&
+                })
+                }
+                <p key={mainPhoto[0]?.id}>{mainPhoto[0]?.description}</p>
+                {sessionUser && sessionUser.id === owner[0]?.id &&
                     <div id="edit-delete">
-                        <EditPhotoModal photo={mainPhoto[0]}/>
-                        <DeletePhotoModal photo={mainPhoto[0]}/>
+                        <EditPhotoModal photo={mainPhoto[0]} />
+                        <DeletePhotoModal photo={mainPhoto[0]} />
                     </div>
-                    }
+                }
                 <div>
                     <select onChange={(e) => dispatch(addTagToPhoto(photo_id.photo_id, +e.target.value))}>
                         <option value="none" selected disabled>Add a tag</option>
@@ -91,8 +91,8 @@ function PhotoDetail() {
                 <div>
                     {my_tags?.map(tag => (
                         <>
-                            <NavLink to={`/tags/${tag?.id}/photos`} key={tag.id} exact={true}>{tag.tag_name}</NavLink>
-                            <button onClick={() => dispatch(removeTagFromPhoto(photo_id.photo_id, tag.id))}>RemoveTag</button>
+                            <NavLink className="tads-display-nav" to={`/tags/${tag?.id}/photos`} key={tag.id} exact={true}>{tag.tag_name}</NavLink>
+                            <i class="fa-solid fa-minus" onClick={() => dispatch(removeTagFromPhoto(photo_id.photo_id, tag.id))}> </i>
                         </>
                     ))}
                 </div>
@@ -100,24 +100,24 @@ function PhotoDetail() {
 
             <div className='photo-comments'>
                 <h4>Comments</h4>
-                {sessionUser && <AddCommentForm photo={mainPhoto[0]}/>}
-                {photoComments?.map(comment=>{
-                    return(
-                    <div className='comment'>
-                    <p>{comment.comment}</p>
-                    {users?.map(user =>{
-                        if(comment?.user_id == user?.id){
-                            return (
-                                <p key={user?.id}>{user?.username}</p>
-                            )
-                        }
-                    })}
-                    {sessionUser && sessionUser.id === comment?.user_id &&
-                    <div id="delete">
-                        <DeleteCommentModal comment={comment}/>
-                    </div>
-                    }
-                    </div>)
+                {sessionUser && <AddCommentForm photo={mainPhoto[0]} />}
+                {photoComments?.map(comment => {
+                    return (
+                        <div className='comment'>
+                            <p>{comment.comment}</p>
+                            {users?.map(user => {
+                                if (comment?.user_id == user?.id) {
+                                    return (
+                                        <p key={user?.id}>{user?.username}</p>
+                                    )
+                                }
+                            })}
+                            {sessionUser && sessionUser.id === comment?.user_id &&
+                                <div id="delete">
+                                    <DeleteCommentModal comment={comment} />
+                                </div>
+                            }
+                        </div>)
                 })}
             </div>
         </div>
