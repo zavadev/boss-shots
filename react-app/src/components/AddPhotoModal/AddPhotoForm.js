@@ -1,17 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postPhotoThunk } from "../../store/photos.js"
 
-function AddPhotoForm({setShowModal}){
+function AddPhotoForm({ setShowModal }) {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
+  const [errors, setErrors] = useState([]);
   const user_id = useSelector(state => state.session.user.id);
+  let data;
 
 
-  const photoSubmit = (e) => {
+
+  // useEffect(()=>{
+  //   if(!image){
+  //     errors.push("photo_url : This field is required.")
+  //   }
+  // })
+  const photoSubmit = async (e) => {
     e.preventDefault();
+    //   if(errors.length) {
+    //     setErrors(true);
+    //     return;
+    // }
     let newPhoto = {
       user_id,
       title,
@@ -19,13 +31,43 @@ function AddPhotoForm({setShowModal}){
       description
     }
     //console.log("====>>>>>>", newPhoto);
-    dispatch(postPhotoThunk(newPhoto))
-      .then((() => {
-        setTitle("")
-        setDescription("")
-        setImage(null);
-      }))
-      .then((() => setShowModal(false)))
+    await dispatch(postPhotoThunk(newPhoto))
+    .then((res)=>{
+      //console.log(res,"rest p")
+      if(!res?.ok){
+        setErrors(res?.errors)
+      }else{
+        setErrors([])
+        setShowModal(false)
+      }
+    })
+    // .catch(res => {
+    //   console.log(res,'res')
+    //   if (res.length > 0) {
+    //     setErrors(data);
+    //   }
+    // })
+    // .then(()=>{
+    //     setTitle("")
+    //     setDescription("")
+    //     setImage(null);
+    //     setShowModal(false)
+    //   })
+    // .catch(data => {
+    //   console.log(data,'DATA')
+    //   setErrors(data);
+    // })
+    // .then((() => {
+    //   setTitle("")
+    //   setDescription("")
+    //   setImage(null);
+    // }))
+    // .then((() => setShowModal(false)))
+    // console.log(data)
+    // if (data) {
+    //   setErrors(data);
+    // }
+
   }
   const updateImage = (e) => {
     const file = e.target.files[0];
@@ -34,6 +76,11 @@ function AddPhotoForm({setShowModal}){
   return (
     <>
       <form id="add-photo-form" onSubmit={photoSubmit}>
+        <div>
+          {errors?.length > 0 && errors?.map((error, ind) => (
+            <div key={ind}>{error}</div>
+          ))}
+        </div>
         <div id="add-photo-title">Add Photo</div>
         <label id="title-input-label">
           Title
@@ -42,7 +89,7 @@ function AddPhotoForm({setShowModal}){
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            required
+
           />
         </label>
         <label id="photo-url-label">
@@ -51,7 +98,7 @@ function AddPhotoForm({setShowModal}){
             id="url-input"
             type="file"
             onChange={updateImage}
-            required
+
           />
         </label>
         <label id="description-label">

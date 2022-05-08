@@ -8,11 +8,12 @@ function EditPhotoForm({setShowModal,photo}){
   //const [photo_url, setPhotoURL] = useState("");
   const [description, setDescription] = useState(photo.description);
   const [image, setImage] = useState(photo.photo_url);
+  const [errors, setErrors] = useState([]);
   //const [imageLoading, setImageLoading] = useState(false);
   const user_id = useSelector(state => state.session.user.id);
 
 
-  const photoSubmit = (e) => {
+  const photoSubmit = async (e) => {
     e.preventDefault();
     let newPhoto = {
       ...photo,
@@ -23,12 +24,15 @@ function EditPhotoForm({setShowModal,photo}){
     }
     //console.log("====>>>>>>", newPhoto);
     dispatch(updatePhotoThunk(newPhoto))
-      .then((() => {
-        setTitle("")
-        setDescription("")
-        // setImage(null);
-      }))
-      .then((() => setShowModal(false)))
+    .then((res)=>{
+      //console.log(res,"rest p")
+      if(!res?.ok){
+        setErrors(res?.errors)
+      }else{
+        setErrors([])
+        setShowModal(false)
+      }
+    })
   }
   const updateImage = (e) => {
     const file = e.target.files[0];
@@ -37,6 +41,9 @@ function EditPhotoForm({setShowModal,photo}){
   return (
     <>
       <form id="edit-photo-form" onSubmit={photoSubmit}>
+      {errors?.length > 0 && errors?.map((error, ind) => (
+            <div key={ind}>{error}</div>
+          ))}
         <div id="edit-photo-title">Edit Photo</div>
         <label id="title-input-label">
           Title
@@ -45,7 +52,7 @@ function EditPhotoForm({setShowModal,photo}){
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            required
+
           />
         </label>
         {/* <label id="photo-url-label">
