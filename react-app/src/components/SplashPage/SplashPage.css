@@ -27,3 +27,11 @@
   text-decoration: none;
   color: red;
 }
+
+#logo-background{
+  background-image: url('../../assets/boss-shots.png');
+  background-size: 600px 400px;
+  width: 600px;
+  height: 400px;
+  background-repeat: no-repeat;
+}
