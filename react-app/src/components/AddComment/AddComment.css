@@ -1,0 +1,12 @@
+#add-comment-form {
+  display: flex;
+  flex-direction: column;
+}
+#comment-input-label{
+  font-size: 1.1em;
+  font-weight: bold;
+  margin: 3px;
+}
+#submit-btn-div{
+  margin-top: 7px;
+}

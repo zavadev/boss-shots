@@ -130,8 +130,10 @@ function PhotoDetail() {
             </div>
 
             <div className='photo-comments'>
-                <h4>Comments</h4>
-                {sessionUser && <AddCommentForm photo={mainPhoto[0]} />}
+                <div id="add-comment-div">
+                  {sessionUser && <AddCommentForm photo={mainPhoto[0]} />}
+                </div>
+                <div id="comments-div-title">Comments</div>
                 {photoComments?.map(comment => {
                     return (
                         <div className='comment'>

@@ -9,3 +9,18 @@
   font-weight: bold;
   font-size: 1.2em;
 }
+
+#dlt-comment-buttons{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+#submit-btn-div{
+  margin-right: 5px;
+}
+#cancel-dlt-comment{
+  margin-left: 5px;
+  margin-bottom: 3px;
+}

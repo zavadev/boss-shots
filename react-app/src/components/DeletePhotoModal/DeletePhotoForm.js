@@ -12,13 +12,17 @@ function DeletePhotoForm({ setShowModal, photo }) {
     <>
       <form id="delete-photo-form">
         <p id="delete-title">Are you sure you want to delete?</p>
-        <div id="submit-btn-div">
-          <button id="submit-button" className="btn-rnb" onClick={() => {
-            dispatch(deletePhotoThunk(photo))
-            history.push(`/home`)
-          }
-          }>Yes</button>
-          <button id="delete-button" onClick={() => setShowModal(false)}>No</button>
+        <div id="delete-photo-btn-div">
+          <div id="submit-btn-div">
+            <button id="submit-button" className="btn-rnb" onClick={() => {
+              dispatch(deletePhotoThunk(photo))
+              history.push(`/home`)
+            }
+            }>Yes</button>
+          </div>
+          <div id="no-photo-btn">
+            <button id="delete-button" onClick={() => setShowModal(false)}>No</button>
+          </div>
         </div>
       </form>
     </>
