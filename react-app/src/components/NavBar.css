@@ -14,13 +14,24 @@
 
 
 .navLink {
+
     color: #fff;
     text-decoration: none;
+    box-shadow: rgba(251, 250, 250, 0.997) 5px -10px 2px;
+
 }
+
+.navLink:hover {
+    box-shadow: rgba(251, 250, 250, 0.997) 5px -10px 20px;
+}
+
+#login-nav-link {}
+
+#login-nav-link:hover {}
 
 .login_sign_up_div {
     display: flex;
 
-    width: 100px;
+    width: 150px;
     justify-content: space-between;
 }

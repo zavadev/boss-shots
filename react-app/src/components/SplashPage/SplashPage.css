@@ -3,6 +3,7 @@
   height: auto; */
   margin-bottom: 15px;
 }
+
 #splash-main-div {
   display: flex;
   justify-content: center;
@@ -10,15 +11,19 @@
   flex-direction: column;
   margin-top: 50px;
 }
-#splash-slogan{
+
+#splash-slogan {
   font-size: 2em;
 }
-#splash-slogan-two{
+
+#splash-slogan-two {
   font-size: 2em;
 }
-#splash-links-div{
+
+#splash-links-div {
   margin-top: 15px;
 }
+
 .splash-links {
   margin-left: 7px;
   margin-right: 7px;
@@ -26,6 +31,11 @@
   font-weight: bold;
   text-decoration: none;
   color: red;
+
+}
+
+.splash-links:hover {
+  box-shadow: rgba(251, 250, 250, 0.997) 0px 54px 55px, rgb(245, 242, 242) 0px -12px 30px, rgb(255, 254, 254) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
 #logo-background{

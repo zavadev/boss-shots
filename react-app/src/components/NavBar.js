@@ -19,7 +19,7 @@ const NavBar = () => {
         {!sessionUser &&
           <div className="login_sign_up_div">
             <li>
-              <NavLink className="navLink" to='/login' exact={true} activeClassName='active'>
+              <NavLink id="login-nav-link" className="navLink" to='/login' exact={true} activeClassName='active'>
                 Login
               </NavLink>
             </li>

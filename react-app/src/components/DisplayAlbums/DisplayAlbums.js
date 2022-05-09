@@ -23,7 +23,7 @@ export default function DisplayAlbums({ albums }) {
 
         <div className="album-display-div">
             <div className="album-my-album-div">
-                <h3>My Albums</h3>
+                <h3 className="album-title">My Albums</h3>
                 {userId && <div className="div-for-button-add-album"> <AddAlbumModal /> </div>}
             </div>
             <ul className="albumClass">

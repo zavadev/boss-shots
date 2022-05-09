@@ -19,7 +19,7 @@ function UserPhotos({ photos }) {
   return (
     <>
       <div id="user-photos-title">
-        <h3>My Photos </h3>
+        <h3 className="album-title">My Photos </h3>
 
         {user_id && <div className="add-photo-div">
           <div><AddPhotoModal /></div>
