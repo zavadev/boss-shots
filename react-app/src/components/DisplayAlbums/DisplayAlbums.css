@@ -43,3 +43,7 @@
   align-self: center;
   justify-content: center;
 }
+
+.album-title {
+  font-family:Verdana, Geneva, Tahoma, sans-serif
+}

@@ -7,8 +7,8 @@
     height: 500px
 }
 
-.email-label {
-    margin-right: 30px;
+.email-label-login {
+    margin-right: 38px;
 }
 
 .password-label {
@@ -36,7 +36,7 @@
 }
 
 .password-label-signup {
-    margin-right: 55px
+    margin-right: 70px
 }
 
 .email-label-signup {
@@ -44,5 +44,9 @@
 }
 
 .username-label {
-    margin-right: 43px;
+    margin-right: 55px;
+}
+
+.email-label-signup {
+    margin-right: 100px;
 }
