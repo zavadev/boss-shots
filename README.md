@@ -1,4 +1,7 @@
-# LiveLink
+# Welcome to BossShots!
+This site is your community for sharing images of your epic boss battles from all your favorite video games. Check out the bosses others are currently fighting in your main feed, save the best ones to albums, and categorize them all by tags. Hit the live link below to get started!
+
+## Live Link
 https://boss-shots.herokuapp.com/login
 
 # Flask React Project
