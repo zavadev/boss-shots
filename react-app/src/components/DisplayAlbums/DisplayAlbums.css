@@ -36,3 +36,10 @@
   margin: 10px;
 
 }
+
+.nav-link-album {
+  color: white;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+}
